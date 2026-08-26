@@ -49,6 +49,14 @@ jobs:
           }
           Get-ChildItem -Recurse $dest | Select-Object FullName, Length
 
+      - name: Upload VST3 bundle
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Warlock.vst3
+          path: artifacts/WarlockJUCE/build/Warlock_artefacts/Release/VST3/Warlock.vst3
+          if-no-files-found: error
+
       - name: Install Inno Setup
         shell: pwsh
         working-directory: ${{ github.workspace }}
@@ -63,13 +71,6 @@ jobs:
           }
           & $iscc installer.iss
           if ($LASTEXITCODE -ne 0) { throw "ISCC failed with $LASTEXITCODE" }
-
-      - name: Upload VST3 bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: Warlock.vst3
-          path: artifacts/WarlockJUCE/build/Warlock_artefacts/Release/VST3/Warlock.vst3
-          if-no-files-found: error
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
