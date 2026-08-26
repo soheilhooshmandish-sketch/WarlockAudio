@@ -14,7 +14,7 @@ permissions:
 jobs:
   build:
     name: Release VST3 + installer
-    runs-on: windows-latest
+    runs-on: windows-2022
     defaults:
       run:
         working-directory: artifacts/WarlockJUCE
