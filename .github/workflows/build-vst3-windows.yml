@@ -29,14 +29,25 @@ jobs:
       - name: Build Release VST3
         run: cmake --build build --config Release --parallel
 
-      - name: Verify VST3 bundle
+      - name: Normalize VST3 bundle name
         shell: pwsh
         run: |
-          $bundle = "build\Warlock_artefacts\Release\VST3\Warlock.vst3"
-          if (-not (Test-Path $bundle)) {
-            throw "VST3 bundle not found: $bundle"
+          $vst3Root = "build\Warlock_artefacts\Release\VST3"
+          $built = Join-Path $vst3Root "Warlock Chainsaw Distortion.vst3"
+          $dest  = Join-Path $vst3Root "Warlock.vst3"
+          Write-Host "VST3 folder contents:"
+          if (Test-Path $vst3Root) {
+            Get-ChildItem $vst3Root | Format-Table Name, Mode, Length
+          } else {
+            throw "VST3 output folder missing: $vst3Root"
           }
-          Get-ChildItem -Recurse $bundle | Select-Object FullName, Length
+          if (-not (Test-Path $dest)) {
+            if (-not (Test-Path $built)) {
+              throw "Expected bundle not found: $built"
+            }
+            Copy-Item -Recurse $built $dest
+          }
+          Get-ChildItem -Recurse $dest | Select-Object FullName, Length
 
       - name: Install Inno Setup
         shell: pwsh
