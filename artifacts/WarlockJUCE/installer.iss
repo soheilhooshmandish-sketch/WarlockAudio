@@ -62,8 +62,8 @@ Source: ".\build\Warlock_artefacts\Release\VST3\Warlock.vst3\*"; DestDir: "{app}
 Source: ".\Resources\legal.txt"; DestDir: "{app}\Contents\Resources"; Flags: ignoreversion
 Source: ".\Resources\moduleinfo.example.json"; DestDir: "{app}\Contents\Resources"; DestName: "moduleinfo.json"; Flags: ignoreversion
 Source: ".\Resources\Snapshots\*"; DestDir: "{app}\Contents\Resources\Snapshots"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: ".\Resources\windows\desktop.ini"; DestDir: "{app}"; Flags: ignoreversion attribshidden attribssystem
-Source: ".\Resources\windows\Plugin.ico"; DestDir: "{app}"; Flags: ignoreversion attribshidden
+Source: ".\Resources\windows\desktop.ini"; DestDir: "{app}"; Flags: ignoreversion; Attribs: hidden system
+Source: ".\Resources\windows\Plugin.ico"; DestDir: "{app}"; Flags: ignoreversion; Attribs: hidden
 
 [Registry]
 Root: HKLM64; Subkey: "Software\{#MyAppPublisher}\Warlock"; ValueType: string; ValueName: "Version"; ValueData: "{#MyAppVersion}"; Flags: uninsdeletekey
