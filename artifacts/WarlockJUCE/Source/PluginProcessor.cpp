@@ -83,7 +83,7 @@ void WarlockAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
 
     oversampler = std::make_unique<juce::dsp::Oversampling<float>> (
         (size_t) channels, 2,
-        juce::dsp::Oversampling<float>::filterHalfBandPolyphaseAllpass, true, true);
+        juce::dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, true);
 
     juce::dsp::ProcessSpec spec { sampleRate, (juce::uint32) samplesPerBlock, (juce::uint32) channels };
     oversampler->initProcessing ((size_t) samplesPerBlock);
