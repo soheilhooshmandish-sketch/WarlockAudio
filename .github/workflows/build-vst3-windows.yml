@@ -1,0 +1,68 @@
+name: Build Warlock VST3 (Windows)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "artifacts/WarlockJUCE/**"
+      - ".github/workflows/build-vst3-windows.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Release VST3 + installer
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: artifacts/WarlockJUCE
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure CMake (VS 2022 x64)
+        run: cmake -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build Release VST3
+        run: cmake --build build --config Release --parallel
+
+      - name: Verify VST3 bundle
+        shell: pwsh
+        run: |
+          $bundle = "build\Warlock_artefacts\Release\VST3\Warlock.vst3"
+          if (-not (Test-Path $bundle)) {
+            throw "VST3 bundle not found: $bundle"
+          }
+          Get-ChildItem -Recurse $bundle | Select-Object FullName, Length
+
+      - name: Install Inno Setup
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+        run: choco install innosetup --no-progress -y
+
+      - name: Compile installer
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) {
+            $iscc = "${env:ProgramFiles}\Inno Setup 6\ISCC.exe"
+          }
+          & $iscc installer.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed with $LASTEXITCODE" }
+
+      - name: Upload VST3 bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Warlock.vst3
+          path: artifacts/WarlockJUCE/build/Warlock_artefacts/Release/VST3/Warlock.vst3
+          if-no-files-found: error
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Warlock_Distortion_Setup_x64
+          path: artifacts/WarlockJUCE/BuildInstaller/Warlock_Distortion_Setup_x64.exe
+          if-no-files-found: error
