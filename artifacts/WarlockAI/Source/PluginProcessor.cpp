@@ -30,6 +30,7 @@ WarlockAIAudioProcessor::~WarlockAIAudioProcessor()
 {
     analysisRequested.store (false);
     autoBuildRequested.store (false);
+    mixFitRequested.store (false);
     signalThreadShouldExit();
     notify();
     stopThread (2000);
@@ -346,6 +347,21 @@ void WarlockAIAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     inputSmoother.skip (juce::jmax (0, buffer.getNumSamples() - 1));
     outputSmoother.skip (juce::jmax (0, buffer.getNumSamples() - 1));
 
+    const int channels = buffer.getNumChannels();
+    const int samples = buffer.getNumSamples();
+    const float invCh = channels > 0 ? 1.0f / static_cast<float> (channels) : 1.0f;
+
+    // Lock-free dry capture for the analysis thread. Never allocate, never lock.
+    for (int i = 0; i < samples; ++i)
+    {
+        float mix = 0.0f;
+        for (int ch = 0; ch < channels; ++ch)
+            mix += buffer.getSample (ch, i);
+
+        mix *= invCh;
+        pushCaptureSample (mix);
+    }
+
     chain.setParameters (params);
     chain.process (buffer);
 
@@ -357,10 +373,6 @@ void WarlockAIAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
         reportedLatency.store (latency, std::memory_order_relaxed);
     }
 
-    const int channels = buffer.getNumChannels();
-    const int samples = buffer.getNumSamples();
-    const float invCh = channels > 0 ? 1.0f / static_cast<float> (channels) : 1.0f;
-
     for (int i = 0; i < samples; ++i)
     {
         float mix = 0.0f;
@@ -368,7 +380,6 @@ void WarlockAIAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
             mix += buffer.getSample (ch, i);
 
         mix *= invCh;
-        pushCaptureSample (mix);
         pushSpectrumSample (mix);
     }
 
@@ -437,8 +448,6 @@ CurrentToneState WarlockAIAudioProcessor::collectToneState() const
 void WarlockAIAudioProcessor::storeUndoSnapshot()
 {
     undoValues.clear();
-    const auto& params = apvts.state;
-    juce::ignoreUnused (params);
     for (auto* param : getParameters())
     {
         if (auto* ranged = dynamic_cast<juce::RangedAudioParameter*> (param))
@@ -446,11 +455,11 @@ void WarlockAIAudioProcessor::storeUndoSnapshot()
     }
 }
 
-void WarlockAIAudioProcessor::applyParameterMapOnMessageThread (const std::map<juce::String, float>& values)
+void WarlockAIAudioProcessor::applyParameterMapOnMessageThread (const std::map<juce::String, float>& values, bool captureUndo)
 {
-    juce::MessageManager::callAsync ([this, values]
+    juce::MessageManager::callAsync ([this, values, captureUndo]
     {
-        if (undoValues.empty())
+        if (captureUndo && undoValues.empty())
             storeUndoSnapshot();
 
         for (const auto& entry : values)
@@ -480,8 +489,9 @@ void WarlockAIAudioProcessor::undoLastAiEdit()
     if (restore.empty())
         return;
 
+    undoValues.clear();
     previewActive.store (false, std::memory_order_relaxed);
-    applyParameterMapOnMessageThread (restore);
+    applyParameterMapOnMessageThread (restore, false);
     std::lock_guard lock (snapshotMutex);
     snapshot.previewActive = false;
     snapshot.appliedMixFit = false;

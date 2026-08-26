@@ -99,6 +99,10 @@ MixFitResult MixFit::fit (const AudioFeatures& features,
         push (ParamID::tone, "Tone", current.tone, t,
               "Darkened Tone to keep the guitar mix-ready without fizz.");
         tone = t;
+        const float hi = juce::jlimit (-4.0f, 0.0f, eqHigh - 1.4f);
+        push (ParamID::eqHighGain, "High shelf", eqHigh, hi,
+              "Trimmed the high shelf so presence does not turn into harshness.");
+        eqHigh = hi;
     }
     else if (analysis.brightness < 0.3f)
     {

@@ -287,14 +287,13 @@ void WarlockAIAudioProcessorEditor::rebuildLayout()
     vis (limitKnob); vis (limitRelKnob);
     vis (oversampleBox); vis (ampModeBox); vis (cabRouteBox);
     vis (harmInt1Box); vis (harmInt2Box); vis (delayModeBox); vis (delaySyncBox);
-    vis (mixFitButton); vis (healthButton); vis (applyButton); vis (undoButton);
-    vis (spectrum); vis (dashboard); vis (healthLabel); vis (mixFitLabel);
+    vis (spectrum); vis (healthLabel); vis (mixFitLabel);
     vis (gateBypass); vis (distBypass); vis (monoButton);
     vis (coreSection); vis (ampSection); vis (cabSection); vis (eqSection); vis (modSection);
     vis (harmSection); vis (delaySection); vis (verbSection); vis (stereoSection); vis (limitSection);
     vis (grMeter); vis (delayMeter); vis (reverbMeter); vis (widthMeter);
 
-    setSize (advanced ? 1280 : 900, advanced ? 980 : 560);
+    setSize (advanced ? 1280 : 900, advanced ? 980 : 720);
     resized();
 }
 
@@ -339,18 +338,16 @@ void WarlockAIAudioProcessorEditor::resized()
     auto actions = bounds.removeFromTop (36);
     analyzeButton.setBounds (actions.removeFromLeft (128).reduced (2));
     autoBuildButton.setBounds (actions.removeFromLeft (148).reduced (2));
-    if (isAdvanced())
-    {
-        healthButton.setBounds (actions.removeFromLeft (118).reduced (2));
-        mixFitButton.setBounds (actions.removeFromLeft (88).reduced (2));
-        applyButton.setBounds (actions.removeFromLeft (72).reduced (2));
-        undoButton.setBounds (actions.removeFromLeft (72).reduced (2));
-    }
+    healthButton.setBounds (actions.removeFromLeft (118).reduced (2));
+    mixFitButton.setBounds (actions.removeFromLeft (88).reduced (2));
+    applyButton.setBounds (actions.removeFromLeft (72).reduced (2));
+    undoButton.setBounds (actions.removeFromLeft (72).reduced (2));
     meterLabel.setBounds (actions);
 
     if (! isAdvanced())
     {
-        analysisLabel.setBounds (bounds.removeFromTop (80).reduced (4));
+        analysisLabel.setBounds (bounds.removeFromTop (72).reduced (4));
+        dashboard.setBounds (bounds.reduced (4));
         return;
     }
 
@@ -476,6 +473,12 @@ void WarlockAIAudioProcessorEditor::syncSectionEnables()
 void WarlockAIAudioProcessorEditor::refreshAnalysisPanel()
 {
     const auto snap = processor.getAnalysisSnapshot();
+    const bool busy = processor.isAnalysisBusy() || snap.analysing;
+    dashboard.setAnalysing (busy);
+    dashboard.setPreviewActive (processor.isMixFitPreviewActive() || snap.previewActive);
+    if (busy)
+        dashboard.repaint();
+
     if (! snap.ready)
         return;
 
@@ -503,8 +506,6 @@ void WarlockAIAudioProcessorEditor::refreshAnalysisPanel()
         mixText += "\n" + snap.recommendation.explanations.front();
     mixFitLabel.setText (mixText, juce::dontSendNotification);
 
-    dashboard.setAnalysing (processor.isAnalysisBusy() || snap.analysing);
-    dashboard.setPreviewActive (processor.isMixFitPreviewActive() || snap.previewActive);
     dashboard.setPack (processor.getAiPack());
 }
 } // namespace WarlockAI

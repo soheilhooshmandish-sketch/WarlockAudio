@@ -263,6 +263,12 @@ export function StudioDock() {
           </li>
           <li>Rescan plugins. Category Distortion · Nihil Audio.</li>
         </ol>
+        <a
+          href="/howto"
+          className="font-display mt-3 inline-block text-xs tracking-[0.16em] text-frost uppercase underline-offset-4 hover:text-bone hover:underline"
+        >
+          Full pack + install guide
+        </a>
       </section>
 
       <section>

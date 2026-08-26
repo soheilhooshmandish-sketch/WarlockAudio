@@ -100,7 +100,7 @@ private:
     CurrentToneState collectToneState() const;
     void pushCaptureSample (float sample) noexcept;
     void pushSpectrumSample (float sample) noexcept;
-    void applyParameterMapOnMessageThread (const std::map<juce::String, float>& values);
+    void applyParameterMapOnMessageThread (const std::map<juce::String, float>& values, bool captureUndo = true);
     void storeUndoSnapshot();
     void applyMixFitOnMessageThread (const MixFitSuggestion& suggestion);
     float currentTempoBpm() const;

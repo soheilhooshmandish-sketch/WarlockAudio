@@ -1,11 +1,11 @@
 WARLOCK CHAINSAW DISTORTION 1.1.0 — Windows x64 VST3
 ====================================================
 
+Read HOWTO.md in this folder for the full pack + install guide.
+
 Skins (chassis, knobs, stomp, logo) and cabinet IRs are compiled
 INTO the plugin DLL via JUCE BinaryData. The DAW never has to find
-loose image files. The same files are also copied into:
-
-  Warlock.vst3\Contents\Resources\
+loose image files.
 
 Need on the PC
 --------------
@@ -19,35 +19,12 @@ Build the VST3
 --------------
 1. Unzip this folder anywhere, e.g. C:\src\Warlock
 2. Double-click  build.bat
-   or in Developer PowerShell:
+3. Copy the WHOLE folder:
 
-     cmake --preset vs2022-x64
-     cmake --build --preset warlock-release
+     build\Warlock_artefacts\Release\VST3\Warlock.vst3
 
-3. Plugin appears at:
-
-     build\Warlock_artefacts\Release\VST3\Warlock.vst3\
-
-   That folder IS the plugin. Copy the WHOLE Warlock.vst3 folder to:
+   to:
 
      C:\Program Files\Common Files\VST3\Warlock.vst3
 
-   Do not copy only the inner DLL.
-
-Installer (optional)
---------------------
-Open installer.iss in Inno Setup, compile, run
-BuildInstaller\Warlock_Distortion_Setup_x64.exe as Administrator.
-
-What is inside the DLL
-----------------------
-chassis.jpg   pedal metal
-knob.jpg      aluminum 1510 knob
-stomp.jpg     3PDT mushroom
-logo.png      Warlock mark
-CabinetIR.wav bedroom cab
-Cab_Center.wav  4x12 on-axis
-Cab_Edge.wav    4x12 off-axis
-legal.txt
-
-DAW: rescan VST3. Vendor Nihil Audio, category Distortion.
+Do not copy only the inner DLL. Full steps: HOWTO.md

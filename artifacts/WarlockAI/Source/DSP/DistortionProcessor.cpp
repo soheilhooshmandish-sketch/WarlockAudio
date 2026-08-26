@@ -255,9 +255,13 @@ void DistortionProcessor::process (juce::dsp::AudioBlock<float> block) noexcept
 
     filterTightness = settings.tightness;
     if (settings.mode == static_cast<int> (DistortionMode::AdaptiveAI))
-        filterTightness = juce::jlimit (0.0f, 1.0f, settings.tightness
+    {
+        const float targetTight = juce::jlimit (0.0f, 1.0f, settings.tightness
             + (settings.adaptivePicking - 0.4f) * 0.12f
             + (1.0f - settings.adaptiveDynamics) * 0.08f);
+        adaptiveTightSmoother.setTarget (targetTight);
+        filterTightness = adaptiveTightSmoother.getNext();
+    }
 
     const bool filtersDirty = paramChanged (filterTightness, lastTightness)
                            || paramChanged (settings.tone, lastTone)

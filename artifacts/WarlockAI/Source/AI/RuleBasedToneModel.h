@@ -20,7 +20,6 @@ public:
 
 private:
     AudioFeatureExtractor extractor;
-    ToneAnalyzer analyzer;
     ToneDesigner designer;
     StyleDetectionResult lastStyle;
 };

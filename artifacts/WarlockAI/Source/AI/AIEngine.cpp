@@ -1,6 +1,12 @@
 #include "AI/AIEngine.h"
 #include "AI/ONNXToneModel.h"
 
+namespace
+{
+    // Header-only future hook: compile the type, never claim a trained model.
+    [[maybe_unused]] WarlockAI::ONNXToneModel gOnnxHook;
+}
+
 namespace WarlockAI
 {
 void AIEngine::prepare (double sampleRate)

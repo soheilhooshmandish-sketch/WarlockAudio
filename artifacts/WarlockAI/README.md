@@ -91,5 +91,7 @@ Analyze Tone and Auto Build Tone copy the most recent captured audio into a back
 
 Theme: **BLACK FORGE** — matte black panels, brushed-steel knobs, bronze structure, red distortion accents, blue/purple analysis accents.
 
-- Simple mode: Input, Gain, Tone, Tight, Gate, Output, Analyze, Auto Build
-- Advanced mode: collapsible CORE / AMP / CAB / EQ / MOD / HARMONY / DELAY / REVERB / STEREO / LIMITER, bypasses, GR / delay / reverb / width meters, spectrum, Tone Health, Mix Fit, CPU and latency
+- Simple mode: Input, Gain, Tone, Tight, Gate, Output, Analyze, Auto Build, Tone Health, Mix Fit, Apply, Undo, AI Dashboard
+- Advanced mode: collapsible CORE / AMP / CAB / EQ / MOD / HARMONY / DELAY / REVERB / STEREO / LIMITER, bypasses, GR / delay / reverb / width meters, spectrum, Tone AI dashboard, Tone Health, Mix Fit, CPU and latency
+
+The AI engine runs on a background thread. `processBlock` only writes a lock-free capture ring and reads Adaptive AI hints from atomics. No network, no ONNX Runtime dependency. `ONNXToneModel` is a header-only future hook.

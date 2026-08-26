@@ -12,6 +12,12 @@ function Home() {
           <p className="font-display text-xs tracking-[0.42em] text-blood uppercase">
             Warlock Audio · VST3
           </p>
+          <a
+            href="/howto"
+            className="font-body mt-2 inline-block text-xs tracking-wide text-frost underline-offset-4 hover:text-bone hover:underline"
+          >
+            Pack and install on PC
+          </a>
         </header>
 
         <div className="flex flex-1 flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-10">

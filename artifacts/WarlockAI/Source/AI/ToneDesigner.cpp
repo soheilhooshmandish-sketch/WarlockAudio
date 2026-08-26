@@ -194,7 +194,14 @@ ToneRecommendation ToneDesigner::recommend (const AudioFeatures& features,
             rec.tightness = juce::jmin (rec.tightness, 0.4f);
             rec.cabLowCut = juce::jmin (rec.cabLowCut, 70.0f);
             break;
-        default:
+        case GuitarStyle::ModernMetal:
+        case GuitarStyle::ThrashMetal:
+        case GuitarStyle::Metalcore:
+        case GuitarStyle::ProgressiveMetal:
+        case GuitarStyle::HeavyMetal:
+        case GuitarStyle::HardRock:
+        case GuitarStyle::Ambient:
+        case GuitarStyle::NumStyles:
             break;
     }
 

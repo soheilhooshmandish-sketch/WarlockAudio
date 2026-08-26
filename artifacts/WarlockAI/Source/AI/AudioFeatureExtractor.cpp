@@ -53,7 +53,6 @@ AudioFeatures AudioFeatureExtractor::extract (const juce::AudioBuffer<float>& bu
     double diffEnergy = 0.0;
 
     const int hop = juce::jmax (64, numSamples / 32);
-    float hopPeak = 0.0f;
     float hopMinRms = 1.0e6f;
     float hopMaxRms = 0.0f;
     double hopSumSq = 0.0;
@@ -89,7 +88,6 @@ AudioFeatures AudioFeatureExtractor::extract (const juce::AudioBuffer<float>& bu
             const float hopRms = std::sqrt (static_cast<float> (hopSumSq / juce::jmax (1, hopCount)));
             hopMinRms = juce::jmin (hopMinRms, hopRms);
             hopMaxRms = juce::jmax (hopMaxRms, hopRms);
-            hopPeak = juce::jmax (hopPeak, hopRms);
 
             const float z = static_cast<float> (hopCross) / static_cast<float> (hopCount);
             ++hopWindows;
