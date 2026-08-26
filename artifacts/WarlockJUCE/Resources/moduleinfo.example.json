@@ -1,0 +1,28 @@
+{
+  "Name": "Warlock",
+  "Version": "1.1.0",
+  "Factory Info": {
+    "Vendor": "Nihil Audio",
+    "URL": "https://nihilaudio.example",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false
+    }
+  },
+  "Classes": [
+    {
+      "CID": "{JUCE-GENERATED}",
+      "Category": "Audio Module Class",
+      "Name": "Warlock",
+      "Vendor": "Nihil Audio",
+      "Version": "1.1.0",
+      "SDKVersion": "VST 3.7.12",
+      "Sub Categories": ["Fx", "Distortion"],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": []
+    }
+  ]
+}

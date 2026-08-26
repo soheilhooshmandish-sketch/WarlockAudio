@@ -1,0 +1,18 @@
+Warlock Chainsaw Distortion VST3 1.1.0
+Nihil Audio
+com.nihilaudio.warlock
+
+x64 host required.
+
+Signal path: input trim, noise gate (1 ms attack, 5–200 ms release),
+4× oversampled diode clip (SYM ±0.65 / ASYM +0.35/−0.75), Swedish
+tone stack (320 Hz HPF, 1.2 kHz Q3 +14 dB, Grim 950 Hz, Cold 4.1 kHz),
+optional Lo-Fi 4.2 kHz, optional cabinet IR, output level.
+
+CabinetIR.wav is a synthetic 48 kHz mono impulse. It is not a sampled
+commercial cabinet.
+
+JUCE is licensed separately (GPL / commercial). See juce.com.
+The VST3 interfaces used by JUCE originate in the Steinberg VST 3 SDK.
+VST is a trademark of Steinberg Media Technologies GmbH.
+This product is not affiliated with Steinberg.

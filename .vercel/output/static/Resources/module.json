@@ -1,0 +1,18 @@
+{
+  "Name": "Warlock",
+  "ProductName": "Warlock Chainsaw Distortion",
+  "Version": "1.1.0",
+  "Vendor": "Nihil Audio",
+  "Bundle": "Warlock.vst3",
+  "BundleId": "com.nihilaudio.warlock",
+  "SDKVersion": "VST 3.7.5",
+  "Classes": [
+    {
+      "Name": "Warlock",
+      "Category": "Audio Module Class",
+      "Vendor": "Nihil Audio",
+      "Version": "1.1.0",
+      "SubCategories": "Fx|Distortion"
+    }
+  ]
+}

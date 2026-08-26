@@ -1,0 +1,28 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 22, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "vs2026-x64",
+      "displayName": "Visual Studio 2026 x64",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/Builds/CMakeVS2026"
+    },
+    {
+      "name": "vs2022-x64",
+      "displayName": "Visual Studio 2022 x64 (fallback)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/Builds/CMakeVS2022"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "vst3-release",
+      "configurePreset": "vs2026-x64",
+      "configuration": "Release",
+      "targets": ["DistPedal_VST3"]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Warlock Chainsaw Distortion",
+      "hasCanvas": false,
+      "bodyTextLen": 819,
+      "bodyTextHash": "77f921befde3da6606fdc96740880eab60c4ed12e3765f478ed6580eb8488637",
+      "bodyTextPrefix": "NIHIL AUDIO · VST3 IN OUT Warlock CHAINSAW DISTORTION 40.0 dB GA",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Warlock Chainsaw Distortion",
+      "hasCanvas": false,
+      "bodyTextLen": 819,
+      "bodyTextHash": "77f921befde3da6606fdc96740880eab60c4ed12e3765f478ed6580eb8488637",
+      "bodyTextPrefix": "NIHIL AUDIO · VST3 IN OUT Warlock CHAINSAW DISTORTION 40.0 dB GA",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

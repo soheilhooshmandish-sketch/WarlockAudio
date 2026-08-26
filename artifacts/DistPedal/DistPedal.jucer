@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="DstPd1" name="DistPedal" projectType="audioplug" version="1.0.0"
+              companyName="The Warlock" companyCopyright="The Warlock"
+              bundleIdentifier="com.thewarlock.distpedal"
+              pluginName="DistPedal"
+              pluginDesc="The Warlock black-metal distortion — Web Audio DSP port"
+              pluginManufacturer="The Warlock"
+              pluginManufacturerCode="WrLk"
+              pluginCode="DstP"
+              pluginFormats="buildVST3,buildStandalone"
+              pluginVST3Category="Fx,Distortion"
+              pluginVSTCategory="kPlugCategEffect"
+              pluginIsSynth="0"
+              pluginWantsMidiIn="0"
+              pluginProducesMidiOut="0"
+              pluginIsMidiEffectPlugin="0"
+              pluginEditorRequiresKeys="0"
+              pluginAUIsSandboxSafe="1"
+              cppLanguageStandard="17"
+              displaySplashScreen="1"
+              useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0"
+              jucerFormatVersion="1"
+              defines="JUCE_WEB_BROWSER=0&#10;JUCE_USE_CURL=0&#10;JUCE_VST3_CAN_REPLACE_VST2=0">
+  <MAINGROUP id="DstPdG" name="DistPedal">
+    <GROUP id="DstPdS" name="Source">
+      <FILE id="DsPrcH" name="PluginProcessor.h" compile="0" resource="0" file="Source/PluginProcessor.h"/>
+      <FILE id="DsPrcC" name="PluginProcessor.cpp" compile="1" resource="0" file="Source/PluginProcessor.cpp"/>
+      <FILE id="DsEdH" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="DsEdC" name="PluginEditor.cpp" compile="1" resource="0" file="Source/PluginEditor.cpp"/>
+      <FILE id="DsDspH" name="DistDSP.h" compile="0" resource="0" file="Source/DistDSP.h"/>
+      <FILE id="DsDspC" name="DistDSP.cpp" compile="1" resource="0" file="Source/DistDSP.cpp"/>
+      <FILE id="DsCabH" name="CabModel.h" compile="0" resource="0" file="Source/CabModel.h"/>
+      <FILE id="DsCabC" name="CabModel.cpp" compile="1" resource="0" file="Source/CabModel.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"
+               JUCE_WEB_BROWSER="0" JUCE_USE_CURL="0"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022" extraDefs="" extraCompilerFlags="/utf-8"
+            extraLinkerFlags="" extraIncludePaths="" extraLibraryPaths="">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="DistPedal"
+                       binaryPath="../../build-bin/Debug" enablePluginBinaryCopyStep="1"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="DistPedal"
+                       binaryPath="../../build-bin/Release" enablePluginBinaryCopyStep="1"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path=""/>
+        <MODULEPATH id="juce_audio_devices" path=""/>
+        <MODULEPATH id="juce_audio_formats" path=""/>
+        <MODULEPATH id="juce_audio_plugin_client" path=""/>
+        <MODULEPATH id="juce_audio_processors" path=""/>
+        <MODULEPATH id="juce_audio_utils" path=""/>
+        <MODULEPATH id="juce_core" path=""/>
+        <MODULEPATH id="juce_data_structures" path=""/>
+        <MODULEPATH id="juce_dsp" path=""/>
+        <MODULEPATH id="juce_events" path=""/>
+        <MODULEPATH id="juce_graphics" path=""/>
+        <MODULEPATH id="juce_gui_basics" path=""/>
+        <MODULEPATH id="juce_gui_extra" path=""/>
+      </MODULEPATHS>
+    </VS2022>
+    <VS2026 targetFolder="Builds/VisualStudio2026" extraDefs="" extraCompilerFlags="/utf-8"
+            extraLinkerFlags="" extraIncludePaths="" extraLibraryPaths="">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="DistPedal"
+                       binaryPath="../../build-bin/Debug" enablePluginBinaryCopyStep="1"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="DistPedal"
+                       binaryPath="../../build-bin/Release" enablePluginBinaryCopyStep="1"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path=""/>
+        <MODULEPATH id="juce_audio_devices" path=""/>
+        <MODULEPATH id="juce_audio_formats" path=""/>
+        <MODULEPATH id="juce_audio_plugin_client" path=""/>
+        <MODULEPATH id="juce_audio_processors" path=""/>
+        <MODULEPATH id="juce_audio_utils" path=""/>
+        <MODULEPATH id="juce_core" path=""/>
+        <MODULEPATH id="juce_data_structures" path=""/>
+        <MODULEPATH id="juce_dsp" path=""/>
+        <MODULEPATH id="juce_events" path=""/>
+        <MODULEPATH id="juce_graphics" path=""/>
+        <MODULEPATH id="juce_gui_basics" path=""/>
+        <MODULEPATH id="juce_gui_extra" path=""/>
+      </MODULEPATHS>
+    </VS2026>
+  </EXPORTFORMATS>
+</JUCERPROJECT>

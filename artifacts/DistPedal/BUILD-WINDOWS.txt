@@ -1,0 +1,29 @@
+DistPedal VST3 — Windows 11 Pro + Visual Studio 2026
+====================================================
+
+1. Visual Studio Installer → Desktop development with C++
+   Tick: C++ CMake tools for Windows
+
+2. Open this DistPedal folder:
+     File → Open → CMake...
+     Preset: vs2026-x64
+   Or double-click OPEN-IN-VISUAL-STUDIO.bat
+
+3. Toolbar: Release | x64
+   Startup: DistPedal_VST3
+   Build (Ctrl+Shift+B)
+
+4. Output:
+     Builds\CMakeVS2026\DistPedal_artefacts\Release\VST3\DistPedal.vst3
+
+5. Copy that folder to:
+     C:\Program Files\Common Files\VST3\
+
+6. Optional installer:
+     Open Installer\DistPedal_setup.iss in Inno Setup 6 → Compile
+     Run TheWarlock_DistPedal_Setup.exe as Administrator
+
+7. FL Studio → Options → Manage plugins → Find plugins
+   DistPedal is an Effect. Put it on a mixer track.
+
+If the VS 2026 generator is missing, use vs2022-x64 instead.
