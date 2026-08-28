@@ -1,0 +1,28 @@
+WARLOCK MONOLITH · Model 1666
+End-User License — Warlock Audio / Warlock Plugins
+www.warlock-plugins.com
+
+1. Grant
+Warlock Audio grants a non-exclusive license to install and use WARLOCK MONOLITH.
+Evaluation edition: fourteen (14) days from first install on this machine.
+Lifetime edition: perpetual use on up to two (2) machines owned by the licensee named in the signed code.
+
+2. Restrictions
+You may not redistribute the installer, the VST3 bundle, cabinet impulses, or factory codes.
+You may not run the factory License Desk against customer machines.
+You may not remove or obscure copyright, trademark, or edition marks.
+
+3. Ownership
+The software, visual skin, and original impulse responses remain the property of Warlock Audio.
+VST is a trademark of Steinberg Media Technologies GmbH.
+This product is not affiliated with, endorsed by, or sponsored by Steinberg.
+
+4. Transfer
+A lifetime code may be moved to a replacement machine after the previous install is uninstalled. Seat count is two.
+
+5. Disclaimer
+The software is provided as-is for musical use.
+
+6. Support
+https://www.warlock-plugins.com
+GitHub: https://github.com/soheilhooshmandish-sketch/WarlockAudio
