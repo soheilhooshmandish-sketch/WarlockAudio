@@ -1,0 +1,78 @@
+name: MONOLITH demo + lifetime setup
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Plugin version label
+        required: true
+        default: "1.0.0"
+  push:
+    paths:
+      - "artifacts/WarlockMonolith-Setup/**"
+      - ".github/workflows/release-editions.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Restore factory public key
+        shell: pwsh
+        run: |
+          $desk = "artifacts/WarlockMonolith-Setup/tools/license-desk"
+          if ($env:WARLOCK_LICENSE_PUBLIC_KEY) {
+            Set-Content -Path "$desk/public.pem" -Value $env:WARLOCK_LICENSE_PUBLIC_KEY -NoNewline
+          }
+          if ($env:WARLOCK_LICENSE_PRIVATE_KEY) {
+            Set-Content -Path "$desk/private.pem" -Value $env:WARLOCK_LICENSE_PRIVATE_KEY -NoNewline
+          }
+        env:
+          WARLOCK_LICENSE_PUBLIC_KEY: ${{ secrets.WARLOCK_LICENSE_PUBLIC_KEY }}
+          WARLOCK_LICENSE_PRIVATE_KEY: ${{ secrets.WARLOCK_LICENSE_PRIVATE_KEY }}
+
+      - name: Issue factory smoke keys (not published)
+        shell: pwsh
+        run: |
+          if (Test-Path "artifacts/WarlockMonolith-Setup/tools/license-desk/private.pem") {
+            node artifacts/WarlockMonolith-Setup/tools/license-desk/warlock-license.mjs issue --edition demo --email qa@warlock-plugins.com --days 14
+            node artifacts/WarlockMonolith-Setup/tools/license-desk/warlock-license.mjs issue --edition lifetime --email qa@warlock-plugins.com
+          } else {
+            Write-Host "No factory private key in secrets. Skipping issue smoke."
+          }
+
+      - name: Stage public key for installer
+        shell: pwsh
+        run: |
+          $src = "artifacts/WarlockMonolith-Setup/tools/license-desk/public.pem"
+          $dst = "artifacts/WarlockMonolith-Setup/installer/public.pem"
+          if (Test-Path $src) { Copy-Item $src $dst -Force }
+          elseif (-not (Test-Path $dst)) { "-----BEGIN PUBLIC KEY-----`nPLACEHOLDER`n-----END PUBLIC KEY-----" | Set-Content $dst }
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+
+      - name: Compile customer installer
+        shell: pwsh
+        working-directory: artifacts/WarlockMonolith-Setup/installer
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { $iscc = "${env:ProgramFiles}\Inno Setup 6\ISCC.exe" }
+          & $iscc installer-monolith.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed $LASTEXITCODE" }
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Warlock_MONOLITH_Setup_x64
+          path: artifacts/WarlockMonolith-Setup/installer/BuildInstaller/*.exe
+          if-no-files-found: warn

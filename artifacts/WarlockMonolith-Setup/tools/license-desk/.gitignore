@@ -1,0 +1,5 @@
+private.pem
+issued-ledger.jsonl
+receipts-*.json
+.env
+*.bak

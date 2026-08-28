@@ -1,0 +1,16 @@
+{
+  "name": "@warlock-audio/license-desk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Factory license issuer for Warlock Audio VST3 products. Not shipped to customers.",
+  "bin": {
+    "warlock-license": "./warlock-license.mjs"
+  },
+  "scripts": {
+    "init": "node warlock-license.mjs init-keys",
+    "issue:demo": "node warlock-license.mjs issue --edition demo --days 14",
+    "issue:life": "node warlock-license.mjs issue --edition lifetime",
+    "desk": "node desk-server.mjs"
+  }
+}
