@@ -49,3 +49,28 @@
   border-color: var(--warlock-subtle);
   background: var(--warlock-raised);
 }
+
+.warlock-support-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  border: 1px solid var(--warlock-line);
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--warlock-fg);
+  font-family: var(--warlock-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.warlock-support-link:hover,
+.warlock-support-link:focus-visible {
+  border-color: var(--warlock-subtle);
+  background: var(--warlock-raised);
+}
