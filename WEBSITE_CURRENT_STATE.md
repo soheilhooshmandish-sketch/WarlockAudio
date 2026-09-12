@@ -90,11 +90,14 @@ A deterministic sandbox-only lifecycle exists and is tested:
 It has no live payment-provider call, moves no real money, contacts no customer, issues no production license and grants no production download.
 
 ## Deployment truth
-No GitHub deployment workflow was found for this website.
-`.vercel/output` exists as committed generated output, but there is no `.vercel/project.json` in the repository and this is **not** proof of a live preview deployment.
-A Vercel connector is available but must be explicitly connected before ChatGPT can inspect/create deployment there.
+No live preview deployment is yet verified.
+The selected deployment path is Cloudflare.
+The existing app is TanStack Start + Nitro and currently hard-codes Nitro `vercel` output in `vite.config.ts`; this must be made target-selectable before a Cloudflare preview is considered proven.
+Nitro supports a `cloudflare_pages` preset, which preserves the full-stack/server-function model required by Auth and the Factory bridge.
 
-Do not claim preview or production deployment until a live URL and deployment state are actually verified.
+Committed `.vercel/output` is legacy generated material only and is not deployment proof. `.vercel/` is ignored going forward.
+
+Do not claim preview or production deployment until a live Cloudflare preview URL and deployed commit SHA are verified.
 
 ## Governance blockers
 - Website `main` is unprotected in current GitHub metadata.
@@ -111,7 +114,7 @@ Factory repo currently has a private GitHub Actions infrastructure blocker (issu
 - customer ticket/email delivery
 - live public Factory telemetry
 - commercial preset/skin catalog
-- verified preview/production deployment
+- verified Cloudflare preview/production deployment
 - branch protection
 
 The website architecture is substantially built, but these unavailable capabilities must remain visibly locked rather than simulated.
