@@ -1,12 +1,10 @@
 import { FormEvent, useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   Activity,
   ArrowDown,
   ArrowRight,
   BadgeCheck,
-  Box,
-  Cpu,
   Download,
   Headphones,
   LifeBuoy,
@@ -19,6 +17,7 @@ import {
 } from "lucide-react";
 import { PedalEnclosure } from "@/components/pedal/enclosure";
 import { StudioDock } from "@/components/studio/studio";
+import { products as catalogProducts } from "@/lib/catalog/products";
 import "../warlock-home.css";
 import "../warlock-sections.css";
 
@@ -30,26 +29,9 @@ const promptExamples = [
   "Ambient black-metal space",
 ];
 
-const products = [
-  {
-    eyebrow: "DISTORTION SYSTEM",
-    name: "VOID",
-    copy: "A focused heavy-guitar platform built around exact control, mix-ready output and a release chain that can prove what shipped.",
-    icon: Cpu,
-  },
-  {
-    eyebrow: "AMP + CAB SYSTEM",
-    name: "MONOLITH",
-    copy: "Amp, cabinet and IR architecture designed as one coherent rig instead of a loose pile of processors.",
-    icon: Box,
-  },
-  {
-    eyebrow: "FULL RIG",
-    name: "PORTAL",
-    copy: "A single product surface for pedal, amp, cab and routing — built to become a complete playable signal path.",
-    icon: Package,
-  },
-];
+const featuredProducts = catalogProducts.filter((product) =>
+  ["void", "thall", "black-frost"].includes(product.slug),
+);
 
 const factorySteps = [
   {
@@ -105,9 +87,10 @@ function Home() {
           </a>
 
           <nav className="warlock-nav-links" aria-label="Primary navigation">
-            <a href="#products">PRODUCTS</a>
+            <Link to="/products">PRODUCTS</Link>
+            <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
             <a href="#factory">HOW IT WORKS</a>
-            <a href="#pricing">PRICING</a>
+            <Link to="/pricing">PRICING</Link>
             <a href="#support">SUPPORT</a>
           </nav>
 
@@ -175,29 +158,37 @@ function Home() {
 
       <section className="warlock-section" id="products">
         <div className="warlock-section-heading">
-          <p>WARLOCK SYSTEMS</p>
-          <h2>Built as instruments. Proven as software.</h2>
+          <p>WARLOCK SIGNATURE</p>
+          <h2>Products with a real status.</h2>
           <span>
-            Each product is designed around a real signal path, deterministic build
-            evidence and a release chain that fails closed instead of guessing.
+            Signature products stay honest about where they are in the pipeline. A concept
+            is not a release, and a development build is not automatically ready for sale.
           </span>
         </div>
 
         <div className="warlock-product-grid">
-          {products.map(({ eyebrow, name, copy, icon: Icon }) => (
-            <article className="warlock-product-card" key={name}>
+          {featuredProducts.map((product) => (
+            <article className="warlock-product-card" key={product.slug}>
               <div className="warlock-product-icon">
-                <Icon size={24} strokeWidth={1.45} aria-hidden="true" />
+                <Package size={24} strokeWidth={1.45} aria-hidden="true" />
               </div>
-              <p>{eyebrow}</p>
-              <h3>{name}</h3>
-              <span>{copy}</span>
-              <button type="button" aria-label={`${name} details coming soon`}>
+              <p>{product.statusLabel}</p>
+              <h3>{product.name}</h3>
+              <span>{product.summary}</span>
+              <Link
+                className="warlock-product-link"
+                to="/products/$slug"
+                params={{ slug: product.slug }}
+              >
                 EXPLORE
                 <ArrowRight size={16} strokeWidth={1.6} aria-hidden="true" />
-              </button>
+              </Link>
             </article>
           ))}
+        </div>
+
+        <div className="warlock-section-action">
+          <Link to="/products">VIEW ALL SIGNATURE PRODUCTS <ArrowRight size={16} /></Link>
         </div>
       </section>
 
@@ -299,6 +290,10 @@ function Home() {
             </ul>
             <button type="button" disabled>COST MODEL UNDER VALIDATION</button>
           </article>
+        </div>
+
+        <div className="warlock-section-action">
+          <Link to="/pricing">VIEW PRICING POLICY <ArrowRight size={16} /></Link>
         </div>
       </section>
 
