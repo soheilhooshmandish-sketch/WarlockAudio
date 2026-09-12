@@ -17,8 +17,14 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
 import { Route as PresetsRouteImport } from './routes/presets'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowtoRouteImport } from './routes/howto'
 import { Route as GenerateRouteImport } from './routes/generate'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as AccountProductsRouteImport } from './routes/account_.products'
+import { Route as AccountLicensesRouteImport } from './routes/account_.licenses'
+import { Route as AccountBuildsRouteImport } from './routes/account_.builds'
+import { Route as AccountBillingRouteImport } from './routes/account_.billing'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -60,6 +66,11 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HowtoRoute = HowtoRouteImport.update({
   id: '/howto',
   path: '/howto',
@@ -70,11 +81,42 @@ const GenerateRoute = GenerateRouteImport.update({
   path: '/generate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountProductsRoute = AccountProductsRouteImport.update({
+  id: '/account_/products',
+  path: '/account/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountLicensesRoute = AccountLicensesRouteImport.update({
+  id: '/account_/licenses',
+  path: '/account/licenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountBuildsRoute = AccountBuildsRouteImport.update({
+  id: '/account_/builds',
+  path: '/account/builds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountBillingRoute = AccountBillingRouteImport.update({
+  id: '/account_/billing',
+  path: '/account/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/account/billing': typeof AccountBillingRoute
+  '/account/builds': typeof AccountBuildsRoute
+  '/account/licenses': typeof AccountLicensesRoute
+  '/account/products': typeof AccountProductsRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/login': typeof LoginRoute
   '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
@@ -85,8 +127,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/account/billing': typeof AccountBillingRoute
+  '/account/builds': typeof AccountBuildsRoute
+  '/account/licenses': typeof AccountLicensesRoute
+  '/account/products': typeof AccountProductsRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/login': typeof LoginRoute
   '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
@@ -98,8 +146,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/account_/billing': typeof AccountBillingRoute
+  '/account_/builds': typeof AccountBuildsRoute
+  '/account_/licenses': typeof AccountLicensesRoute
+  '/account_/products': typeof AccountProductsRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/login': typeof LoginRoute
   '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
@@ -110,16 +164,22 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
+  fullPaths: '/' | '/account' | '/account/billing' | '/account/builds' | '/account/licenses' | '/account/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
-  id: '__root__' | '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/products_/$slug' | '/skins' | '/support' | '/technology'
+  to: '/' | '/account' | '/account/billing' | '/account/builds' | '/account/licenses' | '/account/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
+  id: '__root__' | '/' | '/account' | '/account_/billing' | '/account_/builds' | '/account_/licenses' | '/account_/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products_/$slug' | '/skins' | '/support' | '/technology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountRoute: typeof AccountRoute
+  AccountBillingRoute: typeof AccountBillingRoute
+  AccountBuildsRoute: typeof AccountBuildsRoute
+  AccountLicensesRoute: typeof AccountLicensesRoute
+  AccountProductsRoute: typeof AccountProductsRoute
   GenerateRoute: typeof GenerateRoute
   HowtoRoute: typeof HowtoRoute
+  LoginRoute: typeof LoginRoute
   PresetsRoute: typeof PresetsRoute
   PricingRoute: typeof PricingRoute
   ProductsRoute: typeof ProductsRoute
@@ -138,6 +198,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account_/billing': {
+      id: '/account_/billing'
+      path: '/account/billing'
+      fullPath: '/account/billing'
+      preLoaderRoute: typeof AccountBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account_/builds': {
+      id: '/account_/builds'
+      path: '/account/builds'
+      fullPath: '/account/builds'
+      preLoaderRoute: typeof AccountBuildsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account_/licenses': {
+      id: '/account_/licenses'
+      path: '/account/licenses'
+      fullPath: '/account/licenses'
+      preLoaderRoute: typeof AccountLicensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account_/products': {
+      id: '/account_/products'
+      path: '/account/products'
+      fullPath: '/account/products'
+      preLoaderRoute: typeof AccountProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/generate': {
       id: '/generate'
       path: '/generate'
@@ -150,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/howto'
       fullPath: '/howto'
       preLoaderRoute: typeof HowtoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/presets': {
@@ -206,8 +308,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountRoute: AccountRoute,
+  AccountBillingRoute: AccountBillingRoute,
+  AccountBuildsRoute: AccountBuildsRoute,
+  AccountLicensesRoute: AccountLicensesRoute,
+  AccountProductsRoute: AccountProductsRoute,
   GenerateRoute: GenerateRoute,
   HowtoRoute: HowtoRoute,
+  LoginRoute: LoginRoute,
   PresetsRoute: PresetsRoute,
   PricingRoute: PricingRoute,
   ProductsRoute: ProductsRoute,
@@ -221,7 +329,6 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
