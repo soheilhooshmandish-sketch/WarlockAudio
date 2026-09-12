@@ -1,57 +1,58 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, LockKeyhole, ShieldCheck } from "lucide-react";
-import { products } from "@/lib/catalog/products";
+import { ArrowLeft, ArrowRight, CircleDot, Headphones, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "@/components/warlock/site-header";
-import "../warlock-catalog.css";
 
 export const Route = createFileRoute("/products")({ component: ProductsPage });
 
+const products = [
+  { name: "VOID", type: "SPATIAL TEXTURE", status: "ACTIVE DEVELOPMENT", realm: "void", note: "Pitch, grain, reverse and space in one evolving system." },
+  { name: "THALL", type: "MODERN METAL", status: "PROTOTYPE", realm: "thall", note: "Tight transient control for modern heavy rhythm." },
+  { name: "ABYSS", type: "AMBIENT / REVERB / DELAY", status: "PROTOTYPE", realm: "abyss", note: "Long-form space, depth and frozen atmosphere." },
+  { name: "CHIMERA", type: "OCTAVE / HARMONY", status: "PROTOTYPE", realm: "chimera", note: "Hybrid voices, interval movement and layered width." },
+  { name: "ALIEN", type: "DISTORTION / MULTI-FX", status: "PROTOTYPE", realm: "alien", note: "Hostile textures built around a biomechanical core." },
+  { name: "BLACK FROST", type: "BLACK METAL DISTORTION", status: "IN DEVELOPMENT", realm: "frost", note: "Cold attack. Raw edge. Controlled low end." },
+  { name: "FRACTURE", type: "GLITCH / RHYTHM", status: "CONCEPT / PROTOTYPE", realm: "fracture", note: "Broken rhythm, repeat structures and controlled instability." },
+  { name: "DISTO / SYNTH", type: "DISTORTION / SYNTH", status: "CONCEPT / PROTOTYPE", realm: "synth", note: "Distortion and synthesis inside a shared performance system." },
+];
+
 function ProductsPage() {
   return (
-    <main className="wc-page">
-      <SiteHeader active="/products" />
+    <main className="warlock-app-page warlock-page-enter">
+      <SiteHeader section="PRODUCTS" active="/products" />
 
-      <section className="wc-hero">
-        <Link to="/" className="wc-back"><ArrowLeft size={15} /> COMPANY SITE</Link>
-        <p>WARLOCK SIGNATURE</p>
-        <h1>Products with a real status.</h1>
-        <span>
-          A concept is not a release. A working build is not automatically commercial.
-          WARLOCK only advances product status when the required evidence exists.
-        </span>
+      <section className="warlock-simple-hero">
+        <Link to="/" className="warlock-backlink"><ArrowLeft size={15} /> BACK TO WARLOCK</Link>
+        <p className="warlock-app-kicker">SIGNATURE COLLECTION</p>
+        <h1>BUILT BY WARLOCK.<br /><span>EACH PRODUCT IS ITS OWN REALM.</span></h1>
+        <p>Signature products use WARLOCK’s fixed master identity, while sound, material, movement and atmosphere are specific to each product world.</p>
       </section>
 
-      <section className="wc-product-grid" aria-label="WARLOCK product catalog">
-        {products.map((product) => (
-          <article className="wc-product-card" key={product.slug}>
-            <div className={`wc-product-art wc-art-${product.slug}`} aria-hidden="true">
-              <span>{product.name}</span>
+      <section className="warlock-catalog-grid">
+        {products.map((product, index) => (
+          <article key={product.name} className="warlock-catalog-card" data-realm={product.realm}>
+            <div className="warlock-catalog-art">
+              <span className="warlock-catalog-index">{String(index + 1).padStart(2, "0")}</span>
+              <img src="/brand/warlock-emblem.svg" alt="" />
+              <div className="warlock-catalog-energy" />
             </div>
-            <div className="wc-product-meta">
-              <div className="wc-status" data-status={product.status}>
-                {product.status === "in-development" ? <ShieldCheck size={14} /> : <LockKeyhole size={14} />}
-                {product.statusLabel}
-              </div>
-              <p>{product.category}</p>
+            <div className="warlock-catalog-copy">
+              <p><CircleDot size={11} /> {product.status}</p>
               <h2>{product.name}</h2>
-              <span>{product.character}</span>
-              <Link to="/products/$slug" params={{ slug: product.slug }}>
-                EXPLORE <ArrowRight size={15} />
-              </Link>
+              <small>{product.type}</small>
+              <span>{product.note}</span>
+              <div className="warlock-catalog-actions">
+                <button className="warlock-button warlock-button-secondary" disabled>DETAIL PAGE NEXT</button>
+                <button className="warlock-catalog-listen" disabled><Headphones size={16} /> AUDIO SOON</button>
+              </div>
             </div>
           </article>
         ))}
       </section>
 
-      <section className="wc-truth-strip">
-        <ShieldCheck size={20} />
-        <div>
-          <strong>STATUS POLICY</strong>
-          <span>
-            AVAILABLE will remain unused until the exact product artifact clears its required build,
-            host, human review, installer, license and release evidence.
-          </span>
-        </div>
+      <section className="warlock-catalog-proof">
+        <article><ShieldCheck size={20} /><div><strong>STATUS IS EVIDENCE-BASED</strong><span>Artwork or HTML alone never marks a product as commercially available.</span></div></article>
+        <article><img src="/brand/warlock-core.svg" alt="" /><div><strong>MASTER GEOMETRY IS FIXED</strong><span>Product identity changes through approved realm material, never a redrawn WARLOCK emblem.</span></div></article>
+        <Link to="/generate" className="warlock-button warlock-button-primary">CREATE YOUR OWN <ArrowRight size={16} /></Link>
       </section>
     </main>
   );

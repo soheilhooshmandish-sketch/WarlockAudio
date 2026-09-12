@@ -1,0 +1,53 @@
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-warlock-time="morning"] .warlock-app-page {
+  background:
+    radial-gradient(circle at 74% 2%, rgb(154 211 245 / 0.19), transparent 34%),
+    radial-gradient(circle at 16% 10%, rgb(84 147 190 / 0.11), transparent 28%),
+    linear-gradient(180deg, #0a1825 0%, #0a1a28 46%, #07111a 100%);
+}
+
+html[data-warlock-time="day"] .warlock-app-page {
+  background:
+    radial-gradient(circle at 72% 0%, rgb(127 202 246 / 0.2), transparent 36%),
+    radial-gradient(circle at 16% 12%, rgb(65 133 177 / 0.11), transparent 30%),
+    linear-gradient(180deg, #091827 0%, #091725 45%, #06101a 100%);
+}
+
+html[data-warlock-time="dusk"] .warlock-app-page {
+  background:
+    radial-gradient(circle at 72% 0%, rgb(93 167 216 / 0.18), transparent 34%),
+    radial-gradient(circle at 16% 12%, rgb(78 105 145 / 0.13), transparent 30%),
+    linear-gradient(180deg, #081522 0%, #091521 44%, #050d15 100%);
+}
+
+html[data-warlock-time="night"] .warlock-app-page {
+  background:
+    radial-gradient(circle at 72% 0%, rgb(72 153 207 / 0.15), transparent 34%),
+    radial-gradient(circle at 16% 12%, rgb(43 94 130 / 0.1), transparent 30%),
+    linear-gradient(180deg, #06111c 0%, #07131f 44%, #040a11 100%);
+}
+
+html[data-warlock-time="morning"] .warlock-app-header,
+html[data-warlock-time="day"] .warlock-app-header {
+  background: rgb(7 19 30 / 0.74);
+}
+
+html[data-warlock-time="night"] .warlock-app-header {
+  background: rgb(3 10 17 / 0.84);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0s;
+  }
+}

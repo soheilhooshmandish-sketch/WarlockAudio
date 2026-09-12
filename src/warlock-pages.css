@@ -1,0 +1,404 @@
+@keyframes warlock-page-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.warlock-page-enter {
+  animation: warlock-page-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.warlock-app-page {
+  min-height: 100dvh;
+  color: #eaf4fb;
+  background:
+    radial-gradient(circle at 72% 0%, rgb(86 170 225 / 0.15), transparent 34%),
+    radial-gradient(circle at 18% 15%, rgb(46 110 158 / 0.11), transparent 30%),
+    linear-gradient(180deg, #07111c 0%, #081624 42%, #050c13 100%);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.warlock-app-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    linear-gradient(rgb(150 210 248 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(150 210 248 / 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, black 0%, transparent 86%);
+}
+
+.warlock-app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
+  align-items: center;
+  gap: 24px;
+  min-height: 72px;
+  padding: 0 32px;
+  border-bottom: 1px solid rgb(150 210 248 / 0.15);
+  background: rgb(4 12 20 / 0.78);
+  backdrop-filter: blur(18px) saturate(120%);
+}
+
+.warlock-app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  width: fit-content;
+  color: #eef8ff;
+  text-decoration: none;
+}
+
+.warlock-app-brand img {
+  width: 34px;
+  height: 46px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 11px rgb(134 209 255 / 0.24));
+}
+
+.warlock-app-brand span { display: grid; gap: 1px; }
+.warlock-app-brand strong { font: 600 18px/1 Oswald, sans-serif; letter-spacing: 0.16em; }
+.warlock-app-brand small { color: #8ba5b7; font: 500 9px/1.2 Inter, sans-serif; letter-spacing: 0.28em; }
+
+.warlock-app-header nav { display: flex; align-items: center; justify-content: center; gap: 24px; }
+.warlock-app-header nav a { color: #9cb0c0; font-size: 12px; text-decoration: none; transition: color 180ms ease; }
+.warlock-app-header nav a:hover,
+.warlock-app-header nav a.is-active { color: #eaf7ff; }
+
+.warlock-app-header > :last-child { justify-self: end; }
+
+.warlock-app-mode {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid rgb(151 211 249 / 0.18);
+  border-radius: 9px;
+  background: #07131e;
+}
+
+.warlock-app-mode button {
+  min-width: 56px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 6px;
+  color: #8097a8;
+  background: transparent;
+  font: 600 10px/1 Inter, sans-serif;
+  letter-spacing: 0.12em;
+}
+
+.warlock-app-mode button.is-active {
+  color: #06111b;
+  background: linear-gradient(180deg, #d9f3ff, #8fd2fb);
+  box-shadow: 0 0 18px rgb(110 198 250 / 0.26);
+}
+
+.warlock-app-kicker {
+  margin: 0;
+  color: #8fcff6;
+  font: 600 10px/1.2 Inter, sans-serif;
+  letter-spacing: 0.28em;
+}
+
+.warlock-generator-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 300px;
+  gap: 18px;
+  width: min(1500px, calc(100% - 48px));
+  margin: 28px auto 0;
+  padding-bottom: 48px;
+}
+
+.warlock-generator-steps,
+.warlock-generator-main,
+.warlock-farnaz-card,
+.warlock-live-summary,
+.warlock-plan-card,
+.warlock-support-channel,
+.warlock-contact-form-wrap,
+.warlock-support-side article,
+.warlock-faq-list button {
+  border: 1px solid rgb(145 205 243 / 0.14);
+  background: linear-gradient(180deg, rgb(13 30 45 / 0.92), rgb(7 19 30 / 0.92));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.025), 0 18px 48px rgb(0 0 0 / 0.14);
+}
+
+.warlock-generator-steps {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  padding: 18px;
+  border-radius: 14px;
+}
+
+.warlock-generator-steps > p { margin: 0 0 14px 4px; }
+.warlock-generator-steps > button {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 62px;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-align: left;
+  color: #7890a2;
+  background: transparent;
+  transition: 180ms ease;
+}
+
+.warlock-generator-steps > button > span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgb(145 205 243 / 0.2);
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.warlock-generator-steps > button div { display: grid; gap: 4px; }
+.warlock-generator-steps > button strong { color: inherit; font: 600 11px/1 Oswald, sans-serif; letter-spacing: 0.12em; }
+.warlock-generator-steps > button small { color: #61798b; font-size: 10px; }
+.warlock-generator-steps > button.is-active { color: #eaf7ff; border-color: rgb(142 205 246 / 0.28); background: rgb(93 174 225 / 0.08); transform: translateX(3px); }
+.warlock-generator-steps > button.is-active > span { color: #06111b; background: #99d7fb; box-shadow: 0 0 18px rgb(104 193 246 / 0.34); }
+.warlock-generator-steps > button.is-complete { color: #91c6e7; }
+
+.warlock-generator-main { min-height: 720px; padding: 26px; border-radius: 16px; }
+.warlock-generator-titlebar { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+.warlock-generator-titlebar p { margin: 0 0 6px; color: #6f899b; font-size: 10px; letter-spacing: 0.18em; }
+.warlock-generator-titlebar h1 { margin: 0; font: 500 32px/1 Oswald, sans-serif; letter-spacing: 0.08em; }
+.warlock-preview-pill { padding: 7px 10px; border: 1px solid rgb(143 208 248 / 0.2); border-radius: 999px; color: #88bede; background: rgb(79 157 205 / 0.08); font-size: 9px; letter-spacing: 0.14em; }
+
+.warlock-step-panel { animation: warlock-page-in 260ms ease both; }
+.warlock-generator-copy { max-width: 740px; }
+.warlock-generator-copy h2 { margin: 0 0 8px; font: 500 24px/1.15 Oswald, sans-serif; letter-spacing: 0.03em; }
+.warlock-generator-copy p { margin: 0; color: #91a7b8; font-size: 13px; line-height: 1.65; }
+
+.warlock-large-prompt,
+.warlock-contact-form input,
+.warlock-contact-form textarea,
+.warlock-contact-form select {
+  width: 100%;
+  border: 1px solid rgb(145 205 243 / 0.18);
+  border-radius: 10px;
+  outline: none;
+  color: #dff4ff;
+  background: rgb(3 12 20 / 0.68);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.warlock-large-prompt { min-height: 170px; margin-top: 24px; padding: 18px; resize: vertical; font: 400 14px/1.7 Inter, sans-serif; }
+.warlock-large-prompt:focus,
+.warlock-contact-form input:focus,
+.warlock-contact-form textarea:focus,
+.warlock-contact-form select:focus { border-color: rgb(143 211 252 / 0.62); box-shadow: 0 0 0 3px rgb(117 197 246 / 0.08), 0 0 22px rgb(91 185 244 / 0.07); }
+
+.warlock-generator-actions-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+.warlock-refiner-result { margin-top: 22px; padding: 18px; border: 1px solid rgb(140 206 247 / 0.18); border-radius: 11px; background: rgb(82 165 217 / 0.055); }
+.warlock-refiner-result > div:first-child { display: flex; align-items: center; gap: 8px; color: #a6dafa; }
+.warlock-refiner-result p { color: #b7c9d5; font-size: 13px; line-height: 1.6; }
+.warlock-tag-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.warlock-tag-row span { padding: 5px 8px; border: 1px solid rgb(144 207 245 / 0.13); border-radius: 999px; color: #82a9c1; background: rgb(4 13 21 / 0.55); font-size: 9px; letter-spacing: 0.11em; }
+
+.warlock-sound-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 26px; }
+.warlock-sound-controls label { padding: 16px; border: 1px solid rgb(145 205 243 / 0.12); border-radius: 10px; background: rgb(3 13 21 / 0.46); }
+.warlock-sound-controls label > span { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.warlock-sound-controls strong { font: 500 12px/1 Oswald, sans-serif; letter-spacing: 0.1em; }
+.warlock-sound-controls small { color: #8ecbf0; }
+.warlock-sound-controls input { width: 100%; accent-color: #93d4fb; }
+.warlock-signal-summary,
+.warlock-pro-note { display: flex; gap: 12px; margin-top: 18px; padding: 14px 16px; border: 1px solid rgb(144 207 245 / 0.11); border-radius: 10px; color: #91aec0; background: rgb(5 16 25 / 0.42); }
+.warlock-signal-summary div { display: grid; gap: 4px; }
+.warlock-signal-summary strong { color: #dfeef7; font-size: 10px; letter-spacing: 0.14em; }
+.warlock-signal-summary span,
+.warlock-pro-note span { font-size: 11px; line-height: 1.5; }
+
+.warlock-skin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+.warlock-skin-grid > button { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr) 20px; grid-template-rows: auto auto; align-items: center; gap: 6px 12px; min-height: 110px; padding: 16px; border: 1px solid rgb(145 205 243 / 0.13); border-radius: 12px; text-align: left; color: #b9cbd6; background: rgb(3 13 22 / 0.5); transition: 180ms ease; }
+.warlock-skin-grid > button:hover { transform: translateY(-2px); border-color: rgb(145 205 243 / 0.28); }
+.warlock-skin-grid > button.is-active { border-color: rgb(143 211 252 / 0.55); box-shadow: 0 0 26px rgb(89 183 240 / 0.08); }
+.warlock-skin-grid strong { color: #edf8ff; font: 500 14px/1 Oswald, sans-serif; letter-spacing: 0.08em; }
+.warlock-skin-grid small { grid-column: 2 / 4; color: #7892a4; font-size: 10px; line-height: 1.5; }
+.warlock-skin-orb { grid-row: 1 / 3; display: grid; place-items: center; width: 50px; height: 50px; border: 1px solid rgb(161 215 248 / 0.18); border-radius: 999px; color: #b7e3fc; background: radial-gradient(circle, rgb(121 204 252 / 0.2), transparent 68%); }
+.realm-frost { box-shadow: inset 0 0 24px rgb(176 228 255 / 0.1); }
+.realm-alien { color: #a7d6cb; background: radial-gradient(circle, rgb(77 155 135 / 0.18), transparent 68%); }
+.realm-void { color: #c9c9ff; background: radial-gradient(circle, rgb(117 121 230 / 0.16), transparent 68%); }
+
+.warlock-preview-card { display: grid; grid-template-columns: 260px 1fr; gap: 24px; margin-top: 24px; padding: 22px; border: 1px solid rgb(145 205 243 / 0.15); border-radius: 14px; background: linear-gradient(135deg, rgb(13 30 45 / 0.72), rgb(4 13 22 / 0.72)); }
+.warlock-preview-emblem { display: grid; place-items: center; min-height: 270px; border: 1px solid rgb(145 205 243 / 0.12); border-radius: 12px; background: radial-gradient(circle at 50% 45%, rgb(112 200 250 / 0.13), transparent 44%), #07131e; }
+.warlock-preview-emblem img { width: 120px; max-height: 170px; color: #d9f2ff; filter: drop-shadow(0 0 22px rgb(121 207 255 / 0.15)); }
+.warlock-preview-summary > p { color: #8fcff6; font-size: 9px; letter-spacing: 0.2em; }
+.warlock-preview-summary h3 { margin: 8px 0 22px; font: 500 22px/1.35 Oswald, sans-serif; color: #edf8ff; }
+.warlock-preview-summary dl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.warlock-preview-summary dl div { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid rgb(145 205 243 / 0.09); border-radius: 8px; background: rgb(3 13 22 / 0.4); }
+.warlock-preview-summary dt { color: #6f8798; font-size: 9px; letter-spacing: 0.12em; }
+.warlock-preview-summary dd { margin: 0; color: #d5eaf6; font-size: 10px; }
+
+.warlock-build-gate { display: grid; justify-items: center; max-width: 650px; margin: 80px auto 0; text-align: center; }
+.warlock-build-gate > svg { color: #92d4fa; }
+.warlock-build-gate > p { margin: 16px 0 8px; color: #83b9d9; font-size: 10px; letter-spacing: 0.2em; }
+.warlock-build-gate h2 { margin: 0; font: 500 30px/1.1 Oswald, sans-serif; }
+.warlock-build-gate > span { max-width: 560px; margin: 12px 0 22px; color: #8ea5b5; font-size: 12px; line-height: 1.7; }
+
+.warlock-generator-footer { display: flex; align-items: center; gap: 10px; margin-top: 30px; padding-top: 18px; border-top: 1px solid rgb(145 205 243 / 0.1); }
+.warlock-generator-footer > :last-child { margin-left: auto; }
+
+.warlock-farnaz-rail { display: grid; align-self: start; gap: 14px; position: sticky; top: 100px; }
+.warlock-farnaz-card,
+.warlock-live-summary { border-radius: 14px; overflow: hidden; }
+.warlock-farnaz-head { display: flex; align-items: center; gap: 10px; padding: 14px; border-bottom: 1px solid rgb(145 205 243 / 0.11); }
+.warlock-farnaz-head > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; color: #07111b; background: #9cd9fb; font: 600 17px/1 Oswald, sans-serif; }
+.warlock-farnaz-head > div { display: grid; gap: 3px; min-width: 0; }
+.warlock-farnaz-head strong { font: 600 13px/1 Oswald, sans-serif; letter-spacing: 0.12em; }
+.warlock-farnaz-head small { color: #6f8798; font-size: 9px; }
+.warlock-farnaz-head small i { display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 99px; background: #67d99e; box-shadow: 0 0 10px rgb(103 217 158 / 0.5); }
+.warlock-farnaz-head button { margin-left: auto; border: 0; color: #8098a9; background: transparent; }
+.warlock-farnaz-body { padding: 18px; }
+.warlock-farnaz-body > svg { color: #9bd9fb; }
+.warlock-farnaz-body h3 { margin: 12px 0 7px; font: 500 18px/1.2 Oswald, sans-serif; }
+.warlock-farnaz-body p { margin: 0; color: #8fa8b9; font-size: 11px; line-height: 1.6; }
+.warlock-farnaz-yesno { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 18px 14px; }
+.warlock-farnaz-yesno button { min-height: 38px; border: 1px solid rgb(145 205 243 / 0.15); border-radius: 8px; color: #8aa3b4; background: rgb(3 13 22 / 0.45); font-size: 10px; letter-spacing: 0.12em; }
+.warlock-farnaz-yesno button.is-yes { color: #06111b; border-color: transparent; background: linear-gradient(180deg, #d8f2ff, #8bd0f8); }
+.warlock-farnaz-links { display: grid; border-top: 1px solid rgb(145 205 243 / 0.09); }
+.warlock-farnaz-links button { display: flex; align-items: center; gap: 9px; min-height: 42px; padding: 0 16px; border: 0; border-bottom: 1px solid rgb(145 205 243 / 0.07); color: #70899b; background: transparent; font-size: 10px; }
+.warlock-live-summary { padding: 14px; }
+.warlock-live-summary > p { margin: 0 0 10px; color: #85bddf; font-size: 9px; letter-spacing: 0.18em; }
+.warlock-live-summary > div { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid rgb(145 205 243 / 0.07); }
+.warlock-live-summary span { color: #60798b; font-size: 9px; }
+.warlock-live-summary strong { color: #b9d2df; font-size: 9px; }
+
+.warlock-simple-hero { position: relative; z-index: 1; width: min(1200px, calc(100% - 48px)); margin: 70px auto 0; }
+.warlock-backlink { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; color: #6f8da0; text-decoration: none; font-size: 10px; letter-spacing: 0.1em; }
+.warlock-simple-hero h1 { max-width: 920px; margin: 12px 0 16px; font: 500 clamp(46px, 7vw, 88px)/0.97 Oswald, sans-serif; letter-spacing: -0.02em; }
+.warlock-simple-hero h1 span { color: #a2dafa; }
+.warlock-simple-hero > p:last-child { max-width: 720px; color: #8fa5b6; font-size: 14px; line-height: 1.7; }
+
+.warlock-plan-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: min(1400px, calc(100% - 48px)); margin: 48px auto 0; }
+.warlock-plan-card { position: relative; display: flex; flex-direction: column; min-height: 420px; padding: 22px; border-radius: 14px; }
+.warlock-plan-card.is-featured { border-color: rgb(146 213 253 / 0.5); box-shadow: 0 0 36px rgb(77 172 231 / 0.08); }
+.warlock-plan-ribbon { position: absolute; top: -10px; left: 18px; display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 999px; color: #06111b; background: #a7defd; font-size: 8px; letter-spacing: 0.1em; }
+.warlock-plan-card > p { margin: 8px 0 20px; color: #b6d6e9; font: 500 13px/1 Oswald, sans-serif; letter-spacing: 0.12em; }
+.warlock-plan-card h2 { margin: 0; font: 500 36px/1 Oswald, sans-serif; }
+.warlock-plan-card > small { margin-top: 7px; color: #6f8798; }
+.warlock-plan-card > span { min-height: 64px; margin-top: 18px; color: #8da5b6; font-size: 11px; line-height: 1.55; }
+.warlock-plan-card ul { display: grid; gap: 10px; padding: 0; margin: 8px 0 24px; list-style: none; }
+.warlock-plan-card li { display: flex; align-items: center; gap: 8px; color: #a8bdca; font-size: 10px; }
+.warlock-plan-card li svg { color: #9bd9fa; }
+.warlock-plan-card .warlock-button { margin-top: auto; }
+
+.warlock-pricing-rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: min(1200px, calc(100% - 48px)); margin: 36px auto 0; }
+.warlock-pricing-rules article { display: flex; gap: 12px; padding: 16px; border-top: 1px solid rgb(145 205 243 / 0.13); color: #87b9d8; }
+.warlock-pricing-rules article div { display: grid; gap: 5px; }
+.warlock-pricing-rules strong { color: #d8eaf5; font-size: 10px; letter-spacing: 0.09em; }
+.warlock-pricing-rules span { color: #7890a2; font-size: 10px; line-height: 1.5; }
+.warlock-pricing-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1200px, calc(100% - 48px)); margin: 56px auto 0; padding: 28px; border: 1px solid rgb(145 205 243 / 0.14); border-radius: 14px; background: radial-gradient(circle at 15% 20%, rgb(113 200 249 / 0.1), transparent 30%), rgb(8 22 34 / 0.7); }
+.warlock-pricing-cta div { display: grid; grid-template-columns: 30px 1fr; gap: 2px 12px; }
+.warlock-pricing-cta div svg { grid-row: 1 / 3; color: #98d6fa; }
+.warlock-pricing-cta h2 { margin: 0; font: 500 22px/1 Oswald, sans-serif; }
+.warlock-pricing-cta p { margin: 6px 0 0; color: #8098aa; font-size: 11px; }
+
+.warlock-support-hero { margin-bottom: 40px; }
+.warlock-support-channel-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+.warlock-support-channel { display: grid; grid-template-columns: 46px 1fr 20px; align-items: center; gap: 12px; min-height: 110px; padding: 16px; border-radius: 12px; text-align: left; color: #a9c0ce; transition: 180ms ease; }
+.warlock-support-channel:hover { transform: translateY(-2px); border-color: rgb(145 205 243 / 0.28); }
+.warlock-support-channel > span { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgb(145 205 243 / 0.14); border-radius: 9px; color: #91cef2; background: rgb(73 155 207 / 0.05); }
+.warlock-support-channel > div { display: grid; gap: 6px; }
+.warlock-support-channel strong { color: #e2f1f9; font: 500 12px/1 Oswald, sans-serif; letter-spacing: 0.1em; }
+.warlock-support-channel small { color: #72899a; font-size: 10px; line-height: 1.45; }
+.warlock-support-channel > svg { color: #5f788a; }
+
+.warlock-contact-layout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; width: min(1200px, calc(100% - 48px)); margin: 22px auto 0; }
+.warlock-contact-form-wrap { padding: 24px; border-radius: 14px; }
+.warlock-contact-form { display: grid; gap: 14px; margin-top: 24px; }
+.warlock-contact-form label { display: grid; gap: 7px; }
+.warlock-contact-form label > span { color: #718b9c; font-size: 9px; letter-spacing: 0.12em; }
+.warlock-contact-form input,
+.warlock-contact-form select { min-height: 44px; padding: 0 12px; }
+.warlock-contact-form textarea { min-height: 150px; padding: 12px; resize: vertical; }
+.warlock-contact-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.warlock-contact-form .warlock-button { width: fit-content; }
+.warlock-support-side { display: grid; gap: 12px; align-content: start; }
+.warlock-support-side article { display: flex; gap: 12px; padding: 16px; border-radius: 12px; }
+.warlock-support-side article > svg { flex: 0 0 auto; color: #8fd0f5; }
+.warlock-support-side article div { display: grid; gap: 5px; }
+.warlock-support-side strong { color: #d9ebf5; font-size: 10px; letter-spacing: 0.09em; }
+.warlock-support-side span { color: #758d9e; font-size: 10px; line-height: 1.5; }
+
+.warlock-faq-section { position: relative; z-index: 1; width: min(1200px, calc(100% - 48px)); margin: 42px auto 0; padding-bottom: 70px; }
+.warlock-faq-list { display: grid; gap: 8px; margin-top: 18px; }
+.warlock-faq-list button { width: 100%; padding: 16px 18px; border-radius: 10px; text-align: left; color: #cfe0e9; }
+.warlock-faq-list button > div { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.warlock-faq-list strong { font-size: 11px; letter-spacing: 0.03em; }
+.warlock-faq-list p { margin: 12px 0 0; color: #7f97a8; font-size: 11px; line-height: 1.6; }
+.warlock-faq-list button.is-open { border-color: rgb(145 205 243 / 0.3); }
+.warlock-faq-list button.is-open svg { transform: rotate(180deg); }
+
+.warlock-button:disabled { cursor: not-allowed !important; opacity: 0.45; }
+.warlock-button-quiet { border: 0; color: #7892a4; background: transparent; }
+
+@media (max-width: 1180px) {
+  .warlock-generator-shell { grid-template-columns: 190px minmax(0, 1fr); }
+  .warlock-farnaz-rail { grid-column: 1 / 3; position: static; grid-template-columns: 1fr 1fr; }
+  .warlock-plan-grid { grid-template-columns: repeat(3, 1fr); }
+  .warlock-support-channel-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 820px) {
+  .warlock-app-header { grid-template-columns: 1fr auto; min-height: 64px; padding: 0 16px; }
+  .warlock-app-header nav { display: none; }
+  .warlock-generator-shell { display: block; width: min(100% - 24px, 760px); margin-top: 14px; }
+  .warlock-generator-steps { position: static; display: flex; gap: 7px; overflow-x: auto; margin-bottom: 12px; padding: 9px; }
+  .warlock-generator-steps > p { display: none; }
+  .warlock-generator-steps > button { flex: 0 0 auto; grid-template-columns: 28px auto; min-height: 48px; width: auto; }
+  .warlock-generator-steps > button div small,
+  .warlock-generator-steps > button > svg { display: none; }
+  .warlock-generator-main { min-height: 0; padding: 18px; }
+  .warlock-farnaz-rail { position: static; display: grid; grid-template-columns: 1fr; margin-top: 12px; }
+  .warlock-sound-controls,
+  .warlock-skin-grid,
+  .warlock-preview-card,
+  .warlock-contact-layout,
+  .warlock-contact-two { grid-template-columns: 1fr; }
+  .warlock-preview-emblem { min-height: 190px; }
+  .warlock-simple-hero { width: min(100% - 28px, 720px); margin-top: 42px; }
+  .warlock-simple-hero h1 { font-size: clamp(42px, 14vw, 72px); }
+  .warlock-plan-grid { grid-template-columns: 1fr 1fr; width: min(100% - 28px, 720px); }
+  .warlock-pricing-rules { grid-template-columns: 1fr 1fr; width: min(100% - 28px, 720px); }
+  .warlock-pricing-cta { width: min(100% - 28px, 720px); }
+  .warlock-support-channel-grid,
+  .warlock-contact-layout,
+  .warlock-faq-section { width: min(100% - 28px, 720px); }
+}
+
+@media (max-width: 560px) {
+  .warlock-app-brand small { display: none; }
+  .warlock-app-mode button { min-width: 48px; }
+  .warlock-generator-titlebar h1 { font-size: 26px; }
+  .warlock-preview-pill { display: none; }
+  .warlock-generator-actions-row { display: grid; grid-template-columns: 1fr; }
+  .warlock-generator-actions-row .warlock-button { justify-content: center; }
+  .warlock-plan-grid,
+  .warlock-pricing-rules,
+  .warlock-support-channel-grid { grid-template-columns: 1fr; }
+  .warlock-plan-card { min-height: 0; }
+  .warlock-pricing-cta { display: grid; }
+  .warlock-pricing-cta .warlock-button { justify-content: center; }
+  .warlock-preview-summary dl { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .warlock-page-enter { animation: none; }
+  .warlock-generator-steps > button.is-active,
+  .warlock-support-channel:hover,
+  .warlock-skin-grid > button:hover { transform: none; }
+}

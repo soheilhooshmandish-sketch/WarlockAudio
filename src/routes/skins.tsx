@@ -1,90 +1,72 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  BadgeCheck,
-  ImageOff,
-  Layers3,
-  LockKeyhole,
-  ShieldCheck,
-  SwatchBook,
-} from "lucide-react";
-import { skinUploadPolicy, skins } from "@/lib/assets/catalog";
+import { ArrowLeft, ArrowRight, Check, Image as ImageIcon, LockKeyhole, Palette, ShieldCheck, Sparkles, Type } from "lucide-react";
 import { SiteHeader } from "@/components/warlock/site-header";
-import "../warlock-catalog.css";
-import "../warlock-assets.css";
 
 export const Route = createFileRoute("/skins")({ component: SkinsPage });
 
-const rules = [
-  {
-    title: "MASTER GEOMETRY LOCKED",
-    copy: "A product skin may change material, color and surface treatment. It may not redraw, stretch or replace the canonical WARLOCK mark.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "DSP STAYS SEPARATE",
-    copy: "Skin identity is independent from DSP/state so visual packs cannot silently alter parameters, automation or saved projects.",
-    icon: Layers3,
-  },
-  {
-    title: "BOUNDED PERSONALIZATION",
-    copy: "Future custom image, text and band-branding slots must stay inside approved regions and preserve control readability.",
-    icon: SwatchBook,
-  },
+const skins = [
+  { name: "BLACK FROST", realm: "frost", material: "FROZEN STEEL / BLACK GLASS", note: "Ice material, restrained white-blue emission and cold reflective edges." },
+  { name: "ALIEN", realm: "alien", material: "BIOMECHANICAL METAL", note: "Organic machine structure, dark metal cavities and hostile internal light." },
+  { name: "ABYSS", realm: "abyss", material: "DEEP GLASS / OCEANIC STEEL", note: "Smoked glass, submerged depth and controlled cold-blue atmosphere." },
+  { name: "THALL", realm: "thall", material: "FRACTURED INDUSTRIAL STEEL", note: "Heavy machined surfaces, impact geometry and minimal aggressive light." },
+  { name: "VOID", realm: "void", material: "COSMIC BLACK / OPTICAL GLASS", note: "Black spatial surfaces, restrained edge light and dimensional depth." },
+  { name: "CUSTOM PRO", realm: "custom", material: "SAFE USER BRANDING SLOTS", note: "Approved image, vector, logo, text and compatible material customization." },
 ];
 
 function SkinsPage() {
   return (
-    <main className="wc-page wa-page">
-      <SiteHeader active="/skins" />
+    <main className="warlock-app-page warlock-page-enter">
+      <SiteHeader section="SKINS" active="/skins" />
 
-      <section className="wc-hero wa-hero">
-        <Link to="/" className="wc-back"><ArrowLeft size={15} /> HOME</Link>
-        <p>WARLOCK SKIN SYSTEM</p>
-        <h1>One symbol. Many realms. No broken controls.</h1>
-        <span>
-          Skins are a separate visual asset layer. The commercial skin catalog and custom-upload pipeline remain locked until sanitization, compatibility and delivery are proven end to end.
-        </span>
+      <section className="warlock-simple-hero">
+        <Link to="/" className="warlock-backlink"><ArrowLeft size={15} /> BACK TO WARLOCK</Link>
+        <p className="warlock-app-kicker">VISUAL DNA LIBRARY</p>
+        <h1>ONE MASTER IDENTITY.<br /><span>MANY PRODUCT REALMS.</span></h1>
+        <p>The WARLOCK emblem never changes geometry. Skins change approved material, environment, surface treatment and bounded user-branding slots without damaging usability.</p>
       </section>
 
-      <section className="wa-contract-grid" aria-label="Skin system contract">
-        {rules.map(({ title, copy, icon: Icon }) => (
-          <article key={title}>
-            <Icon size={22} aria-hidden="true" />
-            <p>{title}</p>
-            <span>{copy}</span>
+      <section className="warlock-skin-library">
+        {skins.map((skin, index) => (
+          <article className="warlock-skin-card" data-realm={skin.realm} key={skin.name}>
+            <div className="warlock-skin-visual">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <img src="/brand/warlock-emblem.svg" alt="" />
+              <div className="warlock-skin-material" />
+            </div>
+            <div className="warlock-skin-copy">
+              <p>WARLOCK SKIN DNA</p>
+              <h2>{skin.name}</h2>
+              <small>{skin.material}</small>
+              <span>{skin.note}</span>
+              <div className="warlock-skin-rules">
+                <div><Check size={14} /> Fixed master logo geometry</div>
+                <div><Check size={14} /> Protected control zones</div>
+                <div><Check size={14} /> Responsive-safe layout</div>
+              </div>
+              <button className="warlock-button warlock-button-secondary" disabled>APPLY FLOW NEXT</button>
+            </div>
           </article>
         ))}
       </section>
 
-      <section className="wa-policy-grid">
-        <article>
-          <ImageOff size={22} aria-hidden="true" />
-          <p>UPLOAD SAFETY</p>
-          <h2>Fail closed until sanitization is explicit.</h2>
-          <span>
-            Raster uploads are intended to be bounded by type and size. SVG is currently rejected because scriptable/external-reference content is not accepted without a dedicated sanitizer.
-          </span>
-          <dl>
-            <div><dt>MAX FILE</dt><dd>{Math.round(skinUploadPolicy.maxBytes / 1024 / 1024)} MB</dd></div>
-            <div><dt>SVG</dt><dd>BLOCKED</dd></div>
-            <div><dt>EXECUTABLE CONTENT</dt><dd>BLOCKED</dd></div>
-          </dl>
-        </article>
-        <article>
-          <LockKeyhole size={22} aria-hidden="true" />
-          <p>PUBLIC CATALOG</p>
-          <h2>{skins.length === 0 ? "No commercial skins published yet." : `${skins.length} skins available.`}</h2>
-          <span>
-            A skin appears here only after product compatibility, minimum product version, brand geometry version and exact content identity are known.
-          </span>
-        </article>
+      <section className="warlock-custom-skin">
+        <div className="warlock-custom-skin-copy">
+          <p className="warlock-app-kicker">CUSTOM — PRO</p>
+          <h2>Personalize without breaking the instrument.</h2>
+          <span>Customer media is only placed into bounded safe slots. Uploaded artwork never gets direct executable access to Factory builds.</span>
+        </div>
+        <div className="warlock-custom-tools">
+          <article><ImageIcon size={20} /><div><strong>IMAGE / VECTOR</strong><span>Upload artwork into approved display regions.</span></div></article>
+          <article><Type size={20} /><div><strong>TEXT</strong><span>Add band/product text inside protected typography zones.</span></div></article>
+          <article><Palette size={20} /><div><strong>COLOR / MATERIAL</strong><span>Choose compatible material and emission treatments.</span></div></article>
+          <article><LockKeyhole size={20} /><div><strong>SAFE SLOTS</strong><span>Identity, interaction and accessibility remain protected.</span></div></article>
+        </div>
       </section>
 
-      <section className="wa-ready-strip">
-        <div><BadgeCheck size={17} /><span>BRAND GEOMETRY</span></div>
-        <div><Layers3 size={17} /><span>DSP / SKIN SEPARATION</span></div>
-        <div><ShieldCheck size={17} /><span>UPLOAD POLICY</span></div>
+      <section className="warlock-skin-proof">
+        <article><ShieldCheck size={20} /><div><strong>NO GENERATED SUBSTITUTE LOGOS</strong><span>If the canonical asset fails, WARLOCK falls back to text-only identity rather than inventing a new mark.</span></div></article>
+        <article><Sparkles size={20} /><div><strong>2–3 STRONG VARIANTS</strong><span>Factory should present a small curated set, not dozens of random low-quality outputs.</span></div></article>
+        <Link to="/generate" className="warlock-button warlock-button-primary">OPEN GENERATOR <ArrowRight size={16} /></Link>
       </section>
     </main>
   );

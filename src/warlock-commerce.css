@@ -1,0 +1,255 @@
+.warlock-preset-grid,
+.warlock-skin-library {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: min(1320px, calc(100% - 48px));
+  margin: 48px auto 0;
+}
+
+.warlock-preset-card,
+.warlock-skin-card {
+  overflow: hidden;
+  border: 1px solid rgb(145 205 243 / 0.14);
+  border-radius: 15px;
+  background: linear-gradient(180deg, rgb(12 29 44 / 0.92), rgb(6 17 27 / 0.96));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.025), 0 18px 52px rgb(0 0 0 / 0.13);
+}
+
+.warlock-preset-art,
+.warlock-skin-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 210px;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(145 205 243 / 0.1);
+  background:
+    radial-gradient(circle at 50% 44%, rgb(106 198 251 / 0.15), transparent 34%),
+    linear-gradient(180deg, rgb(9 24 37 / 0.82), rgb(4 13 21 / 0.92));
+}
+
+.warlock-preset-card[data-realm="doom"] .warlock-preset-art,
+.warlock-preset-card[data-realm="thall"] .warlock-preset-art,
+.warlock-preset-card[data-realm="fracture"] .warlock-preset-art,
+.warlock-skin-card[data-realm="thall"] .warlock-skin-visual {
+  background:
+    radial-gradient(circle at 50% 44%, rgb(162 83 70 / 0.12), transparent 34%),
+    linear-gradient(180deg, rgb(18 24 31 / 0.82), rgb(6 13 20 / 0.94));
+}
+
+.warlock-preset-card[data-realm="alien"] .warlock-preset-art,
+.warlock-skin-card[data-realm="alien"] .warlock-skin-visual {
+  background:
+    radial-gradient(circle at 50% 44%, rgb(72 167 143 / 0.12), transparent 34%),
+    linear-gradient(180deg, rgb(9 27 30 / 0.85), rgb(5 14 19 / 0.94));
+}
+
+.warlock-skin-card[data-realm="custom"] .warlock-skin-visual {
+  background:
+    radial-gradient(circle at 50% 44%, rgb(154 193 218 / 0.11), transparent 34%),
+    linear-gradient(180deg, rgb(15 27 38 / 0.85), rgb(6 14 21 / 0.94));
+}
+
+.warlock-preset-art img,
+.warlock-skin-visual img {
+  position: relative;
+  z-index: 2;
+  width: 74px;
+  max-height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgb(112 201 252 / 0.13));
+}
+
+.warlock-preset-art > span,
+.warlock-skin-visual > span {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: #55768b;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.warlock-skin-material {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 1px solid rgb(148 211 249 / 0.09);
+  border-radius: 50%;
+  box-shadow:
+    0 0 52px rgb(104 194 248 / 0.06),
+    inset 0 0 42px rgb(104 194 248 / 0.035);
+}
+
+.warlock-preset-copy,
+.warlock-skin-copy {
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  padding: 20px;
+}
+
+.warlock-preset-copy > p,
+.warlock-skin-copy > p {
+  margin: 0;
+  color: #7daac6;
+  font-size: 8px;
+  letter-spacing: 0.17em;
+}
+
+.warlock-preset-copy h2,
+.warlock-skin-copy h2 {
+  margin: 12px 0 4px;
+  color: #edf8ff;
+  font: 500 24px/1 Oswald, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.warlock-preset-copy > small,
+.warlock-skin-copy > small {
+  color: #8ec9eb;
+  font-size: 9px;
+  letter-spacing: 0.13em;
+}
+
+.warlock-preset-copy > span,
+.warlock-skin-copy > span {
+  margin-top: 16px;
+  color: #8098a9;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.warlock-preset-copy ul,
+.warlock-skin-rules {
+  display: grid;
+  gap: 9px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.warlock-preset-copy li,
+.warlock-skin-rules > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #93a9b8;
+  font-size: 10px;
+}
+
+.warlock-preset-copy li svg,
+.warlock-skin-rules svg { color: #91d0f4; }
+
+.warlock-preset-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.warlock-skin-copy .warlock-button {
+  width: fit-content;
+  margin-top: auto;
+}
+
+.warlock-preset-system,
+.warlock-skin-proof {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  width: min(1320px, calc(100% - 48px));
+  margin: 22px auto 70px;
+  padding: 20px;
+  border: 1px solid rgb(145 205 243 / 0.12);
+  border-radius: 14px;
+  background: rgb(7 20 31 / 0.72);
+}
+
+.warlock-preset-system article,
+.warlock-skin-proof article {
+  display: flex;
+  gap: 11px;
+}
+
+.warlock-preset-system article > svg,
+.warlock-skin-proof article > svg { color: #8fd0f5; flex: 0 0 auto; }
+
+.warlock-preset-system article div,
+.warlock-skin-proof article div { display: grid; gap: 4px; }
+
+.warlock-preset-system strong,
+.warlock-skin-proof strong { color: #dcecf5; font-size: 9px; letter-spacing: 0.09em; }
+.warlock-preset-system span,
+.warlock-skin-proof span { color: #738b9b; font-size: 10px; line-height: 1.45; }
+
+.warlock-custom-skin {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
+  width: min(1320px, calc(100% - 48px));
+  margin: 24px auto 0;
+  padding: 28px;
+  border: 1px solid rgb(145 205 243 / 0.13);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 8% 20%, rgb(107 196 248 / 0.08), transparent 28%),
+    linear-gradient(180deg, rgb(11 28 43 / 0.9), rgb(6 17 27 / 0.94));
+}
+
+.warlock-custom-skin-copy h2 {
+  margin: 12px 0 8px;
+  font: 500 28px/1.08 Oswald, sans-serif;
+}
+
+.warlock-custom-skin-copy > span {
+  color: #8199aa;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.warlock-custom-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.warlock-custom-tools article {
+  display: flex;
+  gap: 11px;
+  padding: 14px;
+  border: 1px solid rgb(145 205 243 / 0.1);
+  border-radius: 10px;
+  background: rgb(3 13 22 / 0.38);
+}
+
+.warlock-custom-tools article > svg { color: #91d0f4; flex: 0 0 auto; }
+.warlock-custom-tools article div { display: grid; gap: 4px; }
+.warlock-custom-tools strong { color: #dcecf5; font-size: 9px; letter-spacing: 0.09em; }
+.warlock-custom-tools span { color: #738b9b; font-size: 10px; line-height: 1.45; }
+
+.warlock-skin-proof { grid-template-columns: 1fr 1fr auto; }
+
+@media (max-width: 1050px) {
+  .warlock-preset-grid,
+  .warlock-skin-library { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .warlock-preset-system { grid-template-columns: 1fr 1fr; }
+  .warlock-skin-proof { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .warlock-preset-grid,
+  .warlock-skin-library,
+  .warlock-custom-skin { width: min(100% - 28px, 720px); grid-template-columns: 1fr; }
+  .warlock-preset-system,
+  .warlock-skin-proof { width: min(100% - 28px, 720px); grid-template-columns: 1fr; }
+  .warlock-custom-tools { grid-template-columns: 1fr; }
+}
