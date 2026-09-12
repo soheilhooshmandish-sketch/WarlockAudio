@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { resolveFactoryIntakePolicy } from "./intake-policy";
 
 const requestSchema = z.object({
   prompt: z.string().trim().min(12).max(2000),
@@ -34,77 +35,51 @@ type FailureCode =
   | "factory_unavailable"
   | "invalid_factory_response";
 
-type GatewayConfig = {
-  baseUrl: string;
-  local: boolean;
-};
-
 function failure(code: FailureCode, message: string) {
   return { ok: false as const, code, message };
 }
 
-function publicIntakeEnabled(): boolean {
-  return (
-    (process.env.WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED ?? "")
-      .trim()
-      .toLowerCase() === "true"
-  );
-}
-
-function gatewayConfig(): GatewayConfig | null {
-  const raw = (process.env.WARLOCK_FACTORY_GATEWAY_URL ?? "").trim();
-  if (!raw) return null;
-  try {
-    const parsed = new URL(raw);
-    const local = ["127.0.0.1", "localhost"].includes(parsed.hostname);
-    const localHttp = parsed.protocol === "http:" && local;
-    if (parsed.protocol !== "https:" && !localHttp) return null;
-    return {
-      baseUrl: parsed.toString().replace(/\/$/, ""),
-      local,
-    };
-  } catch {
-    return null;
+function policyFailureMessage(
+  reason:
+    | "disabled"
+    | "invalid_gateway"
+    | "missing_intake_token"
+    | "missing_cloudflare_access",
+): string {
+  if (reason === "disabled") {
+    return "Factory intake is not enabled for public use.";
   }
+  if (reason === "missing_cloudflare_access") {
+    return "Factory gateway service authentication is not configured.";
+  }
+  return "Factory intake is not connected in this environment.";
 }
 
 export const submitFactoryIntake = createServerFn({ method: "POST" })
   .validator((input: unknown) => requestSchema.parse(input))
   .handler(async ({ data }) => {
-    if (!publicIntakeEnabled()) {
-      return failure(
-        "not_configured",
-        "Factory intake is not enabled for public use.",
-      );
+    const policy = resolveFactoryIntakePolicy({
+      WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED:
+        process.env.WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED,
+      WARLOCK_FACTORY_GATEWAY_URL: process.env.WARLOCK_FACTORY_GATEWAY_URL,
+      WARLOCK_FACTORY_INTAKE_TOKEN: process.env.WARLOCK_FACTORY_INTAKE_TOKEN,
+      WARLOCK_CF_ACCESS_CLIENT_ID: process.env.WARLOCK_CF_ACCESS_CLIENT_ID,
+      WARLOCK_CF_ACCESS_CLIENT_SECRET:
+        process.env.WARLOCK_CF_ACCESS_CLIENT_SECRET,
+    });
+
+    if (!policy.ok) {
+      return failure("not_configured", policyFailureMessage(policy.reason));
     }
 
-    const gateway = gatewayConfig();
-    const intakeToken = (process.env.WARLOCK_FACTORY_INTAKE_TOKEN ?? "").trim();
-    if (!gateway || !intakeToken) {
-      return failure(
-        "not_configured",
-        "Factory intake is not connected in this environment.",
-      );
-    }
-
-    const cfClientId = (process.env.WARLOCK_CF_ACCESS_CLIENT_ID ?? "").trim();
-    const cfClientSecret = (
-      process.env.WARLOCK_CF_ACCESS_CLIENT_SECRET ?? ""
-    ).trim();
-    if (!gateway.local && (!cfClientId || !cfClientSecret)) {
-      return failure(
-        "not_configured",
-        "Factory gateway service authentication is not configured.",
-      );
-    }
-
+    const gateway = policy.config;
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      "X-Warlock-Intake-Token": intakeToken,
+      "X-Warlock-Intake-Token": gateway.intakeToken,
     };
-    if (cfClientId && cfClientSecret) {
-      headers["CF-Access-Client-Id"] = cfClientId;
-      headers["CF-Access-Client-Secret"] = cfClientSecret;
+    if (gateway.cfClientId && gateway.cfClientSecret) {
+      headers["CF-Access-Client-Id"] = gateway.cfClientId;
+      headers["CF-Access-Client-Secret"] = gateway.cfClientSecret;
     }
 
     let response: Response;
