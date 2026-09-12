@@ -1,4 +1,5 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
@@ -6,6 +7,43 @@ import warlockHomeCss from "../warlock-home.css?url";
 import warlockPagesCss from "../warlock-pages.css?url";
 
 const APP_NAME = "WARLOCK PLUGINS — Sound Beyond Reality";
+
+type TimeAtmosphere = "morning" | "day" | "dusk" | "night";
+
+function getTimeAtmosphere(): TimeAtmosphere {
+  const hour = new Date().getHours();
+  if (hour >= 6 && hour < 10) return "morning";
+  if (hour >= 10 && hour < 17) return "day";
+  if (hour >= 17 && hour < 21) return "dusk";
+  return "night";
+}
+
+function RootDocument() {
+  useEffect(() => {
+    const applyAtmosphere = () => {
+      document.documentElement.dataset.warlockTime = getTimeAtmosphere();
+    };
+
+    applyAtmosphere();
+    const interval = window.setInterval(applyAtmosphere, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <html lang="en" className="antialiased" suppressHydrationWarning>
+      <head>
+        <HeadContent />
+      </head>
+      <body className="bg-void text-bone">
+        <PreviewHostBridge />
+        <AuthProvider>
+          <Outlet />
+        </AuthProvider>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export const Route = createRootRoute({
   head: () => ({
@@ -35,18 +73,5 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  component: () => (
-    <html lang="en" className="antialiased" suppressHydrationWarning>
-      <head>
-        <HeadContent />
-      </head>
-      <body className="bg-void text-bone">
-        <PreviewHostBridge />
-        <AuthProvider>
-          <Outlet />
-        </AuthProvider>
-        <Scripts />
-      </body>
-    </html>
-  ),
+  component: RootDocument,
 });
