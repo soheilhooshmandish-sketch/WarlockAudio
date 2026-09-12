@@ -33,7 +33,7 @@ jobs:
           fi
       - name: Typecheck
         run: npm run typecheck
-      - name: Test platform and Factory intake contracts
+      - name: Test platform, Factory and asset contracts
         shell: bash
         run: |
           set -euo pipefail
@@ -50,6 +50,7 @@ jobs:
           node --experimental-strip-types --test \
             "$REPO/src/lib/app-data/app-data.test.ts" \
             "$REPO/src/lib/auth/gate-identity.test.ts" \
-            "$REPO/src/lib/factory/intake-policy.test.ts"
+            "$REPO/src/lib/factory/intake-policy.test.ts" \
+            "$REPO/src/lib/assets/catalog.test.ts"
       - name: Build website
         run: npm run build:dev
