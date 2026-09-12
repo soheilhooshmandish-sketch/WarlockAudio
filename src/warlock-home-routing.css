@@ -74,3 +74,45 @@
   border-color: var(--warlock-subtle);
   background: var(--warlock-raised);
 }
+
+.warlock-sign-in {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.warlock-market-strip a {
+  min-height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--warlock-line);
+  color: var(--warlock-muted);
+  font-family: var(--warlock-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-decoration: none;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.warlock-market-strip a:last-child {
+  border-right: 0;
+}
+
+.warlock-market-strip a:hover,
+.warlock-market-strip a:focus-visible {
+  color: var(--warlock-fg);
+  background: var(--warlock-raised);
+}
+
+@media (max-width: 760px) {
+  .warlock-market-strip a:nth-child(2) {
+    border-right: 0;
+  }
+
+  .warlock-market-strip a:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--warlock-line);
+  }
+}
