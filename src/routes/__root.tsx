@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Warlock Chainsaw Distortion";
+const APP_NAME = "WARLOCK PLUGINS";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -14,9 +14,9 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Warlock Chainsaw Distortion 1.1.0 by Nihil Audio — input gate, asym/sym diodes, 4×12 cab IR.",
+          "WARLOCK PLUGINS builds professional audio software through a proof-driven VST3 production pipeline.",
       },
-      { name: "theme-color", content: "#030201" },
+      { name: "theme-color", content: "#050505" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -27,7 +27,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=IM+Fell+English&family=UnifrakturMaguntia&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap",
       },
     ],
   }),
