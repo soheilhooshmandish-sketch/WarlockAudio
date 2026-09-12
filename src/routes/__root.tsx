@@ -3,6 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 import warlockHomeCss from "../warlock-home.css?url";
+import warlockPagesCss from "../warlock-pages.css?url";
 
 const APP_NAME = "WARLOCK PLUGINS — Sound Beyond Reality";
 
@@ -23,6 +24,7 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/svg+xml", href: "/brand/warlock-core.svg" },
       { rel: "stylesheet", href: appCss },
       { rel: "stylesheet", href: warlockHomeCss },
+      { rel: "stylesheet", href: warlockPagesCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
