@@ -1,0 +1,51 @@
+.warlock-product-link {
+  width: fit-content;
+  margin-top: 1.25rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--warlock-fg);
+  font-family: var(--warlock-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.warlock-product-link svg {
+  transition: transform 180ms ease;
+}
+
+.warlock-product-link:hover svg,
+.warlock-product-link:focus-visible svg {
+  transform: translateX(3px);
+}
+
+.warlock-section-action {
+  margin-top: 2.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.warlock-section-action a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 1rem;
+  border: 1px solid var(--warlock-line);
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--warlock-fg);
+  font-family: var(--warlock-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.warlock-section-action a:hover,
+.warlock-section-action a:focus-visible {
+  border-color: var(--warlock-subtle);
+  background: var(--warlock-raised);
+}
