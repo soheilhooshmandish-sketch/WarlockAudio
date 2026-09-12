@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologyRouteImport } from './routes/technology'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as SkinsRouteImport } from './routes/skins'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
+import { Route as PresetsRouteImport } from './routes/presets'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as HowtoRouteImport } from './routes/howto'
 import { Route as GenerateRouteImport } from './routes/generate'
@@ -33,6 +35,11 @@ const SupportRoute = SupportRouteImport.update({
   path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SkinsRoute = SkinsRouteImport.update({
+  id: '/skins',
+  path: '/skins',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -41,6 +48,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const ProductsSlugRoute = ProductsSlugRouteImport.update({
   id: '/products_/$slug',
   path: '/products/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresetsRoute = PresetsRouteImport.update({
+  id: '/presets',
+  path: '/presets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -63,9 +75,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/skins': typeof SkinsRoute
   '/support': typeof SupportRoute
   '/technology': typeof TechnologyRoute
 }
@@ -73,9 +87,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/skins': typeof SkinsRoute
   '/support': typeof SupportRoute
   '/technology': typeof TechnologyRoute
 }
@@ -84,27 +100,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
   '/products_/$slug': typeof ProductsSlugRoute
+  '/skins': typeof SkinsRoute
   '/support': typeof SupportRoute
   '/technology': typeof TechnologyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products/$slug' | '/support' | '/technology'
+  fullPaths: '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products/$slug' | '/support' | '/technology'
-  id: '__root__' | '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products_/$slug' | '/support' | '/technology'
+  to: '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
+  id: '__root__' | '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/products_/$slug' | '/skins' | '/support' | '/technology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GenerateRoute: typeof GenerateRoute
   HowtoRoute: typeof HowtoRoute
+  PresetsRoute: typeof PresetsRoute
   PricingRoute: typeof PricingRoute
   ProductsRoute: typeof ProductsRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
+  SkinsRoute: typeof SkinsRoute
   SupportRoute: typeof SupportRoute
   TechnologyRoute: typeof TechnologyRoute
 }
@@ -132,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowtoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/presets': {
+      id: '/presets'
+      path: '/presets'
+      fullPath: '/presets'
+      preLoaderRoute: typeof PresetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -151,6 +178,13 @@ declare module '@tanstack/react-router' {
       path: '/products/$slug'
       fullPath: '/products/$slug'
       preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skins': {
+      id: '/skins'
+      path: '/skins'
+      fullPath: '/skins'
+      preLoaderRoute: typeof SkinsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/support': {
@@ -174,9 +208,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GenerateRoute: GenerateRoute,
   HowtoRoute: HowtoRoute,
+  PresetsRoute: PresetsRoute,
   PricingRoute: PricingRoute,
   ProductsRoute: ProductsRoute,
   ProductsSlugRoute: ProductsSlugRoute,
+  SkinsRoute: SkinsRoute,
   SupportRoute: SupportRoute,
   TechnologyRoute: TechnologyRoute,
 }
