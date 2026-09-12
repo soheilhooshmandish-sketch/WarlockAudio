@@ -26,7 +26,10 @@ function hasGlobbedMigrations(root: string): boolean {
  * default build output; Cloudflare Pages is enabled only when requested by the
  * controlled preview workflow.
  */
-function deploymentPreset(): "vercel" | "cloudflare_pages" {
+function deploymentPreset(): "vercel" | "cloudflare_pages" | "cloudflare_module" {
+  if (process.env.NITRO_PRESET === "cloudflare_module") {
+    return "cloudflare_module";
+  }
   return process.env.NITRO_PRESET === "cloudflare_pages"
     ? "cloudflare_pages"
     : "vercel";
