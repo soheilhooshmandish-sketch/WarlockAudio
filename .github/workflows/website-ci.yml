@@ -10,6 +10,7 @@ on:
       - "tsconfig.json"
       - "vite.config.ts"
       - ".github/workflows/website-ci.yml"
+      - ".github/workflows/cloudflare-preview.yml"
   workflow_dispatch:
 
 jobs:
@@ -55,5 +56,18 @@ jobs:
             "$REPO/src/lib/account/model.test.ts" \
             "$REPO/src/lib/health/public-health.test.ts" \
             "$REPO/src/lib/commerce/sandbox.test.ts"
-      - name: Build website
+      - name: Build default website target
         run: npm run build:dev
+      - name: Build Cloudflare Pages preview target
+        env:
+          NITRO_PRESET: cloudflare_pages
+          VITE_AUTH_ENABLED: "false"
+          WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED: "false"
+        run: npm run build:dev
+      - name: Verify Cloudflare Pages server output
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f dist/_worker.js/index.js
+          test -f dist/_routes.json
+          echo "Cloudflare Pages Nitro output verified."
