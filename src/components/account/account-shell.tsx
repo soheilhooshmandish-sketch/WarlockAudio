@@ -6,8 +6,8 @@ import {
   Hammer,
   KeyRound,
   LockKeyhole,
-  PackageOpen,
   ShieldCheck,
+  type LucideIcon,
 } from "lucide-react";
 import { RedirectToSignIn } from "@/lib/auth/gates";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
@@ -20,8 +20,14 @@ import {
 import "../../warlock-account.css";
 
 export type AccountSection = "overview" | "products" | "builds" | "licenses" | "billing";
+type AccountPath =
+  | "/account"
+  | "/account/products"
+  | "/account/builds"
+  | "/account/licenses"
+  | "/account/billing";
 
-const nav: Array<{ section: AccountSection; label: string; to: string }> = [
+const nav: Array<{ section: AccountSection; label: string; to: AccountPath }> = [
   { section: "overview", label: "OVERVIEW", to: "/account" },
   { section: "products", label: "MY PRODUCTS", to: "/account/products" },
   { section: "builds", label: "MY BUILDS", to: "/account/builds" },
@@ -29,7 +35,7 @@ const nav: Array<{ section: AccountSection; label: string; to: string }> = [
   { section: "billing", label: "BILLING", to: "/account/billing" },
 ];
 
-function EmptyState({ icon: Icon, title, copy }: { icon: typeof PackageOpen; title: string; copy: string }) {
+function EmptyState({ icon: Icon, title, copy }: { icon: LucideIcon; title: string; copy: string }) {
   return (
     <div className="wa-account-empty">
       <Icon size={25} aria-hidden="true" />
@@ -40,22 +46,16 @@ function EmptyState({ icon: Icon, title, copy }: { icon: typeof PackageOpen; tit
 }
 
 function SectionContent({ section }: { section: AccountSection }) {
-  if (section === "products") {
-    if (accountProducts.length === 0) {
-      return <EmptyState icon={Box} title="No account-bound products yet." copy="A product will appear here only after a real account entitlement is connected to an exact product/version artifact." />;
-    }
+  if (section === "products" && accountProducts.length === 0) {
+    return <EmptyState icon={Box} title="No account-bound products yet." copy="A product will appear here only after a real account entitlement is connected to an exact product/version artifact." />;
   }
 
-  if (section === "builds") {
-    if (accountBuilds.length === 0) {
-      return <EmptyState icon={Hammer} title="No account-bound builds yet." copy="Factory intake is being connected, but staged requests are not fabricated into customer build history." />;
-    }
+  if (section === "builds" && accountBuilds.length === 0) {
+    return <EmptyState icon={Hammer} title="No account-bound builds yet." copy="Factory intake is being connected, but staged requests are not fabricated into customer build history." />;
   }
 
-  if (section === "licenses") {
-    if (accountLicenses.length === 0) {
-      return <EmptyState icon={KeyRound} title="No licenses issued yet." copy="The account UI will show activation and device state only after real license issuance and enforcement are connected." />;
-    }
+  if (section === "licenses" && accountLicenses.length === 0) {
+    return <EmptyState icon={KeyRound} title="No licenses issued yet." copy="The account UI will show activation and device state only after real license issuance and enforcement are connected." />;
   }
 
   if (section === "billing") {
