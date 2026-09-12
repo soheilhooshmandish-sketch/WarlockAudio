@@ -22,6 +22,17 @@ function hasGlobbedMigrations(root: string): boolean {
 }
 
 /**
+ * Keep deployment targets explicit and bounded. Vercel remains the historical
+ * default build output; Cloudflare Pages is enabled only when requested by the
+ * controlled preview workflow.
+ */
+function deploymentPreset(): "vercel" | "cloudflare_pages" {
+  return process.env.NITRO_PRESET === "cloudflare_pages"
+    ? "cloudflare_pages"
+    : "vercel";
+}
+
+/**
  * Finish PGLite bootstrap during dev-server setup (before traffic). Vite awaits
  * async `configureServer` hooks. Production: `src/lib/db` kicks `ensureDbReady`
  * on import.
@@ -170,7 +181,7 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: "vercel",
+            preset: deploymentPreset(),
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.

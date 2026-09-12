@@ -1,0 +1,109 @@
+name: WARLOCK Cloudflare Preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: Existing Cloudflare Pages preview project (must end with -preview)
+        required: true
+        default: warlock-audio-preview
+      preview_label:
+        description: Optional preview branch label
+        required: false
+        default: manual
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    name: Build and deploy preview only
+    runs-on: ubuntu-latest
+    environment: preview
+    env:
+      NITRO_PRESET: cloudflare_pages
+      VITE_AUTH_ENABLED: "false"
+      WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED: "false"
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Enforce preview-only target
+        shell: bash
+        env:
+          PROJECT_NAME: ${{ inputs.project_name }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$PROJECT_NAME" =~ -preview$ ]]; then
+            echo "::error::Cloudflare project must end with -preview. Production projects are blocked."
+            exit 1
+          fi
+          if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+            echo "::error::Cloudflare preview credentials are not configured in GitHub secrets."
+            exit 1
+          fi
+
+      - name: Install exact locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Verify lockfile stayed immutable
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- package-lock.json
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build Cloudflare Pages target
+        run: npm run build:dev
+
+      - name: Verify fail-closed Cloudflare output
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f dist/_worker.js/index.js
+          test -f dist/_routes.json
+          if grep -R --binary-files=without-match -n "WARLOCK_FACTORY_INTAKE_TOKEN" dist/assets 2>/dev/null; then
+            echo "::error::Factory secret identifier leaked into browser assets."
+            exit 1
+          fi
+
+      - name: Deploy isolated Cloudflare preview
+        shell: bash
+        env:
+          PROJECT_NAME: ${{ inputs.project_name }}
+          PREVIEW_LABEL: ${{ inputs.preview_label }}
+        run: |
+          set -euo pipefail
+          SHORT_SHA="${GITHUB_SHA:0:8}"
+          SAFE_LABEL="$(printf '%s' "$PREVIEW_LABEL" | tr -cd '[:alnum:]-' | tr '[:upper:]' '[:lower:]')"
+          [[ -n "$SAFE_LABEL" ]] || SAFE_LABEL="manual"
+          BRANCH="preview-${SAFE_LABEL}-${SHORT_SHA}"
+          echo "Deploying commit $GITHUB_SHA to preview branch $BRANCH of $PROJECT_NAME"
+          npx --yes wrangler@4 pages deploy dist \
+            --project-name "$PROJECT_NAME" \
+            --branch "$BRANCH" \
+            --commit-hash "$GITHUB_SHA" \
+            --commit-dirty=false
+
+      - name: Record deployment truth
+        shell: bash
+        env:
+          PROJECT_NAME: ${{ inputs.project_name }}
+        run: |
+          {
+            echo "## WARLOCK Cloudflare Preview"
+            echo ""
+            echo "- Project: \`$PROJECT_NAME\`"
+            echo "- Commit: \`$GITHUB_SHA\`"
+            echo "- Factory public intake: DISARMED"
+            echo "- Auth mode: preview/dev fallback"
+            echo "- Production domain promotion: NOT PERFORMED"
+          } >> "$GITHUB_STEP_SUMMARY"
