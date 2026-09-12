@@ -21,9 +21,20 @@ describe("WARLOCK account contracts", () => {
       latestArtifactSha256: HASH,
     });
     assert.equal(product.latestArtifactSha256, HASH);
+
+    assert.throws(() =>
+      accountProductSchema.parse({
+        id: ID,
+        productSlug: "void",
+        productName: "VOID",
+        version: "1.0.0",
+        status: "ready",
+        latestArtifactSha256: null,
+      }),
+    );
   });
 
-  it("keeps build status explicit and artifact identity nullable before ready", () => {
+  it("keeps build status explicit and blocks ready without artifact identity", () => {
     const build = buildSummarySchema.parse({
       requestId: ID,
       productSlug: null,
@@ -32,6 +43,16 @@ describe("WARLOCK account contracts", () => {
       artifactSha256: null,
     });
     assert.equal(build.status, "staged");
+
+    assert.throws(() =>
+      buildSummarySchema.parse({
+        requestId: ID,
+        productSlug: "void",
+        status: "ready",
+        createdAt: "2026-09-12T08:00:00.000Z",
+        artifactSha256: null,
+      }),
+    );
   });
 
   it("enforces the standing two-device perpetual license target", () => {
@@ -55,5 +76,14 @@ describe("WARLOCK account contracts", () => {
       renewalAt: null,
     });
     assert.equal(billing.liveBillingConnected, false);
+
+    assert.throws(() =>
+      billingSummarySchema.parse({
+        liveBillingConnected: false,
+        planName: "WARLOCK STUDIO",
+        buildsRemaining: 8,
+        renewalAt: "2026-10-12T08:00:00.000Z",
+      }),
+    );
   });
 });
