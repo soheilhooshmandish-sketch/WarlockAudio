@@ -20,6 +20,7 @@ import { StudioDock } from "@/components/studio/studio";
 import { products as catalogProducts } from "@/lib/catalog/products";
 import "../warlock-home.css";
 import "../warlock-sections.css";
+import "../warlock-home-routing.css";
 
 export const Route = createFileRoute("/")({ component: Home });
 
