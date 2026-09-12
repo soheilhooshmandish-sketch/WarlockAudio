@@ -1,0 +1,174 @@
+.wa-page {
+  min-height: 100dvh;
+}
+
+.wa-hero {
+  max-width: 72rem;
+}
+
+.wa-contract-grid,
+.wa-policy-grid {
+  width: min(100% - 2rem, 82rem);
+  margin: 0 auto;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.wa-contract-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0 0 5.5rem;
+}
+
+.wa-contract-grid article,
+.wa-policy-grid article,
+.wa-state-card {
+  border: 1px solid var(--warlock-line, #24303b);
+  border-radius: 0.9rem;
+  background: #0b0d10;
+}
+
+.wa-contract-grid article {
+  min-height: 18rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-contract-grid svg,
+.wa-policy-grid svg {
+  color: #8ec8e8;
+}
+
+.wa-contract-grid p,
+.wa-policy-grid p,
+.wa-catalog-state p {
+  margin: auto 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #8b9aaa;
+}
+
+.wa-contract-grid span,
+.wa-policy-grid span,
+.wa-catalog-state span,
+.wa-state-card span {
+  margin-top: 0.8rem;
+  color: #8b9aaa;
+  line-height: 1.65;
+}
+
+.wa-catalog-state {
+  width: min(100% - 2rem, 82rem);
+  margin: 0 auto;
+  padding: 5.5rem 0;
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr;
+  gap: 1.25rem;
+  border-top: 1px solid #24303b;
+}
+
+.wa-catalog-state h2,
+.wa-policy-grid h2 {
+  margin: 0.7rem 0 0;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.wa-state-card {
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.wa-state-card svg {
+  margin-bottom: auto;
+  color: #c45c5c;
+}
+
+.wa-state-card strong {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+}
+
+.wa-policy-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0 0 5.5rem;
+}
+
+.wa-policy-grid article {
+  min-height: 24rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-policy-grid dl {
+  margin: 1.5rem 0 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.wa-policy-grid dl div {
+  padding-top: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #24303b;
+}
+
+.wa-policy-grid dt,
+.wa-policy-grid dd {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.wa-policy-grid dt { color: #667684; }
+.wa-policy-grid dd { color: #e8eef4; }
+
+.wa-ready-strip {
+  width: min(100% - 2rem, 82rem);
+  margin: 0 auto 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid #24303b;
+}
+
+.wa-ready-strip > div {
+  min-height: 5.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  color: #8b9aaa;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.wa-ready-strip > div + div {
+  border-left: 1px solid #24303b;
+}
+
+.wa-ready-strip svg { color: #8ec8e8; }
+
+@media (max-width: 820px) {
+  .wa-contract-grid,
+  .wa-policy-grid,
+  .wa-catalog-state,
+  .wa-ready-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .wa-contract-grid article,
+  .wa-policy-grid article {
+    min-height: 15rem;
+  }
+
+  .wa-ready-strip > div + div {
+    border-left: 0;
+    border-top: 1px solid #24303b;
+  }
+}
