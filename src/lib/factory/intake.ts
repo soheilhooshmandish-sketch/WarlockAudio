@@ -34,20 +34,35 @@ type FailureCode =
   | "factory_unavailable"
   | "invalid_factory_response";
 
+type GatewayConfig = {
+  baseUrl: string;
+  local: boolean;
+};
+
 function failure(code: FailureCode, message: string) {
   return { ok: false as const, code, message };
 }
 
-function gatewayUrl(): string | null {
+function publicIntakeEnabled(): boolean {
+  return (
+    (process.env.WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED ?? "")
+      .trim()
+      .toLowerCase() === "true"
+  );
+}
+
+function gatewayConfig(): GatewayConfig | null {
   const raw = (process.env.WARLOCK_FACTORY_GATEWAY_URL ?? "").trim();
   if (!raw) return null;
   try {
     const parsed = new URL(raw);
-    const localHttp =
-      parsed.protocol === "http:" &&
-      ["127.0.0.1", "localhost"].includes(parsed.hostname);
+    const local = ["127.0.0.1", "localhost"].includes(parsed.hostname);
+    const localHttp = parsed.protocol === "http:" && local;
     if (parsed.protocol !== "https:" && !localHttp) return null;
-    return parsed.toString().replace(/\/$/, "");
+    return {
+      baseUrl: parsed.toString().replace(/\/$/, ""),
+      local,
+    };
   } catch {
     return null;
   }
@@ -56,12 +71,30 @@ function gatewayUrl(): string | null {
 export const submitFactoryIntake = createServerFn({ method: "POST" })
   .validator((input: unknown) => requestSchema.parse(input))
   .handler(async ({ data }) => {
-    const baseUrl = gatewayUrl();
+    if (!publicIntakeEnabled()) {
+      return failure(
+        "not_configured",
+        "Factory intake is not enabled for public use.",
+      );
+    }
+
+    const gateway = gatewayConfig();
     const intakeToken = (process.env.WARLOCK_FACTORY_INTAKE_TOKEN ?? "").trim();
-    if (!baseUrl || !intakeToken) {
+    if (!gateway || !intakeToken) {
       return failure(
         "not_configured",
         "Factory intake is not connected in this environment.",
+      );
+    }
+
+    const cfClientId = (process.env.WARLOCK_CF_ACCESS_CLIENT_ID ?? "").trim();
+    const cfClientSecret = (
+      process.env.WARLOCK_CF_ACCESS_CLIENT_SECRET ?? ""
+    ).trim();
+    if (!gateway.local && (!cfClientId || !cfClientSecret)) {
+      return failure(
+        "not_configured",
+        "Factory gateway service authentication is not configured.",
       );
     }
 
@@ -69,10 +102,6 @@ export const submitFactoryIntake = createServerFn({ method: "POST" })
       "Content-Type": "application/json",
       "X-Warlock-Intake-Token": intakeToken,
     };
-    const cfClientId = (process.env.WARLOCK_CF_ACCESS_CLIENT_ID ?? "").trim();
-    const cfClientSecret = (
-      process.env.WARLOCK_CF_ACCESS_CLIENT_SECRET ?? ""
-    ).trim();
     if (cfClientId && cfClientSecret) {
       headers["CF-Access-Client-Id"] = cfClientId;
       headers["CF-Access-Client-Secret"] = cfClientSecret;
@@ -80,7 +109,7 @@ export const submitFactoryIntake = createServerFn({ method: "POST" })
 
     let response: Response;
     try {
-      response = await fetch(`${baseUrl}/factory/intake`, {
+      response = await fetch(`${gateway.baseUrl}/factory/intake`, {
         method: "POST",
         headers,
         body: JSON.stringify({
