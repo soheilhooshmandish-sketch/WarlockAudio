@@ -1,0 +1,1536 @@
+@layer components {
+  .warlock-site {
+    --w-bg: #07101a;
+    --w-bg-deep: #04090f;
+    --w-panel: rgba(10, 24, 38, 0.74);
+    --w-panel-solid: #0a1826;
+    --w-raised: #11263a;
+    --w-fg: #eef6fb;
+    --w-muted: #9eb2c1;
+    --w-subtle: #6f879a;
+    --w-ice: #8ec8e8;
+    --w-ice-bright: #c8efff;
+    --w-line: rgba(142, 200, 232, 0.2);
+    --w-line-strong: rgba(142, 200, 232, 0.42);
+    --w-danger: #c45c5c;
+    --w-shadow: rgba(0, 0, 0, 0.48);
+    --w-radius: 16px;
+    --w-glow: rgba(90, 184, 236, 0.2);
+    --w-atmosphere-a: rgba(48, 130, 184, 0.19);
+    --w-atmosphere-b: rgba(28, 86, 128, 0.1);
+    min-height: 100dvh;
+    overflow-x: clip;
+    background:
+      radial-gradient(circle at 78% 9%, var(--w-atmosphere-a), transparent 31%),
+      radial-gradient(circle at 12% 38%, var(--w-atmosphere-b), transparent 34%),
+      linear-gradient(180deg, #081624 0%, var(--w-bg) 34%, var(--w-bg-deep) 100%);
+    color: var(--w-fg);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .warlock-site[data-atmosphere="morning"] {
+    --w-atmosphere-a: rgba(112, 188, 226, 0.24);
+    --w-atmosphere-b: rgba(82, 142, 180, 0.13);
+  }
+
+  .warlock-site[data-atmosphere="day"] {
+    --w-atmosphere-a: rgba(97, 178, 221, 0.2);
+    --w-atmosphere-b: rgba(72, 128, 160, 0.12);
+  }
+
+  .warlock-site[data-atmosphere="dusk"] {
+    --w-atmosphere-a: rgba(59, 132, 180, 0.18);
+    --w-atmosphere-b: rgba(80, 97, 147, 0.11);
+  }
+
+  .warlock-site[data-atmosphere="night"] {
+    --w-atmosphere-a: rgba(48, 131, 190, 0.17);
+    --w-atmosphere-b: rgba(27, 73, 111, 0.11);
+  }
+
+  .warlock-aurora,
+  .warlock-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  .warlock-aurora {
+    background:
+      radial-gradient(ellipse at 74% 10%, rgba(141, 210, 246, 0.12), transparent 24%),
+      radial-gradient(ellipse at 63% 40%, rgba(40, 124, 181, 0.08), transparent 32%);
+    filter: blur(18px);
+  }
+
+  .warlock-grid {
+    z-index: -1;
+    opacity: 0.16;
+    background-image:
+      linear-gradient(rgba(142, 200, 232, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(142, 200, 232, 0.04) 1px, transparent 1px);
+    background-size: 96px 96px;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
+  }
+
+  .warlock-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 76px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px;
+    padding: 0 4vw;
+    border-bottom: 1px solid var(--w-line);
+    background: rgba(4, 12, 20, 0.74);
+    backdrop-filter: blur(22px) saturate(120%);
+  }
+
+  .warlock-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--w-fg);
+    text-decoration: none;
+    min-width: max-content;
+  }
+
+  .warlock-brand-mark {
+    width: 34px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    filter: drop-shadow(0 0 12px rgba(142, 200, 232, 0.18));
+  }
+
+  .warlock-brand-mark img,
+  .warlock-emblem-stage img,
+  .warlock-factory-core img,
+  .warlock-product-art img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(95%) sepia(10%) saturate(300%) hue-rotate(169deg) brightness(106%);
+  }
+
+  .warlock-brand > span:last-child {
+    display: grid;
+    gap: 1px;
+  }
+
+  .warlock-brand strong {
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 0.17em;
+    font-weight: 600;
+  }
+
+  .warlock-brand small {
+    font-size: 8px;
+    letter-spacing: 0.38em;
+    color: var(--w-muted);
+  }
+
+  .warlock-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(14px, 2vw, 30px);
+  }
+
+  .warlock-nav a,
+  .warlock-footer a {
+    color: var(--w-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 180ms ease;
+  }
+
+  .warlock-nav a:hover,
+  .warlock-footer a:hover {
+    color: var(--w-fg);
+  }
+
+  .warlock-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .warlock-icon-button,
+  .warlock-guide-head button {
+    min-width: 42px;
+    min-height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: var(--w-muted);
+    background: transparent;
+    transition: 180ms ease;
+  }
+
+  .warlock-icon-button:hover,
+  .warlock-guide-head button:hover {
+    color: var(--w-fg);
+    border-color: var(--w-line);
+    background: rgba(142, 200, 232, 0.06);
+  }
+
+  .warlock-mobile-menu {
+    display: none;
+  }
+
+  .warlock-mobile-panel {
+    position: fixed;
+    inset: 76px 12px auto 12px;
+    z-index: 60;
+    padding: 12px;
+    border: 1px solid var(--w-line);
+    border-radius: 18px;
+    background: rgba(7, 17, 28, 0.96);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 24px 70px var(--w-shadow);
+  }
+
+  .warlock-mobile-panel a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    border-radius: 11px;
+    color: var(--w-fg);
+    text-decoration: none;
+  }
+
+  .warlock-mobile-panel a:hover {
+    background: rgba(142, 200, 232, 0.07);
+  }
+
+  .warlock-button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 18px;
+    border: 1px solid var(--w-line-strong);
+    border-radius: 10px;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .warlock-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .warlock-button-primary {
+    color: #06101a;
+    border-color: rgba(202, 240, 255, 0.72);
+    background: linear-gradient(180deg, #d9f4ff 0%, var(--w-ice) 100%);
+    box-shadow:
+      0 8px 24px rgba(41, 122, 171, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  }
+
+  .warlock-button-primary:hover {
+    box-shadow:
+      0 10px 32px rgba(78, 174, 226, 0.26),
+      inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  }
+
+  .warlock-button-secondary {
+    color: var(--w-fg);
+    background: rgba(10, 24, 38, 0.62);
+  }
+
+  .warlock-button-secondary:hover {
+    border-color: rgba(142, 200, 232, 0.62);
+    background: rgba(17, 38, 58, 0.72);
+  }
+
+  .warlock-create {
+    margin-left: 4px;
+  }
+
+  .warlock-hero,
+  .warlock-how,
+  .warlock-products,
+  .warlock-factory,
+  .warlock-pricing,
+  .warlock-support,
+  .warlock-footer {
+    width: min(1440px, calc(100% - 8vw));
+    margin-inline: auto;
+  }
+
+  .warlock-hero {
+    min-height: 760px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(460px, 0.96fr);
+    align-items: center;
+    gap: clamp(36px, 6vw, 96px);
+    padding: 76px 0 64px;
+  }
+
+  .warlock-kicker,
+  .warlock-section-heading > p {
+    margin: 0 0 12px;
+    color: var(--w-ice);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.29em;
+    font-weight: 500;
+  }
+
+  .warlock-hero h1 {
+    margin: 0;
+    max-width: 760px;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: clamp(50px, 5vw, 82px);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    font-weight: 560;
+  }
+
+  .warlock-hero h1 span {
+    display: block;
+    margin-top: 8px;
+    color: var(--w-ice-bright);
+    text-shadow: 0 0 30px rgba(142, 200, 232, 0.12);
+  }
+
+  .warlock-lead {
+    margin: 24px 0 0;
+    max-width: 620px;
+    color: var(--w-muted);
+    font-size: clamp(17px, 1.6vw, 22px);
+    line-height: 1.55;
+  }
+
+  .warlock-prompt-shell {
+    margin-top: 34px;
+    overflow: hidden;
+    border: 1px solid var(--w-line-strong);
+    border-radius: var(--w-radius);
+    background: rgba(5, 16, 27, 0.72);
+    box-shadow:
+      0 18px 45px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(18px);
+  }
+
+  .warlock-prompt-shell label {
+    display: block;
+    padding: 15px 18px 0;
+    color: var(--w-subtle);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  .warlock-prompt-shell textarea {
+    width: 100%;
+    min-height: 124px;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    padding: 13px 18px 18px;
+    background: transparent;
+    color: var(--w-fg);
+    font: inherit;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .warlock-prompt-shell textarea::placeholder {
+    color: rgba(158, 178, 193, 0.58);
+  }
+
+  .warlock-prompt-bottom {
+    min-height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 10px 8px 12px;
+    border-top: 1px solid var(--w-line);
+    background: rgba(10, 24, 38, 0.58);
+  }
+
+  .warlock-prompt-bottom > span {
+    color: var(--w-subtle);
+    font-size: 10px;
+    text-align: right;
+  }
+
+  .warlock-segment {
+    display: flex;
+    gap: 4px;
+    padding: 3px;
+    border: 1px solid var(--w-line);
+    border-radius: 9px;
+    background: rgba(2, 9, 15, 0.5);
+  }
+
+  .warlock-segment button {
+    min-width: 66px;
+    min-height: 34px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--w-muted);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .warlock-segment button.is-active {
+    color: #06101a;
+    background: var(--w-ice);
+  }
+
+  .warlock-refined {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(142, 200, 232, 0.24);
+    border-radius: 12px;
+    background: rgba(9, 27, 42, 0.5);
+  }
+
+  .warlock-refined > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--w-ice-bright);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .warlock-refined p {
+    margin: 8px 0 0;
+    color: var(--w-muted);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .warlock-hero-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .warlock-stepper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 30px;
+    max-width: 680px;
+  }
+
+  .warlock-stepper button {
+    position: relative;
+    min-height: 58px;
+    border: 0;
+    background: transparent;
+    color: var(--w-subtle);
+  }
+
+  .warlock-stepper button::before,
+  .warlock-stepper button::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    height: 1px;
+    background: rgba(142, 200, 232, 0.18);
+  }
+
+  .warlock-stepper button::before {
+    left: 0;
+    right: 50%;
+  }
+
+  .warlock-stepper button::after {
+    left: 50%;
+    right: 0;
+  }
+
+  .warlock-stepper button:first-child::before,
+  .warlock-stepper button:last-child::after {
+    display: none;
+  }
+
+  .warlock-stepper button span {
+    position: relative;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--w-line);
+    border-radius: 999px;
+    background: var(--w-bg);
+    font-size: 9px;
+  }
+
+  .warlock-stepper button small {
+    display: block;
+    margin-top: 8px;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .warlock-stepper button.is-complete {
+    color: var(--w-ice-bright);
+  }
+
+  .warlock-stepper button.is-complete span {
+    border-color: var(--w-line-strong);
+    box-shadow: 0 0 18px rgba(142, 200, 232, 0.12);
+  }
+
+  .warlock-powered {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--w-muted);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .warlock-powered span {
+    color: var(--w-subtle);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+
+  .warlock-hero-visual {
+    min-height: 620px;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .warlock-orbit {
+    position: absolute;
+    inset: 8% 4%;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .warlock-orbit::before {
+    content: "";
+    position: absolute;
+    width: min(34vw, 470px);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(142, 200, 232, 0.08), transparent 62%);
+    box-shadow: inset 0 0 120px rgba(95, 184, 232, 0.04);
+  }
+
+  .warlock-orbit-ring {
+    position: absolute;
+    border: 1px solid rgba(142, 200, 232, 0.14);
+    border-radius: 50%;
+    transform: rotate(-18deg);
+  }
+
+  .warlock-orbit-ring.ring-one {
+    width: min(38vw, 520px);
+    height: min(21vw, 290px);
+  }
+
+  .warlock-orbit-ring.ring-two {
+    width: min(30vw, 410px);
+    height: min(34vw, 460px);
+    transform: rotate(24deg);
+    border-color: rgba(142, 200, 232, 0.08);
+  }
+
+  .warlock-emblem-stage {
+    width: min(25vw, 310px);
+    height: min(31vw, 390px);
+    position: relative;
+    z-index: 2;
+    animation: warlock-breathe 7s ease-in-out infinite;
+  }
+
+  .warlock-emblem-stage img {
+    position: relative;
+    z-index: 2;
+    filter:
+      brightness(0) saturate(100%) invert(95%) sepia(10%) saturate(350%) hue-rotate(169deg) brightness(106%)
+      drop-shadow(0 0 18px rgba(142, 200, 232, 0.13));
+  }
+
+  .warlock-emblem-glow {
+    position: absolute;
+    inset: 20% 9%;
+    z-index: 1;
+    border-radius: 48%;
+    background: rgba(107, 196, 243, 0.12);
+    filter: blur(48px);
+  }
+
+  .warlock-soundline {
+    position: absolute;
+    left: 1%;
+    right: 1%;
+    bottom: 18%;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    opacity: 0.65;
+    mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+  }
+
+  .warlock-soundline span {
+    width: 2px;
+    height: var(--wave);
+    max-height: 72px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, transparent, var(--w-ice-bright), transparent);
+    box-shadow: 0 0 8px rgba(142, 200, 232, 0.22);
+    animation: warlock-wave 3.8s ease-in-out infinite alternate;
+  }
+
+  .warlock-soundline span:nth-child(3n) {
+    animation-delay: -1.2s;
+  }
+
+  .warlock-soundline span:nth-child(4n) {
+    animation-delay: -2.4s;
+  }
+
+  .warlock-visual-copy {
+    position: absolute;
+    inset: auto 5% 4% auto;
+    text-align: right;
+  }
+
+  .warlock-visual-copy p,
+  .warlock-visual-copy span {
+    margin: 0;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+  }
+
+  .warlock-visual-copy p {
+    color: var(--w-fg);
+  }
+
+  .warlock-visual-copy span {
+    display: block;
+    margin-top: 6px;
+    color: var(--w-subtle);
+  }
+
+  .warlock-how,
+  .warlock-products,
+  .warlock-pricing,
+  .warlock-support {
+    padding: 58px 0;
+    border-top: 1px solid var(--w-line);
+  }
+
+  .warlock-section-heading h2,
+  .warlock-factory h2 {
+    margin: 0;
+    color: var(--w-fg);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: clamp(26px, 2.5vw, 38px);
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    font-weight: 520;
+  }
+
+  .warlock-section-heading > p {
+    margin-bottom: 7px;
+  }
+
+  .warlock-how-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  .warlock-process-card {
+    min-height: 172px;
+    padding: 18px;
+    border: 1px solid var(--w-line);
+    border-radius: 14px;
+    background: rgba(10, 24, 38, 0.42);
+    transition: 180ms ease;
+  }
+
+  .warlock-process-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--w-line-strong);
+    background: rgba(12, 29, 44, 0.66);
+  }
+
+  .warlock-process-card > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--w-ice);
+  }
+
+  .warlock-process-card > div span {
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+  }
+
+  .warlock-process-card h3 {
+    margin: 36px 0 8px;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .warlock-process-card p {
+    margin: 0;
+    color: var(--w-muted);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .warlock-section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+  }
+
+  .warlock-text-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: var(--w-muted);
+    font-size: 12px;
+  }
+
+  .warlock-text-button:hover {
+    color: var(--w-fg);
+  }
+
+  .warlock-product-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .warlock-product-card {
+    --realm: rgba(100, 174, 214, 0.18);
+    min-height: 210px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 112px 1fr auto;
+    gap: 16px;
+    align-items: stretch;
+    overflow: hidden;
+    border: 1px solid var(--w-line);
+    border-radius: 15px;
+    background:
+      radial-gradient(circle at 14% 50%, var(--realm), transparent 38%),
+      rgba(9, 22, 34, 0.68);
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .warlock-product-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--w-line-strong);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  }
+
+  .warlock-product-card[data-realm="frost"] {
+    --realm: rgba(142, 200, 232, 0.26);
+  }
+
+  .warlock-product-card[data-realm="alien"] {
+    --realm: rgba(173, 72, 57, 0.18);
+  }
+
+  .warlock-product-card[data-realm="abyss"] {
+    --realm: rgba(40, 117, 171, 0.24);
+  }
+
+  .warlock-product-card[data-realm="thall"] {
+    --realm: rgba(147, 78, 55, 0.2);
+  }
+
+  .warlock-product-card[data-realm="chimera"] {
+    --realm: rgba(59, 135, 129, 0.2);
+  }
+
+  .warlock-product-card[data-realm="void"] {
+    --realm: rgba(89, 115, 170, 0.22);
+  }
+
+  .warlock-product-art {
+    min-height: 100%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-right: 1px solid var(--w-line);
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.03), transparent 35%),
+      radial-gradient(circle, var(--realm), transparent 66%);
+  }
+
+  .warlock-product-art::before,
+  .warlock-product-art::after {
+    content: "";
+    position: absolute;
+    width: 140%;
+    height: 1px;
+    background: rgba(142, 200, 232, 0.12);
+    transform: rotate(45deg);
+  }
+
+  .warlock-product-art::after {
+    transform: rotate(-45deg);
+  }
+
+  .warlock-product-art img {
+    width: 40px;
+    height: 58px;
+    opacity: 0.72;
+    position: relative;
+    z-index: 2;
+  }
+
+  .warlock-product-copy {
+    padding: 20px 0;
+  }
+
+  .warlock-product-copy > p {
+    margin: 0 0 16px;
+    color: var(--w-subtle);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+
+  .warlock-product-copy h3 {
+    margin: 0;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 23px;
+    letter-spacing: 0.05em;
+    font-weight: 520;
+  }
+
+  .warlock-product-copy small {
+    display: block;
+    margin-top: 5px;
+    color: var(--w-ice);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .warlock-product-copy > span {
+    display: block;
+    margin-top: 16px;
+    color: var(--w-muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .warlock-product-card > button {
+    align-self: stretch;
+    width: 50px;
+    border: 0;
+    border-left: 1px solid var(--w-line);
+    background: rgba(255, 255, 255, 0.012);
+    color: var(--w-muted);
+  }
+
+  .warlock-product-card > button:hover {
+    color: var(--w-fg);
+    background: rgba(142, 200, 232, 0.05);
+  }
+
+  .warlock-factory {
+    min-height: 460px;
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 30px;
+    align-items: center;
+    padding: 68px 0;
+    border-top: 1px solid var(--w-line);
+  }
+
+  .warlock-factory-copy > p:not(.warlock-kicker) {
+    max-width: 610px;
+    margin: 20px 0 26px;
+    color: var(--w-muted);
+    line-height: 1.7;
+  }
+
+  .warlock-factory-system {
+    min-height: 330px;
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) 1.2fr;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--w-line);
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 28% 40%, rgba(142, 200, 232, 0.1), transparent 32%),
+      rgba(7, 19, 30, 0.64);
+  }
+
+  .warlock-factory-core {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 14px;
+    border: 1px solid var(--w-line);
+    border-radius: 13px;
+    background: rgba(9, 28, 43, 0.5);
+  }
+
+  .warlock-factory-core img {
+    width: 70px;
+    height: 90px;
+  }
+
+  .warlock-factory-core span {
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+  }
+
+  .warlock-factory-nodes {
+    display: grid;
+    gap: 8px;
+  }
+
+  .warlock-factory-nodes div {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 15px;
+    border: 1px solid var(--w-line);
+    border-radius: 11px;
+    background: rgba(10, 24, 38, 0.42);
+    color: var(--w-muted);
+  }
+
+  .warlock-factory-nodes svg {
+    color: var(--w-ice);
+  }
+
+  .warlock-factory-nodes span {
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.11em;
+  }
+
+  .warlock-pricing-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .warlock-price-card {
+    min-height: 340px;
+    position: relative;
+    padding: 22px;
+    border: 1px solid var(--w-line);
+    border-radius: 15px;
+    background: rgba(9, 22, 34, 0.58);
+  }
+
+  .warlock-price-card.is-featured {
+    border-color: rgba(142, 200, 232, 0.48);
+    box-shadow: 0 0 36px rgba(87, 176, 226, 0.08);
+  }
+
+  .warlock-price-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 8px;
+    border-radius: 7px;
+    color: #06101a;
+    background: var(--w-ice);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .warlock-price-card > p {
+    margin: 0 0 18px;
+    color: var(--w-muted);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+
+  .warlock-price-card h3 {
+    display: inline;
+    margin: 0;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 38px;
+    font-weight: 500;
+  }
+
+  .warlock-price-card > small {
+    color: var(--w-subtle);
+    margin-left: 6px;
+  }
+
+  .warlock-price-card > span:not(.warlock-price-badge) {
+    display: block;
+    min-height: 44px;
+    margin-top: 14px;
+    color: var(--w-muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .warlock-price-card ul {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    margin: 22px 0 24px;
+    color: var(--w-muted);
+    font-size: 11px;
+  }
+
+  .warlock-price-card li {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .warlock-price-card li svg {
+    color: var(--w-ice);
+  }
+
+  .warlock-price-card .warlock-button {
+    width: 100%;
+  }
+
+  .warlock-support-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .warlock-support-card {
+    min-height: 110px;
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 11px;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--w-line);
+    border-radius: 13px;
+    background: rgba(9, 22, 34, 0.42);
+    color: var(--w-fg);
+    transition: 180ms ease;
+  }
+
+  .warlock-support-card:hover {
+    border-color: var(--w-line-strong);
+    background: rgba(12, 29, 44, 0.66);
+  }
+
+  .warlock-support-card > span {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--w-line);
+    border-radius: 10px;
+    color: var(--w-ice);
+  }
+
+  .warlock-support-card strong,
+  .warlock-support-card small {
+    display: block;
+  }
+
+  .warlock-support-card strong {
+    font-size: 12px;
+  }
+
+  .warlock-support-card small {
+    margin-top: 5px;
+    color: var(--w-subtle);
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .warlock-footer {
+    min-height: 132px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    border-top: 1px solid var(--w-line);
+  }
+
+  .warlock-footer > div:nth-child(2) {
+    display: flex;
+    gap: 20px;
+  }
+
+  .warlock-footer > p {
+    justify-self: end;
+    color: var(--w-subtle);
+    font-size: 10px;
+  }
+
+  .warlock-guide-orb {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 65;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 16px;
+    border: 1px solid rgba(142, 200, 232, 0.46);
+    border-radius: 999px;
+    color: #06101a;
+    background: linear-gradient(180deg, #d8f3ff, var(--w-ice));
+    box-shadow: 0 12px 36px rgba(56, 147, 198, 0.24);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .warlock-guide {
+    position: fixed;
+    right: 24px;
+    bottom: 84px;
+    z-index: 64;
+    width: min(380px, calc(100vw - 32px));
+    overflow: hidden;
+    border: 1px solid rgba(142, 200, 232, 0.38);
+    border-radius: 18px;
+    background: rgba(6, 17, 28, 0.96);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.44);
+    backdrop-filter: blur(24px);
+    animation: warlock-guide-in 220ms ease-out both;
+  }
+
+  .warlock-guide-head {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 12px 14px;
+    border-bottom: 1px solid var(--w-line);
+  }
+
+  .warlock-guide-head > div {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .warlock-guide-avatar {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(142, 200, 232, 0.44);
+    border-radius: 10px;
+    color: #06101a;
+    background: var(--w-ice);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .warlock-guide-head strong,
+  .warlock-guide-head small {
+    display: block;
+  }
+
+  .warlock-guide-head strong {
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    letter-spacing: 0.12em;
+  }
+
+  .warlock-guide-head small {
+    margin-top: 4px;
+    color: var(--w-subtle);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+
+  .warlock-guide-head i {
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 999px;
+    background: #73d9a4;
+    box-shadow: 0 0 10px rgba(115, 217, 164, 0.42);
+  }
+
+  .warlock-guide-body {
+    padding: 20px;
+  }
+
+  .warlock-guide-body > p {
+    margin: 0 0 8px;
+    color: var(--w-ice);
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+
+  .warlock-guide-body h3 {
+    margin: 0;
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-size: 23px;
+    font-weight: 520;
+  }
+
+  .warlock-guide-body > span {
+    display: block;
+    margin-top: 10px;
+    color: var(--w-muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .warlock-guide-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 20px 18px;
+  }
+
+  .warlock-guide-links {
+    border-top: 1px solid var(--w-line);
+    padding: 8px;
+  }
+
+  .warlock-guide-links button {
+    width: 100%;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--w-subtle);
+    font-size: 11px;
+    text-align: left;
+  }
+
+  .warlock-guide-links button:hover {
+    color: var(--w-fg);
+    background: rgba(142, 200, 232, 0.05);
+  }
+
+  @keyframes warlock-breathe {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-5px) scale(1.012);
+    }
+  }
+
+  @keyframes warlock-wave {
+    from {
+      transform: scaleY(0.7);
+      opacity: 0.48;
+    }
+    to {
+      transform: scaleY(1.08);
+      opacity: 0.84;
+    }
+  }
+
+  @keyframes warlock-guide-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (max-width: 1180px) {
+    .warlock-nav {
+      display: none;
+    }
+
+    .warlock-mobile-menu {
+      display: grid;
+    }
+
+    .warlock-header {
+      grid-template-columns: 1fr auto;
+    }
+
+    .warlock-hero {
+      grid-template-columns: 1fr 0.82fr;
+    }
+
+    .warlock-product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .warlock-how-grid,
+    .warlock-support-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .warlock-pricing-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .warlock-header {
+      height: 68px;
+      padding: 0 18px;
+    }
+
+    .warlock-create {
+      display: none;
+    }
+
+    .warlock-hero,
+    .warlock-how,
+    .warlock-products,
+    .warlock-factory,
+    .warlock-pricing,
+    .warlock-support,
+    .warlock-footer {
+      width: min(100% - 32px, 720px);
+    }
+
+    .warlock-hero {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      padding: 54px 0 36px;
+      gap: 20px;
+    }
+
+    .warlock-hero-copy {
+      order: 2;
+    }
+
+    .warlock-hero-visual {
+      order: 1;
+      min-height: 300px;
+    }
+
+    .warlock-emblem-stage {
+      width: 120px;
+      height: 150px;
+    }
+
+    .warlock-orbit-ring.ring-one {
+      width: 310px;
+      height: 180px;
+    }
+
+    .warlock-orbit-ring.ring-two {
+      width: 230px;
+      height: 280px;
+    }
+
+    .warlock-soundline {
+      height: 56px;
+      bottom: 12%;
+    }
+
+    .warlock-how-grid,
+    .warlock-support-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .warlock-product-grid,
+    .warlock-pricing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .warlock-factory {
+      grid-template-columns: 1fr;
+      padding: 54px 0;
+    }
+
+    .warlock-footer {
+      grid-template-columns: 1fr;
+      padding: 30px 0;
+      gap: 20px;
+    }
+
+    .warlock-footer > p {
+      justify-self: start;
+    }
+
+    .warlock-guide-orb {
+      right: 16px;
+      bottom: 16px;
+    }
+
+    .warlock-guide {
+      right: 16px;
+      bottom: 74px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .warlock-brand strong {
+      font-size: 17px;
+    }
+
+    .warlock-brand small {
+      display: none;
+    }
+
+    .warlock-header-actions .warlock-icon-button:first-child {
+      display: none;
+    }
+
+    .warlock-hero h1 {
+      font-size: clamp(44px, 14vw, 61px);
+    }
+
+    .warlock-lead {
+      font-size: 16px;
+    }
+
+    .warlock-prompt-bottom {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .warlock-prompt-bottom > span {
+      text-align: left;
+    }
+
+    .warlock-hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .warlock-stepper button small {
+      font-size: 8px;
+      letter-spacing: 0.06em;
+    }
+
+    .warlock-powered {
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .warlock-powered span {
+      flex-basis: 100%;
+      padding-left: 23px;
+    }
+
+    .warlock-how-grid,
+    .warlock-support-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .warlock-product-card {
+      grid-template-columns: 88px 1fr 44px;
+      min-height: 185px;
+    }
+
+    .warlock-section-row {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .warlock-factory-system {
+      grid-template-columns: 1fr;
+    }
+
+    .warlock-factory-core {
+      min-height: 190px;
+    }
+
+    .warlock-guide {
+      width: calc(100vw - 24px);
+      right: 12px;
+      bottom: 72px;
+    }
+
+    .warlock-guide-orb {
+      right: 12px;
+      bottom: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .warlock-emblem-stage,
+    .warlock-soundline span,
+    .warlock-guide {
+      animation: none !important;
+    }
+
+    .warlock-site *,
+    .warlock-site *::before,
+    .warlock-site *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.001ms !important;
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
