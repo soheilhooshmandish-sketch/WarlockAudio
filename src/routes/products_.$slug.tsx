@@ -9,7 +9,7 @@ import {
 import { productBySlug } from "@/lib/catalog/products";
 import "../warlock-catalog.css";
 
-export const Route = createFileRoute("/products/$slug")({ component: ProductPage });
+export const Route = createFileRoute("/products_/$slug")({ component: ProductPage });
 
 function ProductPage() {
   const { slug } = Route.useParams();
