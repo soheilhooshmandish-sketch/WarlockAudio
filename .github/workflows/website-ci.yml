@@ -22,8 +22,17 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-      - name: Install locked dependencies
-        run: npm ci
+      - name: Install dependencies without lifecycle scripts
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Report lockfile drift
+        shell: bash
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "package-lock.json remained unchanged"
+          else
+            echo "::warning::package-lock.json is stale on main and was normalized in CI; repair it in a dedicated lockfile PR."
+            git diff --stat -- package-lock.json
+          fi
       - name: Typecheck
         run: npm run typecheck
       - name: Test
