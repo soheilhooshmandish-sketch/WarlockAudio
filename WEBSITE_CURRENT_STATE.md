@@ -4,27 +4,30 @@ Verified snapshot: 2026-09-12.
 
 ## Repository
 - Repo: `soheilhooshmandish-sketch/WarlockAudio`
-- `main` at this snapshot: `a396aee8c82b83b9d3c3cf12e7a59b1158b852a8`
+- `main` at this snapshot: `36decac580bb4382c4ffb9a4ef3a24b403b8e8e2`
 - Always re-fetch `main` before editing; this SHA is historical evidence only.
 
 ## Quality gate
-Website CI currently requires:
-- strict `npm ci --ignore-scripts --no-audit --no-fund`
-- `package-lock.json` remains immutable
-- TypeScript passes
-- platform/auth contracts pass
-- Factory intake policy tests pass
-- preset/skin asset contracts pass
-- account contracts pass
-- public-health fail-closed contracts pass
-- sandbox-commerce lifecycle tests pass
-- production build passes
+Website CI currently proves:
+- strict locked dependency install
+- immutable `package-lock.json`
+- TypeScript
+- platform/auth contracts
+- Factory intake policy
+- preset/skin contracts
+- account contracts
+- public-health fail-closed contracts
+- sandbox-commerce lifecycle
+- default website build
+- Cloudflare Pages Nitro build
+- Cloudflare worker output (`dist/_worker.js/index.js`, `dist/_routes.json`)
+- local Cloudflare/Workerd HTTP smoke across primary public/account routes
 
-Do not merge executable website changes unless the relevant current Website CI succeeds.
+Do not merge executable website changes unless current Website CI succeeds.
 
 ## Implemented public surfaces
-- `/` company homepage
-- `/generate` staged Generator workspace
+- `/`
+- `/generate`
 - `/products`
 - `/products/:slug`
 - `/pricing`
@@ -42,79 +45,73 @@ Do not merge executable website changes unless the relevant current Website CI s
 
 ## Generator truth
 The browser does not receive Factory secrets.
-The website has a server-side Factory intake bridge with a fail-closed policy:
-- public intake must be explicitly armed
-- remote gateway must use HTTPS
-- remote gateway requires Cloudflare Access service credentials
-- WARLOCK intake token is server-only
-- missing/invalid configuration blocks the request
+Public Factory intake stays fail-closed unless explicitly armed. Remote intake requires HTTPS, Cloudflare Access service credentials and the server-only WARLOCK intake token.
+The UI may stage a request only; staging is not build/payment/license/release proof.
 
-The UI may stage a request only. It must not claim that staging means build, payment, license or release.
-
-End-to-end Website -> Factory intake is not complete until Factory PR #64 is CI-proven/merged and deployment secrets are configured.
+Website -> Factory intake remains blocked until Factory PR #64 is CI-proven/merged and the required preview secrets are configured.
 
 ## Product truth
-- VOID is presented as Guitar Test Development, not commercially available.
-- Other Signature names remain concept/DNA unless backed by real release evidence.
-- Product catalog data is centralized so homepage/detail pages do not invent separate statuses.
+- VOID = Guitar Test Development, not commercially available.
+- Other Signature products remain concept/DNA unless backed by release evidence.
+- Homepage/product pages use the same centralized catalog truth.
 
 ## Presets / Skins
-Typed versioned contracts exist.
-Public commercial catalogs intentionally remain empty until real assets have:
-- compatibility
-- minimum product version
-- schema/brand-geometry version
-- exact content SHA256
-
-Custom skin upload processing is not live. SVG/executable/external-reference content is fail-closed until a dedicated sanitizer exists.
+Versioned, hashed compatibility contracts exist. Public commercial catalogs stay empty until real assets exist.
+Custom skin upload processing is not live; unsafe/scriptable/external-reference content stays rejected.
 
 ## Account / Auth
 Existing Better Auth integration is reused.
-Account UI is real, but customer product/build/license/billing data is intentionally empty until real account-bound backends exist.
-
-Fail-closed invariants:
-- ready product requires exact artifact SHA256
-- ready build requires exact artifact SHA256
-- license target is perpetual, max two devices
-- disconnected billing cannot display invented plan, balance or renewal data
+Account routes are real; customer product/build/license/billing datasets stay empty until account-bound production backends exist.
+Ready product/build state requires exact artifact SHA256. License target remains perpetual, max two devices. Billing cannot fabricate a live plan.
 
 ## Public status
-`/status` does not claim live Factory health.
-Live telemetry is currently disconnected, so overall HEALTHY is forbidden by contract.
-Unknown stays unknown; website build proof is distinguished from live uptime proof.
+`/status` cannot claim live Factory health without telemetry. Unknown stays unknown.
 
 ## Sandbox commerce
-A deterministic sandbox-only lifecycle exists and is tested:
+A deterministic sandbox-only lifecycle is CI-tested:
 `cart -> checkout -> simulated payment -> order -> entitlement -> test license -> exact artifact -> install -> device 1 -> device 2 -> revoke -> refund simulation`
 
-It has no live payment-provider call, moves no real money, contacts no customer, issues no production license and grants no production download.
+It moves no real money, contacts no customer, issues no production license and grants no production download.
 
-## Deployment truth
-No live preview deployment is yet verified.
-The selected deployment path is Cloudflare.
-The existing app is TanStack Start + Nitro and currently hard-codes Nitro `vercel` output in `vite.config.ts`; this must be made target-selectable before a Cloudflare preview is considered proven.
-Nitro supports a `cloudflare_pages` preset, which preserves the full-stack/server-function model required by Auth and the Factory bridge.
+## Cloudflare deployment truth
+Cloudflare is the selected deployment path.
 
-Committed `.vercel/output` is legacy generated material only and is not deployment proof. `.vercel/` is ignored going forward.
+Proven:
+- Nitro `cloudflare_pages` target builds successfully.
+- Cloudflare worker/functions output is present.
+- Wrangler/Workerd runs the generated output locally.
+- Primary routes pass HTTP runtime smoke.
+- dedicated `preview/cloudflare` branch trigger exists.
+- workflow permits only a Pages project ending in `-preview`.
+- Factory public intake is DISARMED in preview.
+- production-domain promotion is not part of the preview workflow.
 
-Do not claim preview or production deployment until a live Cloudflare preview URL and deployed commit SHA are verified.
+Not yet proven:
+- a live Cloudflare preview URL.
+
+The first real preview run (`34685850659`) stopped before deployment because both GitHub preview credentials were empty:
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+Issue #23 tracks this one-time credential setup. No Cloudflare project/domain/deployment was changed by the failed run.
+
+Committed `.vercel/output` is legacy generated material and is not deployment proof. `.vercel/` is ignored going forward.
 
 ## Governance blockers
-- Website `main` is unprotected in current GitHub metadata.
+- Website `main` remains unprotected.
 - Issue #7 tracks branch protection before launch.
 
 ## Factory dependency
-Factory repo currently has a private GitHub Actions infrastructure blocker (issue #65). PR #64 for secure website intake must not merge until private CI receives a real runner and executes normally.
+Factory private GitHub Actions still fail before Step 1 (issue #65). Factory PR #64 must not merge until private CI executes real steps.
 
 ## Not live / not proven
+- live Cloudflare preview (blocked only by issue #23 credentials)
 - production Factory intake end-to-end
-- Prompt Refiner backend (Refine/Enhance/Pro intelligence)
+- Prompt Refiner backend
 - live billing/checkout
 - production entitlements/licenses/activation
 - customer ticket/email delivery
 - live public Factory telemetry
 - commercial preset/skin catalog
-- verified Cloudflare preview/production deployment
 - branch protection
-
-The website architecture is substantially built, but these unavailable capabilities must remain visibly locked rather than simulated.
+- production launch
