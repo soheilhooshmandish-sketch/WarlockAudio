@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HowtoRouteImport } from './routes/howto'
@@ -18,6 +19,11 @@ import { Route as GenerateRouteImport } from './routes/generate'
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRoute
   '/support': typeof SupportRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRoute
   '/support': typeof SupportRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,15 @@ export interface FileRoutesById {
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRoute
   '/support': typeof SupportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/generate' | '/howto' | '/pricing' | '/support'
+  fullPaths: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/support'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/generate' | '/howto' | '/pricing' | '/support'
-  id: '__root__' | '/' | '/generate' | '/howto' | '/pricing' | '/support'
+  to: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/support'
+  id: '__root__' | '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/support'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +85,7 @@ export interface RootRouteChildren {
   GenerateRoute: typeof GenerateRoute
   HowtoRoute: typeof HowtoRoute
   PricingRoute: typeof PricingRoute
+  ProductsRoute: typeof ProductsRoute
   SupportRoute: typeof SupportRoute
 }
 
@@ -109,6 +119,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -124,6 +141,7 @@ const rootRouteChildren: RootRouteChildren = {
   GenerateRoute: GenerateRoute,
   HowtoRoute: HowtoRoute,
   PricingRoute: PricingRoute,
+  ProductsRoute: ProductsRoute,
   SupportRoute: SupportRoute,
 }
 export const routeTree = rootRouteImport
