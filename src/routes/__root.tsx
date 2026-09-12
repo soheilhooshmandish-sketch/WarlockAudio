@@ -6,6 +6,7 @@ import appCss from "../styles.css?url";
 import warlockHomeCss from "../warlock-home.css?url";
 import warlockPagesCss from "../warlock-pages.css?url";
 import warlockAtmosphereCss from "../warlock-atmosphere.css?url";
+import warlockProductsCss from "../warlock-products.css?url";
 
 const APP_NAME = "WARLOCK PLUGINS — Sound Beyond Reality";
 
@@ -65,6 +66,7 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: warlockHomeCss },
       { rel: "stylesheet", href: warlockPagesCss },
       { rel: "stylesheet", href: warlockAtmosphereCss },
+      { rel: "stylesheet", href: warlockProductsCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
