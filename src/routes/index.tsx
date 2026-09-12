@@ -95,14 +95,9 @@ function Home() {
             <Link to="/support">SUPPORT</Link>
           </nav>
 
-          <button
-            className="warlock-sign-in"
-            type="button"
-            title="Accounts are not enabled on this build yet"
-            aria-label="Sign in — account system coming soon"
-          >
-            SIGN IN
-          </button>
+          <Link className="warlock-sign-in" to="/account" aria-label="Open WARLOCK account">
+            ACCOUNT
+          </Link>
         </div>
       </header>
 
@@ -334,20 +329,19 @@ function Home() {
         </div>
       </section>
 
-      <section className="warlock-section warlock-marketplace" id="marketplace">
+      <section className="warlock-section warlock-marketplace" id="ecosystem">
         <div className="warlock-section-heading">
-          <p>MARKETPLACE</p>
-          <h2>A future home for plugins, presets and IRs.</h2>
+          <p>WARLOCK ECOSYSTEM</p>
+          <h2>Products, presets and skins under one compatibility model.</h2>
           <span>
-            Marketplace listings will only unlock after creator ownership, package
-            integrity, licensing and buyer-delivery rules are proven end to end.
+            Preset packs and skins now have versioned contracts, but their public catalogs remain empty until real assets have compatibility, version and exact content identity.
           </span>
         </div>
-        <div className="warlock-market-strip" aria-label="Marketplace roadmap">
-          <span>PLUGINS</span>
-          <span>PRESET BANKS</span>
-          <span>IR LIBRARIES</span>
-          <span>CREATOR RELEASES</span>
+        <div className="warlock-market-strip" aria-label="WARLOCK ecosystem">
+          <Link to="/products">SIGNATURE PRODUCTS</Link>
+          <Link to="/presets">PRESETS</Link>
+          <Link to="/skins">SKINS</Link>
+          <Link to="/generate" search={{ prompt: "" }}>CREATE</Link>
         </div>
       </section>
 
