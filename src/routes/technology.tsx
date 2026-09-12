@@ -1,13 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
-  BadgeCheck,
   Binary,
   Boxes,
   Fingerprint,
   HardDriveDownload,
   LockKeyhole,
-  ShieldCheck,
   UserCheck,
 } from "lucide-react";
 import "../warlock-catalog.css";
