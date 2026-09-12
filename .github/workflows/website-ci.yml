@@ -33,7 +33,7 @@ jobs:
           fi
       - name: Typecheck
         run: npm run typecheck
-      - name: Test platform, Factory and asset contracts
+      - name: Test platform, Factory, asset and account contracts
         shell: bash
         run: |
           set -euo pipefail
@@ -51,6 +51,7 @@ jobs:
             "$REPO/src/lib/app-data/app-data.test.ts" \
             "$REPO/src/lib/auth/gate-identity.test.ts" \
             "$REPO/src/lib/factory/intake-policy.test.ts" \
-            "$REPO/src/lib/assets/catalog.test.ts"
+            "$REPO/src/lib/assets/catalog.test.ts" \
+            "$REPO/src/lib/account/model.test.ts"
       - name: Build website
         run: npm run build:dev
