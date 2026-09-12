@@ -2,12 +2,14 @@
 
 Read `WEBSITE_CURRENT_STATE.md` before implementing new public features.
 
-## P0 — Deployment preview
-1. Connect an approved deployment provider (Vercel connector is available) or explicitly choose the WARLOCK Cloudflare Pages deployment path.
-2. Create a **preview**, not production deployment.
-3. Keep live billing off and Factory public intake disarmed by default.
-4. Verify preview URL, build SHA and environment mode.
-5. Test routes on real preview:
+## P0 — Cloudflare preview deployment
+1. Make `vite.config.ts` deployment-target aware while keeping Vercel/default build behavior intact.
+2. Add a Cloudflare preview build path using Nitro `cloudflare_pages`.
+3. Add a manual preview-only GitHub workflow; never bind the production domain automatically.
+4. Keep live billing off and Factory public intake disarmed by default.
+5. Require Cloudflare credentials only as GitHub secrets; never commit them.
+6. Verify preview URL, deployed commit SHA and non-production environment.
+7. Test real preview routes:
    - `/`
    - `/generate`
    - `/products`
@@ -20,8 +22,8 @@ Read `WEBSITE_CURRENT_STATE.md` before implementing new public features.
    - `/status`
    - `/login`
    - `/account`
-6. Verify mobile/desktop layout, keyboard focus, reduced-motion behavior and no horizontal overflow.
-7. Founder reviews preview before production deployment.
+8. Verify mobile/desktop layout, keyboard focus, reduced-motion behavior and no horizontal overflow.
+9. Founder reviews preview before production-domain promotion.
 
 Do not interpret committed `.vercel/output` as deployment proof.
 
@@ -58,7 +60,7 @@ After authenticated Factory intake exists:
 
 ## P4 — Provider sandbox commerce
 The deterministic sandbox state machine already exists.
-Next, integrate a payment provider **sandbox** only:
+Next, integrate a payment provider sandbox only:
 - test checkout
 - sandbox payment result
 - order persistence
@@ -100,7 +102,7 @@ Enable website `main` branch protection (issue #7):
 
 ## P9 — Production launch
 Before production:
-- preview approved
+- Cloudflare preview approved
 - branch protection enabled
 - real auth tested
 - Factory intake tested and intentionally armed/disarmed as launch design requires
@@ -109,6 +111,6 @@ Before production:
 - licensing enforcement tested end to end
 - support path operational
 - production secrets configured outside Git
-- Founder explicitly approves deployment
+- Founder explicitly approves production-domain promotion
 
 Do not deploy experimental or partially-connected behavior as if commercial launch were complete.
