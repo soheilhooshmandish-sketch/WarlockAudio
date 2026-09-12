@@ -1,11 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
-  BadgeCheck,
-  CircleAlert,
   Download,
   KeyRound,
-  LifeBuoy,
   LockKeyhole,
   PackageCheck,
   ShieldCheck,
