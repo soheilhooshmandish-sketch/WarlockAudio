@@ -71,3 +71,47 @@ jobs:
           test -f dist/_worker.js/index.js
           test -f dist/_routes.json
           echo "Cloudflare Pages Nitro output verified."
+      - name: Smoke Cloudflare Pages runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOG="$(mktemp)"
+          npx --yes wrangler@4 pages dev dist --ip 127.0.0.1 --port 8791 >"$LOG" 2>&1 &
+          WRANGLER_PID=$!
+          trap 'kill "$WRANGLER_PID" 2>/dev/null || true; cat "$LOG"' EXIT
+
+          ready=0
+          for _ in $(seq 1 40); do
+            if curl -fsS --max-time 2 http://127.0.0.1:8791/ >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 0.5
+          done
+          if [[ "$ready" != "1" ]]; then
+            echo "::error::Cloudflare Pages local runtime did not become ready."
+            exit 1
+          fi
+
+          routes=(
+            "/"
+            "/generate"
+            "/products"
+            "/products/void"
+            "/pricing"
+            "/presets"
+            "/skins"
+            "/technology"
+            "/support"
+            "/status"
+            "/login"
+            "/account"
+          )
+          for route in "${routes[@]}"; do
+            code="$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' "http://127.0.0.1:8791${route}")"
+            if (( code < 200 || code >= 400 )); then
+              echo "::error::Cloudflare runtime route ${route} returned HTTP ${code}."
+              exit 1
+            fi
+            echo "${route} -> ${code}"
+          done
