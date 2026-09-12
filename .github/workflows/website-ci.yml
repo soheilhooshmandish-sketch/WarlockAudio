@@ -35,7 +35,22 @@ jobs:
           fi
       - name: Typecheck
         run: npm run typecheck
-      - name: Test
-        run: npm test
+      - name: Test platform contracts with isolated PWA identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPO="$PWD"
+          mapfile -d '' OTHER_TESTS < <(find "$REPO/scripts" -type f -name '*.test.mjs' ! -name 'grok-pwa-plugin.test.mjs' -print0)
+          node --test "${OTHER_TESTS[@]}"
+
+          PWA_CWD="$(mktemp -d)"
+          (
+            cd "$PWA_CWD"
+            node --test "$REPO/scripts/grok-pwa-plugin.test.mjs"
+          )
+
+          node --experimental-strip-types --test \
+            "$REPO/src/lib/app-data/app-data.test.ts" \
+            "$REPO/src/lib/auth/gate-identity.test.ts"
       - name: Build website
         run: npm run build:dev
