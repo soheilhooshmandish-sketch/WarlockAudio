@@ -23,13 +23,17 @@ function hasGlobbedMigrations(root: string): boolean {
 
 /**
  * Keep deployment targets explicit and bounded. Vercel remains the historical
- * default build output; Cloudflare Pages is enabled only when requested by the
- * controlled preview workflow.
+ * default output. Cloudflare Pages remains available for regression proof and
+ * Cloudflare Workers uses Nitro's current module-worker preset so existing
+ * server/middleware/* behavior is preserved during the deployment migration.
  */
-function deploymentPreset(): "vercel" | "cloudflare_pages" {
-  return process.env.NITRO_PRESET === "cloudflare_pages"
-    ? "cloudflare_pages"
-    : "vercel";
+function deploymentPreset() {
+  const requested = process.env.NITRO_PRESET;
+  if (requested === "cloudflare_pages") return "cloudflare_pages" as const;
+  if (requested === "cloudflare-module" || requested === "cloudflare_workers") {
+    return "cloudflare-module" as const;
+  }
+  return "vercel" as const;
 }
 
 /**
