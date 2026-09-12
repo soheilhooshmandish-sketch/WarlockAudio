@@ -35,7 +35,7 @@ const supportAreas = [
     title: "PRODUCT STATUS",
     copy: "WARLOCK product pages expose development or concept state honestly. A product is never marked available from artwork or a build alone.",
     icon: PackageCheck,
-    state: "STATUS DATA LIVE",
+    state: "CATALOG STATUS PUBLISHED",
   },
 ];
 
@@ -50,6 +50,7 @@ function SupportPage() {
         <nav aria-label="Support navigation">
           <Link to="/products">PRODUCTS</Link>
           <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
+          <Link to="/status">STATUS</Link>
           <Link to="/pricing">PRICING</Link>
         </nav>
       </header>
@@ -83,7 +84,7 @@ function SupportPage() {
           <span>
             WARLOCK will not show a working-looking form that drops messages. Ticket creation, email delivery and human response commitments remain disabled until those services are connected and monitored.
           </span>
-          <Link to="/products">CHECK PRODUCT STATUS</Link>
+          <Link to="/status">OPEN SYSTEM STATUS</Link>
         </div>
       </section>
 
