@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Activity,
   ArrowRight,
@@ -22,64 +22,12 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { products as catalogProducts } from "@/lib/catalog/products";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 type Atmosphere = "morning" | "day" | "dusk" | "night";
 type GeneratorMode = "auto" | "pro";
-
-type Product = {
-  name: string;
-  type: string;
-  note: string;
-  status: string;
-  realm: string;
-};
-
-const products: Product[] = [
-  {
-    name: "BLACK FROST",
-    type: "BLACK METAL DISTORTION",
-    note: "Cold attack. Raw edge. Controlled low end.",
-    status: "IN DEVELOPMENT",
-    realm: "frost",
-  },
-  {
-    name: "ALIEN",
-    type: "DISTORTION / MULTI-FX",
-    note: "Hostile textures built around a biomechanical core.",
-    status: "PROTOTYPE",
-    realm: "alien",
-  },
-  {
-    name: "ABYSS",
-    type: "AMBIENT / REVERB / DELAY",
-    note: "Long-form space, depth and frozen atmosphere.",
-    status: "PROTOTYPE",
-    realm: "abyss",
-  },
-  {
-    name: "THALL",
-    type: "MODERN METAL",
-    note: "Tight transient control for modern heavy rhythm.",
-    status: "PROTOTYPE",
-    realm: "thall",
-  },
-  {
-    name: "CHIMERA",
-    type: "OCTAVE / HARMONY",
-    note: "Hybrid voices, interval movement and layered width.",
-    status: "PROTOTYPE",
-    realm: "chimera",
-  },
-  {
-    name: "VOID",
-    type: "SPATIAL TEXTURE",
-    note: "Pitch, grain, reverse and space in one evolving system.",
-    status: "ACTIVE DEVELOPMENT",
-    realm: "void",
-  },
-];
 
 const steps = ["IDEA", "SOUND", "SKIN", "PREVIEW", "BUILD"];
 
@@ -371,21 +319,21 @@ function Home() {
         </div>
 
         <div className="warlock-product-grid">
-          {products.map((product) => (
+          {catalogProducts.map((product) => (
             <article className="warlock-product-card" data-realm={product.realm} key={product.name}>
               <div className="warlock-product-art" aria-hidden="true">
                 <img src="/brand/warlock-core.svg" alt="" />
                 <span />
               </div>
               <div className="warlock-product-copy">
-                <p>{product.status}</p>
+                <p>{product.statusLabel}</p>
                 <h3>{product.name}</h3>
-                <small>{product.type}</small>
-                <span>{product.note}</span>
+                <small>{product.category}</small>
+                <span>{product.character}</span>
               </div>
-              <button aria-label={`Explore ${product.name}`}>
+              <Link to="/products/$slug" params={{ slug: product.slug }} aria-label={`Explore ${product.name}`}>
                 <ChevronRight size={18} />
-              </button>
+              </Link>
             </article>
           ))}
         </div>

@@ -1,19 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CircleDot, Headphones, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "@/components/warlock/site-header";
+import { products } from "@/lib/catalog/products";
 
 export const Route = createFileRoute("/products")({ component: ProductsPage });
-
-const products = [
-  { name: "VOID", type: "SPATIAL TEXTURE", status: "ACTIVE DEVELOPMENT", realm: "void", note: "Pitch, grain, reverse and space in one evolving system." },
-  { name: "THALL", type: "MODERN METAL", status: "PROTOTYPE", realm: "thall", note: "Tight transient control for modern heavy rhythm." },
-  { name: "ABYSS", type: "AMBIENT / REVERB / DELAY", status: "PROTOTYPE", realm: "abyss", note: "Long-form space, depth and frozen atmosphere." },
-  { name: "CHIMERA", type: "OCTAVE / HARMONY", status: "PROTOTYPE", realm: "chimera", note: "Hybrid voices, interval movement and layered width." },
-  { name: "ALIEN", type: "DISTORTION / MULTI-FX", status: "PROTOTYPE", realm: "alien", note: "Hostile textures built around a biomechanical core." },
-  { name: "BLACK FROST", type: "BLACK METAL DISTORTION", status: "IN DEVELOPMENT", realm: "frost", note: "Cold attack. Raw edge. Controlled low end." },
-  { name: "FRACTURE", type: "GLITCH / RHYTHM", status: "CONCEPT / PROTOTYPE", realm: "fracture", note: "Broken rhythm, repeat structures and controlled instability." },
-  { name: "DISTO / SYNTH", type: "DISTORTION / SYNTH", status: "CONCEPT / PROTOTYPE", realm: "synth", note: "Distortion and synthesis inside a shared performance system." },
-];
 
 function ProductsPage() {
   return (
@@ -36,12 +26,12 @@ function ProductsPage() {
               <div className="warlock-catalog-energy" />
             </div>
             <div className="warlock-catalog-copy">
-              <p><CircleDot size={11} /> {product.status}</p>
+              <p><CircleDot size={11} /> {product.statusLabel}</p>
               <h2>{product.name}</h2>
-              <small>{product.type}</small>
-              <span>{product.note}</span>
+              <small>{product.category}</small>
+              <span>{product.character}</span>
               <div className="warlock-catalog-actions">
-                <button className="warlock-button warlock-button-secondary" disabled>DETAIL PAGE NEXT</button>
+                <Link to="/products/$slug" params={{ slug: product.slug }} className="warlock-button warlock-button-secondary">VIEW PRODUCT</Link>
                 <button className="warlock-catalog-listen" disabled><Headphones size={16} /> AUDIO SOON</button>
               </div>
             </div>

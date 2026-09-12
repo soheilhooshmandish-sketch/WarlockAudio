@@ -1,0 +1,66 @@
+/* Canonical WARLOCK presentation: black, white and material contrast only. */
+:root { color-scheme: dark; }
+
+/* Every product realm inherits the monochrome master system. */
+.warlock-site, .warlock-app-page, .wc-page { filter: grayscale(1); }
+
+.warlock-site {
+  --w-bg: #080808;
+  --w-bg-deep: #000;
+  --w-panel: rgb(12 12 12 / 0.88);
+  --w-panel-solid: #111;
+  --w-raised: #181818;
+  --w-fg: #f5f5f2;
+  --w-muted: #aaa9a2;
+  --w-subtle: #73736f;
+  --w-ice: #deded8;
+  --w-ice-bright: #fff;
+  --w-line: rgb(255 255 255 / 0.14);
+  --w-line-strong: rgb(255 255 255 / 0.32);
+  --w-glow: rgb(255 255 255 / 0.12);
+  --w-atmosphere-a: rgb(255 255 255 / 0.06);
+  --w-atmosphere-b: rgb(255 255 255 / 0.025);
+  background: radial-gradient(circle at 75% 8%, var(--w-atmosphere-a), transparent 29%), linear-gradient(180deg, #101010 0%, #060606 38%, #000 100%);
+}
+
+.warlock-site[data-atmosphere], .warlock-site[data-atmosphere="morning"], .warlock-site[data-atmosphere="day"], .warlock-site[data-atmosphere="dusk"], .warlock-site[data-atmosphere="night"] {
+  --w-atmosphere-a: rgb(255 255 255 / 0.06);
+  --w-atmosphere-b: rgb(255 255 255 / 0.025);
+}
+
+.warlock-aurora { background: radial-gradient(ellipse at 74% 10%, rgb(255 255 255 / 0.08), transparent 24%), radial-gradient(ellipse at 63% 40%, rgb(255 255 255 / 0.035), transparent 32%); }
+.warlock-grid { background-image: linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px); }
+.warlock-header { background: rgb(5 5 5 / 0.84); }
+.warlock-brand-mark, .warlock-app-brand img { filter: brightness(0) invert(1) drop-shadow(0 0 11px rgb(255 255 255 / 0.17)); }
+.warlock-brand-mark img, .warlock-emblem-stage img, .warlock-factory-core img, .warlock-product-art img { filter: brightness(0) invert(1); }
+
+.warlock-app-page {
+  color: #f3f3ee;
+  background: radial-gradient(circle at 72% 0%, rgb(255 255 255 / 0.07), transparent 34%), linear-gradient(180deg, #101010 0%, #070707 42%, #000 100%);
+}
+.warlock-app-page::before { background-image: linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px); }
+.warlock-app-header { border-color: rgb(255 255 255 / 0.14); background: rgb(5 5 5 / 0.86); }
+.warlock-app-brand { color: #fff; }
+.warlock-app-brand small, .warlock-app-header nav a, .warlock-live-dot { color: #a8a8a1; }
+.warlock-app-header nav a:hover, .warlock-app-header nav a.is-active { color: #fff; }
+.warlock-live-dot i { background: #fff; box-shadow: 0 0 10px rgb(255 255 255 / 0.6); }
+.warlock-app-mode, .warlock-menu-trigger { border-color: rgb(255 255 255 / 0.17); background: #111; }
+.warlock-app-mode button.is-active, .warlock-mobile-create { color: #050505; background: linear-gradient(180deg, #fff, #c9c9c2); box-shadow: 0 0 18px rgb(255 255 255 / 0.2); }
+.warlock-app-kicker { color: #d6d6d0; }
+.warlock-simple-hero h1 span { color: #fff; }
+.warlock-simple-hero > p:last-child { color: #aaa9a2; }
+
+.warlock-generator-steps, .warlock-generator-main, .warlock-farnaz-card, .warlock-live-summary, .warlock-plan-card, .warlock-support-channel, .warlock-contact-form-wrap, .warlock-support-side article, .warlock-faq-list button,
+.warlock-catalog-card, .warlock-catalog-proof {
+  border-color: rgb(255 255 255 / 0.13);
+  background: linear-gradient(145deg, rgb(20 20 20 / 0.96), rgb(5 5 5 / 0.98));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.045), 0 18px 52px rgb(0 0 0 / 0.36);
+}
+.warlock-catalog-art, .warlock-catalog-card[data-realm], .warlock-catalog-card[data-realm] .warlock-catalog-art {
+  border-color: rgb(255 255 255 / 0.1);
+  background: radial-gradient(circle at 50% 42%, rgb(255 255 255 / 0.11), transparent 36%), linear-gradient(180deg, #1b1b1b, #070707);
+}
+.warlock-catalog-art img { filter: brightness(0) invert(1) drop-shadow(0 0 24px rgb(255 255 255 / 0.16)); }
+.warlock-catalog-index, .warlock-catalog-copy > p, .warlock-catalog-copy > small, .warlock-catalog-copy > span, .warlock-catalog-listen { color: #aaa9a2; }
+.warlock-catalog-copy h2, .warlock-catalog-proof strong { color: #fff; }
+.warlock-catalog-proof span { color: #aaa9a2; }

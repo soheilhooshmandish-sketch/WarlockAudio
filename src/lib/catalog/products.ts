@@ -3,6 +3,7 @@ export type ProductStatus = "in-development" | "concept";
 export type WarlockProduct = {
   slug: string;
   name: string;
+  realm: string;
   category: string;
   character: string;
   status: ProductStatus;
@@ -16,6 +17,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "void",
     name: "VOID",
+    realm: "void",
     category: "SPATIAL / TEXTURE EFFECT",
     character: "Pitch, granular, reverse, freeze and spatial motion",
     status: "in-development",
@@ -30,6 +32,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "thall",
     name: "THALL",
+    realm: "thall",
     category: "HEAVY GUITAR EFFECT",
     character: "Low-tuned transient control and extreme rhythmic weight",
     status: "concept",
@@ -43,6 +46,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "abyss",
     name: "ABYSS",
+    realm: "abyss",
     category: "ATMOSPHERIC EFFECT",
     character: "Deep cold space and heavy ambience",
     status: "concept",
@@ -55,6 +59,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "chimera",
     name: "CHIMERA",
+    realm: "chimera",
     category: "MULTI-EFFECT CONCEPT",
     character: "Hybrid organic-metal processing",
     status: "concept",
@@ -65,8 +70,22 @@ export const products: WarlockProduct[] = [
     releaseBlocker: "Validated DSP, UI, host and commercial release evidence remain required.",
   },
   {
+    slug: "chimera-disto",
+    name: "CHIMERA DISTO",
+    realm: "chimera",
+    category: "DISTORTION / HARMONY CONCEPT",
+    character: "Layered drive, hybrid octave movement and controlled harmonic weight",
+    status: "concept",
+    statusLabel: "CONCEPT / DNA",
+    summary:
+      "A distortion-led CHIMERA direction: controlled gain, layered interval colour and the same hybrid WARLOCK visual realm.",
+    evidenceNote: "CHIMERA DISTO is restored to the private catalogue as a product direction; no release binary is claimed.",
+    releaseBlocker: "Validated DSP, UI, host testing and complete release evidence are required before it can be sold.",
+  },
+  {
     slug: "alien",
     name: "ALIEN",
+    realm: "alien",
     category: "EXPERIMENTAL EFFECT CONCEPT",
     character: "Unfamiliar textures and aggressive transformation",
     status: "concept",
@@ -79,6 +98,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "black-frost",
     name: "BLACK FROST",
+    realm: "frost",
     category: "COLD HEAVY EFFECT CONCEPT",
     character: "Cold attack, steel texture and restrained space",
     status: "concept",
@@ -91,6 +111,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "fracture",
     name: "FRACTURE",
+    realm: "fracture",
     category: "DISTORTION CONCEPT",
     character: "Broken transients, heat and controlled violence",
     status: "concept",
@@ -103,6 +124,7 @@ export const products: WarlockProduct[] = [
   {
     slug: "disto-synth",
     name: "DISTO/SYNTH",
+    realm: "synth",
     category: "HYBRID EFFECT CONCEPT",
     character: "Distortion and synthesis crossover",
     status: "concept",
