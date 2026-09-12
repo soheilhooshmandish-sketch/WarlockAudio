@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Activity,
   ArrowDown,
@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import { PedalEnclosure } from "@/components/pedal/enclosure";
 import { StudioDock } from "@/components/studio/studio";
-import { submitFactoryIntake } from "@/lib/factory/intake.server";
 import "../warlock-home.css";
 import "../warlock-sections.css";
 
@@ -85,42 +84,15 @@ const waveform = [
   37, 59, 73, 46,
 ];
 
-type IntakeState =
-  | { status: "idle" }
-  | { status: "pending" }
-  | { status: "staged"; requestId: string }
-  | { status: "error"; message: string };
-
 function Home() {
   const [prompt, setPrompt] = useState("");
-  const [stagedPrompt, setStagedPrompt] = useState("");
-  const [intake, setIntake] = useState<IntakeState>({ status: "idle" });
+  const navigate = useNavigate({ from: "/" });
 
   async function submitPrompt(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const value = prompt.trim();
-    if (value.length < 12 || intake.status === "pending") return;
-
-    setIntake({ status: "pending" });
-    const clientRequestId = crypto.randomUUID();
-    try {
-      const result = await submitFactoryIntake({
-        data: { prompt: value, clientRequestId },
-      });
-      if (!result.ok) {
-        setStagedPrompt("");
-        setIntake({ status: "error", message: result.message });
-        return;
-      }
-      setStagedPrompt(value);
-      setIntake({ status: "staged", requestId: result.requestId });
-    } catch {
-      setStagedPrompt("");
-      setIntake({
-        status: "error",
-        message: "Factory intake could not be reached. No build request was staged.",
-      });
-    }
+    if (value.length < 12) return;
+    await navigate({ to: "/generate", search: { prompt: value } });
   }
 
   return (
@@ -179,10 +151,10 @@ function Home() {
             <button
               type="submit"
               className="warlock-generate"
-              disabled={prompt.trim().length < 12 || intake.status === "pending"}
+              disabled={prompt.trim().length < 12}
             >
               <Sparkles size={18} strokeWidth={1.8} aria-hidden="true" />
-              {intake.status === "pending" ? "STAGING..." : "GENERATE"}
+              GENERATE
             </button>
           </form>
 
@@ -193,30 +165,6 @@ function Home() {
               </button>
             ))}
           </div>
-
-          {intake.status !== "idle" ? (
-            <div
-              className="warlock-stage-note"
-              data-state={intake.status}
-              role="status"
-              aria-live="polite"
-            >
-              {intake.status === "staged" ? (
-                <ShieldCheck size={17} strokeWidth={1.8} aria-hidden="true" />
-              ) : intake.status === "pending" ? (
-                <Activity size={17} strokeWidth={1.8} aria-hidden="true" />
-              ) : (
-                <LockKeyhole size={17} strokeWidth={1.8} aria-hidden="true" />
-              )}
-              <span>
-                {intake.status === "staged"
-                  ? `Factory request ${intake.requestId.slice(0, 8)} staged. Build has not started.`
-                  : intake.status === "pending"
-                    ? "Sending a validated request to the WARLOCK Factory gateway..."
-                    : intake.message}
-              </span>
-            </div>
-          ) : null}
         </div>
 
         <a className="warlock-scroll" href="#products">
@@ -295,7 +243,7 @@ function Home() {
           </span>
           <div className="warlock-preview-state">
             <Headphones size={18} aria-hidden="true" />
-            <span>{stagedPrompt ? "REQUEST STAGED · WAITING FOR FACTORY BUILD" : "NO VERIFIED FACTORY REQUEST YET"}</span>
+            <span>OPEN GENERATOR TO STAGE A VERIFIED FACTORY REQUEST</span>
           </div>
         </div>
 
