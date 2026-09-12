@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologyRouteImport } from './routes/technology'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as StatusRouteImport } from './routes/status'
 import { Route as SkinsRouteImport } from './routes/skins'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
@@ -26,86 +27,23 @@ import { Route as AccountLicensesRouteImport } from './routes/account_.licenses'
 import { Route as AccountBuildsRouteImport } from './routes/account_.builds'
 import { Route as AccountBillingRouteImport } from './routes/account_.billing'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TechnologyRoute = TechnologyRouteImport.update({
-  id: '/technology',
-  path: '/technology',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SkinsRoute = SkinsRouteImport.update({
-  id: '/skins',
-  path: '/skins',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsSlugRoute = ProductsSlugRouteImport.update({
-  id: '/products_/$slug',
-  path: '/products/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PresetsRoute = PresetsRouteImport.update({
-  id: '/presets',
-  path: '/presets',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HowtoRoute = HowtoRouteImport.update({
-  id: '/howto',
-  path: '/howto',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GenerateRoute = GenerateRouteImport.update({
-  id: '/generate',
-  path: '/generate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountRoute = AccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountProductsRoute = AccountProductsRouteImport.update({
-  id: '/account_/products',
-  path: '/account/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountLicensesRoute = AccountLicensesRouteImport.update({
-  id: '/account_/licenses',
-  path: '/account/licenses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountBuildsRoute = AccountBuildsRouteImport.update({
-  id: '/account_/builds',
-  path: '/account/builds',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountBillingRoute = AccountBillingRouteImport.update({
-  id: '/account_/billing',
-  path: '/account/billing',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const IndexRoute = IndexRouteImport.update({ id: '/', path: '/', getParentRoute: () => rootRouteImport } as any)
+const TechnologyRoute = TechnologyRouteImport.update({ id: '/technology', path: '/technology', getParentRoute: () => rootRouteImport } as any)
+const SupportRoute = SupportRouteImport.update({ id: '/support', path: '/support', getParentRoute: () => rootRouteImport } as any)
+const StatusRoute = StatusRouteImport.update({ id: '/status', path: '/status', getParentRoute: () => rootRouteImport } as any)
+const SkinsRoute = SkinsRouteImport.update({ id: '/skins', path: '/skins', getParentRoute: () => rootRouteImport } as any)
+const ProductsRoute = ProductsRouteImport.update({ id: '/products', path: '/products', getParentRoute: () => rootRouteImport } as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({ id: '/products_/$slug', path: '/products/$slug', getParentRoute: () => rootRouteImport } as any)
+const PresetsRoute = PresetsRouteImport.update({ id: '/presets', path: '/presets', getParentRoute: () => rootRouteImport } as any)
+const PricingRoute = PricingRouteImport.update({ id: '/pricing', path: '/pricing', getParentRoute: () => rootRouteImport } as any)
+const LoginRoute = LoginRouteImport.update({ id: '/login', path: '/login', getParentRoute: () => rootRouteImport } as any)
+const HowtoRoute = HowtoRouteImport.update({ id: '/howto', path: '/howto', getParentRoute: () => rootRouteImport } as any)
+const GenerateRoute = GenerateRouteImport.update({ id: '/generate', path: '/generate', getParentRoute: () => rootRouteImport } as any)
+const AccountRoute = AccountRouteImport.update({ id: '/account', path: '/account', getParentRoute: () => rootRouteImport } as any)
+const AccountProductsRoute = AccountProductsRouteImport.update({ id: '/account_/products', path: '/account/products', getParentRoute: () => rootRouteImport } as any)
+const AccountLicensesRoute = AccountLicensesRouteImport.update({ id: '/account_/licenses', path: '/account/licenses', getParentRoute: () => rootRouteImport } as any)
+const AccountBuildsRoute = AccountBuildsRouteImport.update({ id: '/account_/builds', path: '/account/builds', getParentRoute: () => rootRouteImport } as any)
+const AccountBillingRoute = AccountBillingRouteImport.update({ id: '/account_/billing', path: '/account/billing', getParentRoute: () => rootRouteImport } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/skins': typeof SkinsRoute
+  '/status': typeof StatusRoute
   '/support': typeof SupportRoute
   '/technology': typeof TechnologyRoute
 }
@@ -140,6 +79,7 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/skins': typeof SkinsRoute
+  '/status': typeof StatusRoute
   '/support': typeof SupportRoute
   '/technology': typeof TechnologyRoute
 }
@@ -159,15 +99,16 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/products_/$slug': typeof ProductsSlugRoute
   '/skins': typeof SkinsRoute
+  '/status': typeof StatusRoute
   '/support': typeof SupportRoute
   '/technology': typeof TechnologyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/account' | '/account/billing' | '/account/builds' | '/account/licenses' | '/account/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
+  fullPaths: '/' | '/account' | '/account/billing' | '/account/builds' | '/account/licenses' | '/account/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/status' | '/support' | '/technology'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/account' | '/account/billing' | '/account/builds' | '/account/licenses' | '/account/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/support' | '/technology'
-  id: '__root__' | '/' | '/account' | '/account_/billing' | '/account_/builds' | '/account_/licenses' | '/account_/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products_/$slug' | '/skins' | '/support' | '/technology'
+  to: '/' | '/account' | '/account/billing' | '/account/builds' | '/account/licenses' | '/account/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products/$slug' | '/skins' | '/status' | '/support' | '/technology'
+  id: '__root__' | '/' | '/account' | '/account_/billing' | '/account_/builds' | '/account_/licenses' | '/account_/products' | '/generate' | '/howto' | '/login' | '/presets' | '/pricing' | '/products' | '/products_/$slug' | '/skins' | '/status' | '/support' | '/technology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -185,144 +126,51 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
   SkinsRoute: typeof SkinsRoute
+  StatusRoute: typeof StatusRoute
   SupportRoute: typeof SupportRoute
   TechnologyRoute: typeof TechnologyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/account': {
-      id: '/account'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof AccountRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/account_/billing': {
-      id: '/account_/billing'
-      path: '/account/billing'
-      fullPath: '/account/billing'
-      preLoaderRoute: typeof AccountBillingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/account_/builds': {
-      id: '/account_/builds'
-      path: '/account/builds'
-      fullPath: '/account/builds'
-      preLoaderRoute: typeof AccountBuildsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/account_/licenses': {
-      id: '/account_/licenses'
-      path: '/account/licenses'
-      fullPath: '/account/licenses'
-      preLoaderRoute: typeof AccountLicensesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/account_/products': {
-      id: '/account_/products'
-      path: '/account/products'
-      fullPath: '/account/products'
-      preLoaderRoute: typeof AccountProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/generate': {
-      id: '/generate'
-      path: '/generate'
-      fullPath: '/generate'
-      preLoaderRoute: typeof GenerateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/howto': {
-      id: '/howto'
-      path: '/howto'
-      fullPath: '/howto'
-      preLoaderRoute: typeof HowtoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/presets': {
-      id: '/presets'
-      path: '/presets'
-      fullPath: '/presets'
-      preLoaderRoute: typeof PresetsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products_/$slug': {
-      id: '/products_/$slug'
-      path: '/products/$slug'
-      fullPath: '/products/$slug'
-      preLoaderRoute: typeof ProductsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/skins': {
-      id: '/skins'
-      path: '/skins'
-      fullPath: '/skins'
-      preLoaderRoute: typeof SkinsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/support': {
-      id: '/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/technology': {
-      id: '/technology'
-      path: '/technology'
-      fullPath: '/technology'
-      preLoaderRoute: typeof TechnologyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    '/': { id: '/'; path: '/'; fullPath: '/'; preLoaderRoute: typeof IndexRouteImport; parentRoute: typeof rootRouteImport }
+    '/account': { id: '/account'; path: '/account'; fullPath: '/account'; preLoaderRoute: typeof AccountRouteImport; parentRoute: typeof rootRouteImport }
+    '/account_/billing': { id: '/account_/billing'; path: '/account/billing'; fullPath: '/account/billing'; preLoaderRoute: typeof AccountBillingRouteImport; parentRoute: typeof rootRouteImport }
+    '/account_/builds': { id: '/account_/builds'; path: '/account/builds'; fullPath: '/account/builds'; preLoaderRoute: typeof AccountBuildsRouteImport; parentRoute: typeof rootRouteImport }
+    '/account_/licenses': { id: '/account_/licenses'; path: '/account/licenses'; fullPath: '/account/licenses'; preLoaderRoute: typeof AccountLicensesRouteImport; parentRoute: typeof rootRouteImport }
+    '/account_/products': { id: '/account_/products'; path: '/account/products'; fullPath: '/account/products'; preLoaderRoute: typeof AccountProductsRouteImport; parentRoute: typeof rootRouteImport }
+    '/generate': { id: '/generate'; path: '/generate'; fullPath: '/generate'; preLoaderRoute: typeof GenerateRouteImport; parentRoute: typeof rootRouteImport }
+    '/howto': { id: '/howto'; path: '/howto'; fullPath: '/howto'; preLoaderRoute: typeof HowtoRouteImport; parentRoute: typeof rootRouteImport }
+    '/login': { id: '/login'; path: '/login'; fullPath: '/login'; preLoaderRoute: typeof LoginRouteImport; parentRoute: typeof rootRouteImport }
+    '/presets': { id: '/presets'; path: '/presets'; fullPath: '/presets'; preLoaderRoute: typeof PresetsRouteImport; parentRoute: typeof rootRouteImport }
+    '/pricing': { id: '/pricing'; path: '/pricing'; fullPath: '/pricing'; preLoaderRoute: typeof PricingRouteImport; parentRoute: typeof rootRouteImport }
+    '/products': { id: '/products'; path: '/products'; fullPath: '/products'; preLoaderRoute: typeof ProductsRouteImport; parentRoute: typeof rootRouteImport }
+    '/products_/$slug': { id: '/products_/$slug'; path: '/products/$slug'; fullPath: '/products/$slug'; preLoaderRoute: typeof ProductsSlugRouteImport; parentRoute: typeof rootRouteImport }
+    '/skins': { id: '/skins'; path: '/skins'; fullPath: '/skins'; preLoaderRoute: typeof SkinsRouteImport; parentRoute: typeof rootRouteImport }
+    '/status': { id: '/status'; path: '/status'; fullPath: '/status'; preLoaderRoute: typeof StatusRouteImport; parentRoute: typeof rootRouteImport }
+    '/support': { id: '/support'; path: '/support'; fullPath: '/support'; preLoaderRoute: typeof SupportRouteImport; parentRoute: typeof rootRouteImport }
+    '/technology': { id: '/technology'; path: '/technology'; fullPath: '/technology'; preLoaderRoute: typeof TechnologyRouteImport; parentRoute: typeof rootRouteImport }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AccountRoute: AccountRoute,
-  AccountBillingRoute: AccountBillingRoute,
-  AccountBuildsRoute: AccountBuildsRoute,
-  AccountLicensesRoute: AccountLicensesRoute,
-  AccountProductsRoute: AccountProductsRoute,
-  GenerateRoute: GenerateRoute,
-  HowtoRoute: HowtoRoute,
-  LoginRoute: LoginRoute,
-  PresetsRoute: PresetsRoute,
-  PricingRoute: PricingRoute,
-  ProductsRoute: ProductsRoute,
-  ProductsSlugRoute: ProductsSlugRoute,
-  SkinsRoute: SkinsRoute,
-  SupportRoute: SupportRoute,
-  TechnologyRoute: TechnologyRoute,
+  IndexRoute,
+  AccountRoute,
+  AccountBillingRoute,
+  AccountBuildsRoute,
+  AccountLicensesRoute,
+  AccountProductsRoute,
+  GenerateRoute,
+  HowtoRoute,
+  LoginRoute,
+  PresetsRoute,
+  PricingRoute,
+  ProductsRoute,
+  ProductsSlugRoute,
+  SkinsRoute,
+  StatusRoute,
+  SupportRoute,
+  TechnologyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
