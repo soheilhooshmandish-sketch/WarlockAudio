@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Image as ImageIcon, LockKeyhole, Palette, ShieldCheck, Sparkles, Type } from "lucide-react";
+import { SiteHeader } from "@/components/warlock/site-header";
 
 export const Route = createFileRoute("/skins")({ component: SkinsPage });
 
@@ -15,11 +16,7 @@ const skins = [
 function SkinsPage() {
   return (
     <main className="warlock-app-page warlock-page-enter">
-      <header className="warlock-app-header">
-        <Link to="/" className="warlock-app-brand"><img src="/brand/warlock-core.svg" alt="" /><span><strong>WARLOCK</strong><small>SKINS</small></span></Link>
-        <nav><Link to="/">Home</Link><Link to="/products">Products</Link><Link to="/generate">Generate</Link><Link to="/presets">Presets</Link><Link to="/skins" className="is-active">Skins</Link><Link to="/pricing">Pricing</Link><Link to="/support">Support</Link></nav>
-        <Link to="/generate" className="warlock-button warlock-button-primary">CREATE</Link>
-      </header>
+      <SiteHeader section="SKINS" active="/skins" />
 
       <section className="warlock-simple-hero">
         <Link to="/" className="warlock-backlink"><ArrowLeft size={15} /> BACK TO WARLOCK</Link>
