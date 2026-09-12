@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as SkinsRouteImport } from './routes/skins'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PresetsRouteImport } from './routes/presets'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HowtoRouteImport } from './routes/howto'
@@ -21,9 +23,19 @@ const SupportRoute = SupportRouteImport.update({
   path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SkinsRoute = SkinsRouteImport.update({
+  id: '/skins',
+  path: '/skins',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresetsRoute = PresetsRouteImport.update({
+  id: '/presets',
+  path: '/presets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -51,16 +63,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
+  '/skins': typeof SkinsRoute
   '/support': typeof SupportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
+  '/skins': typeof SkinsRoute
   '/support': typeof SupportRoute
 }
 export interface FileRoutesById {
@@ -68,24 +84,28 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/generate': typeof GenerateRoute
   '/howto': typeof HowtoRoute
+  '/presets': typeof PresetsRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
+  '/skins': typeof SkinsRoute
   '/support': typeof SupportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/support'
+  fullPaths: '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/skins' | '/support'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/support'
-  id: '__root__' | '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/support'
+  to: '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/skins' | '/support'
+  id: '__root__' | '/' | '/generate' | '/howto' | '/presets' | '/pricing' | '/products' | '/skins' | '/support'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GenerateRoute: typeof GenerateRoute
   HowtoRoute: typeof HowtoRoute
+  PresetsRoute: typeof PresetsRoute
   PricingRoute: typeof PricingRoute
   ProductsRoute: typeof ProductsRoute
+  SkinsRoute: typeof SkinsRoute
   SupportRoute: typeof SupportRoute
 }
 
@@ -112,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowtoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/presets': {
+      id: '/presets'
+      path: '/presets'
+      fullPath: '/presets'
+      preLoaderRoute: typeof PresetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -124,6 +151,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skins': {
+      id: '/skins'
+      path: '/skins'
+      fullPath: '/skins'
+      preLoaderRoute: typeof SkinsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/support': {
@@ -140,8 +174,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GenerateRoute: GenerateRoute,
   HowtoRoute: HowtoRoute,
+  PresetsRoute: PresetsRoute,
   PricingRoute: PricingRoute,
   ProductsRoute: ProductsRoute,
+  SkinsRoute: SkinsRoute,
   SupportRoute: SupportRoute,
 }
 export const routeTree = rootRouteImport
