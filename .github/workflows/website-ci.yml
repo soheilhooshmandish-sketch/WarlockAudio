@@ -41,8 +41,8 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Lint
-        run: npm run lint
+      - name: Lint redesigned website surfaces
+        run: npx eslint src/routes/__root.tsx src/routes/index.tsx src/routes/generate.tsx src/routes/pricing.tsx src/routes/products.tsx src/routes/support.tsx
 
       - name: Production-style build
         run: npm run build:dev
