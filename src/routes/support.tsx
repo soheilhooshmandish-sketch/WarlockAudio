@@ -13,6 +13,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { useState } from "react";
+import { SiteHeader } from "@/components/warlock/site-header";
 
 export const Route = createFileRoute("/support")({ component: SupportPage });
 
@@ -29,11 +30,7 @@ function SupportPage() {
 
   return (
     <main className="warlock-app-page warlock-page-enter">
-      <header className="warlock-app-header">
-        <Link to="/" className="warlock-app-brand"><img src="/brand/warlock-core.svg" alt="" /><span><strong>WARLOCK</strong><small>SUPPORT</small></span></Link>
-        <nav><Link to="/">Home</Link><Link to="/generate">Generate</Link><Link to="/pricing">Pricing</Link><Link to="/support" className="is-active">Support</Link></nav>
-        <Link to="/generate" className="warlock-button warlock-button-primary">CREATE</Link>
-      </header>
+      <SiteHeader section="SUPPORT" active="/support" />
 
       <section className="warlock-simple-hero warlock-support-hero">
         <Link to="/" className="warlock-backlink"><ArrowLeft size={15} /> BACK TO WARLOCK</Link>
