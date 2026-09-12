@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       project_name:
-        description: Existing Cloudflare Pages preview project (must end with -preview)
+        description: Cloudflare Pages preview project (must end with -preview)
         required: true
         default: warlock-audio-preview
       preview_label:
@@ -73,6 +73,48 @@ jobs:
           if grep -R --binary-files=without-match -n "WARLOCK_FACTORY_INTAKE_TOKEN" dist/assets 2>/dev/null; then
             echo "::error::Factory secret identifier leaked into browser assets."
             exit 1
+          fi
+
+      - name: Smoke Cloudflare Pages runtime before deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOG="$(mktemp)"
+          npx --yes wrangler@4 pages dev dist --ip 127.0.0.1 --port 8791 >"$LOG" 2>&1 &
+          WRANGLER_PID=$!
+          trap 'kill "$WRANGLER_PID" 2>/dev/null || true; cat "$LOG"' EXIT
+          ready=0
+          for _ in $(seq 1 40); do
+            if curl -fsS --max-time 2 http://127.0.0.1:8791/ >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 0.5
+          done
+          if [[ "$ready" != "1" ]]; then
+            echo "::error::Cloudflare Pages local runtime did not become ready."
+            exit 1
+          fi
+          for route in / /generate /products /products/void /pricing /presets /skins /technology /support /status /login /account; do
+            code="$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' "http://127.0.0.1:8791${route}")"
+            if (( code < 200 || code >= 400 )); then
+              echo "::error::Cloudflare runtime route ${route} returned HTTP ${code}."
+              exit 1
+            fi
+          done
+
+      - name: Ensure isolated preview project exists
+        shell: bash
+        env:
+          PROJECT_NAME: ${{ inputs.project_name }}
+        run: |
+          set -euo pipefail
+          PROJECTS_JSON="$(npx --yes wrangler@4 pages project list --json)"
+          if ! printf '%s' "$PROJECTS_JSON" | jq -e --arg name "$PROJECT_NAME" '.[] | select(.name == $name)' >/dev/null; then
+            echo "Creating isolated preview-only Cloudflare Pages project: $PROJECT_NAME"
+            npx --yes wrangler@4 pages project create "$PROJECT_NAME" --production-branch __preview_only__
+          else
+            echo "Using existing preview project: $PROJECT_NAME"
           fi
 
       - name: Deploy isolated Cloudflare preview
