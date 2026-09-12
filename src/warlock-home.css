@@ -2,14 +2,14 @@
   --warlock-bg: #050505;
   --warlock-panel: #0b0b0b;
   --warlock-raised: #111111;
-  --warlock-fg: #f2f2f0;
-  --warlock-muted: #8c8c88;
-  --warlock-subtle: #5c5c59;
-  --warlock-line: #242424;
-  --warlock-line-soft: #161616;
-  --warlock-red: #e1261c;
-  --warlock-red-deep: #8b1712;
-  --warlock-red-soft: rgba(225, 38, 28, 0.18);
+  --warlock-fg: #ffffff;
+  --warlock-muted: #b7b7b7;
+  --warlock-subtle: #777777;
+  --warlock-line: #3a3a3a;
+  --warlock-line-soft: #242424;
+  --warlock-red: #ffffff;
+  --warlock-red-deep: #d6d6d6;
+  --warlock-red-soft: rgba(255, 255, 255, 0.16);
   --warlock-shell: rgba(5, 5, 5, 0.92);
   --warlock-shadow: rgba(0, 0, 0, 0.72);
   --warlock-radius: 0.9rem;
@@ -65,10 +65,15 @@
   height: 2rem;
   place-items: center;
   border: 1px solid var(--warlock-line);
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: -0.08em;
-  line-height: 1;
+  overflow: hidden;
+  background: #000;
+}
+
+.warlock-brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.18);
 }
 
 .warlock-brand-name {
@@ -149,7 +154,7 @@
   height: 24rem;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: rgba(225, 38, 28, 0.035);
+  background: rgba(255, 255, 255, 0.035);
   filter: blur(80px);
   pointer-events: none;
 }
@@ -193,7 +198,7 @@
 }
 
 .warlock-hero h1 span {
-  color: var(--warlock-red);
+  color: var(--warlock-fg);
 }
 
 .warlock-hero-copy {
@@ -259,8 +264,8 @@
   gap: 0.55rem;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 0.55rem;
-  background: var(--warlock-red);
-  color: white;
+  background: #fff;
+  color: #050505;
   font-family: var(--warlock-mono);
   font-size: 0.73rem;
   font-weight: 650;
@@ -277,7 +282,7 @@
 .warlock-generate:hover:not(:disabled),
 .warlock-generate:focus-visible:not(:disabled) {
   transform: translateY(-1px);
-  background: #f13126;
+  background: #dcdcdc;
 }
 
 .warlock-generate:disabled {

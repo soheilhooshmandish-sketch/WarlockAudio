@@ -83,7 +83,9 @@ function Home() {
       <header className="warlock-nav-wrap">
         <div className="warlock-nav">
           <a className="warlock-brand" href="#top" aria-label="Warlock Plugins home">
-            <span className="warlock-brand-mark" aria-hidden="true">W</span>
+            <span className="warlock-brand-mark" aria-hidden="true">
+              <img src="/warlock-logo.png" alt="" />
+            </span>
             <span className="warlock-brand-name">WARLOCK</span>
           </a>
 
@@ -364,7 +366,9 @@ function Home() {
 
       <footer className="warlock-footer">
         <div className="warlock-brand warlock-brand-footer">
-          <span className="warlock-brand-mark" aria-hidden="true">W</span>
+          <span className="warlock-brand-mark" aria-hidden="true">
+            <img src="/warlock-logo.png" alt="" />
+          </span>
           <span className="warlock-brand-name">WARLOCK PLUGINS</span>
         </div>
         <p>Professional audio software · VST3 production pipeline · 2026</p>

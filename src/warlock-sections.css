@@ -175,7 +175,7 @@
   min-height: 0.7rem;
   max-height: 9rem;
   border-radius: 999px;
-  background: linear-gradient(to top, #3a0b09, var(--warlock-red));
+  background: linear-gradient(to top, #3a3a3a, var(--warlock-red));
 }
 
 .warlock-wave-footer {
@@ -211,9 +211,9 @@
 }
 
 .warlock-pricing-card-primary {
-  border-color: #40201d;
+  border-color: #585858;
   background:
-    linear-gradient(180deg, rgba(225, 38, 28, 0.055), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 46%),
     var(--warlock-panel);
 }
 
