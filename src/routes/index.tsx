@@ -9,11 +9,13 @@ import {
   Headphones,
   LifeBuoy,
   LockKeyhole,
+  Menu,
   Package,
   ShieldCheck,
   Sparkles,
   Terminal,
   Wrench,
+  X,
 } from "lucide-react";
 import { PedalEnclosure } from "@/components/pedal/enclosure";
 import { StudioDock } from "@/components/studio/studio";
@@ -69,6 +71,7 @@ const waveform = [
 
 function Home() {
   const [prompt, setPrompt] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate({ from: "/" });
 
   async function submitPrompt(event: FormEvent<HTMLFormElement>) {
@@ -84,7 +87,7 @@ function Home() {
         <div className="warlock-nav">
           <a className="warlock-brand" href="#top" aria-label="Warlock Plugins home">
             <span className="warlock-brand-mark" aria-hidden="true">
-              <img src="/warlock-logo.png" alt="" />
+              <img src="/brand/warlock-core.svg" alt="" />
             </span>
             <span className="warlock-brand-name">WARLOCK</span>
           </a>
@@ -97,10 +100,32 @@ function Home() {
             <Link to="/support">SUPPORT</Link>
           </nav>
 
-          <Link className="warlock-sign-in" to="/account" aria-label="Open WARLOCK account">
-            ACCOUNT
-          </Link>
+          <div className="warlock-nav-actions">
+            <Link className="warlock-sign-in" to="/account" aria-label="Open WARLOCK account">
+              ACCOUNT
+            </Link>
+            <button
+              className="warlock-menu-trigger"
+              type="button"
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
+        {menuOpen ? (
+          <nav className="warlock-mobile-menu" aria-label="Mobile navigation">
+            <Link to="/products" onClick={() => setMenuOpen(false)}>PRODUCTS</Link>
+            <Link to="/generate" search={{ prompt: "" }} onClick={() => setMenuOpen(false)}>GENERATE</Link>
+            <Link to="/technology" onClick={() => setMenuOpen(false)}>TECHNOLOGY</Link>
+            <Link to="/pricing" onClick={() => setMenuOpen(false)}>PRICING</Link>
+            <Link to="/support" onClick={() => setMenuOpen(false)}>SUPPORT</Link>
+            <Link to="/presets" onClick={() => setMenuOpen(false)}>PRESETS</Link>
+            <Link to="/skins" onClick={() => setMenuOpen(false)}>SKINS</Link>
+          </nav>
+        ) : null}
       </header>
 
       <section className="warlock-hero" id="top">
@@ -367,7 +392,7 @@ function Home() {
       <footer className="warlock-footer">
         <div className="warlock-brand warlock-brand-footer">
           <span className="warlock-brand-mark" aria-hidden="true">
-            <img src="/warlock-logo.png" alt="" />
+            <img src="/brand/warlock-core.svg" alt="" />
           </span>
           <span className="warlock-brand-name">WARLOCK PLUGINS</span>
         </div>

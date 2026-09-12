@@ -72,8 +72,9 @@
 .warlock-brand-mark img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: grayscale(1) contrast(1.18);
+  object-fit: contain;
+  padding: 0.32rem 0.48rem;
+  filter: invert(1) grayscale(1) contrast(1.18);
 }
 
 .warlock-brand-name {
@@ -102,6 +103,28 @@
     border-color 180ms ease,
     background 180ms ease,
     transform 180ms ease;
+}
+
+.warlock-nav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.warlock-menu-trigger {
+  display: none;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border: 1px solid var(--warlock-line);
+  border-radius: 0.28rem;
+  background: #050505;
+  color: var(--warlock-fg);
+}
+
+.warlock-mobile-menu {
+  display: none;
 }
 
 .warlock-nav-links a:hover,
@@ -592,6 +615,40 @@
 
   .warlock-nav-links {
     display: none;
+  }
+
+  .warlock-menu-trigger {
+    display: grid;
+  }
+
+  .warlock-mobile-menu {
+    width: min(100% - 2rem, 92rem);
+    margin: 0 auto 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid var(--warlock-line);
+    background: #050505;
+  }
+
+  .warlock-mobile-menu a {
+    min-height: 3.25rem;
+    display: grid;
+    place-items: center;
+    border-right: 1px solid var(--warlock-line);
+    border-bottom: 1px solid var(--warlock-line);
+    color: var(--warlock-fg);
+    font-family: var(--warlock-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+
+  .warlock-mobile-menu a:nth-child(even) {
+    border-right: 0;
+  }
+
+  .warlock-mobile-menu a:nth-last-child(-n + 1) {
+    border-bottom: 0;
   }
 
   .warlock-product-grid {
