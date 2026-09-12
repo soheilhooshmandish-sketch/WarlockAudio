@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, BadgeCheck, LockKeyhole, ShieldCheck } from "lucide-react";
+import { SiteHeader } from "@/components/warlock/site-header";
 import "../warlock-catalog.css";
 
 export const Route = createFileRoute("/pricing")({ component: PricingPage });
@@ -23,16 +24,7 @@ const factoryPolicy = [
 function PricingPage() {
   return (
     <main className="wc-page">
-      <header className="wc-topbar">
-        <Link to="/" className="wc-brand">
-          <span className="wc-mark" aria-hidden="true">W</span>
-          <span>WARLOCK</span>
-        </Link>
-        <nav aria-label="Pricing navigation">
-          <Link to="/products">PRODUCTS</Link>
-          <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
-        </nav>
-      </header>
+      <SiteHeader active="/pricing" />
 
       <section className="wc-hero wc-pricing-hero">
         <Link to="/" className="wc-back"><ArrowLeft size={15} /> COMPANY SITE</Link>

@@ -8,6 +8,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { publicHealthSnapshot } from "@/lib/health/public-health";
+import { SiteHeader } from "@/components/warlock/site-header";
 import "../warlock-catalog.css";
 import "../warlock-health.css";
 
@@ -23,14 +24,7 @@ function StateIcon({ state }: { state: "healthy" | "degraded" | "blocked" | "unk
 function StatusPage() {
   return (
     <main className="wc-page wh-page">
-      <header className="wc-topbar">
-        <Link to="/" className="wc-brand"><span className="wc-mark" aria-hidden="true">W</span><span>WARLOCK</span></Link>
-        <nav aria-label="Status navigation">
-          <Link to="/technology">TECHNOLOGY</Link>
-          <Link to="/support">SUPPORT</Link>
-          <Link to="/account">ACCOUNT</Link>
-        </nav>
-      </header>
+      <SiteHeader section="SYSTEM" />
 
       <section className="wc-hero wh-hero">
         <Link to="/" className="wc-back"><ArrowLeft size={15} /> HOME</Link>

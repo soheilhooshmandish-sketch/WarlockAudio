@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, LockKeyhole, ShieldCheck } from "lucide-react";
 import { products } from "@/lib/catalog/products";
+import { SiteHeader } from "@/components/warlock/site-header";
 import "../warlock-catalog.css";
 
 export const Route = createFileRoute("/products")({ component: ProductsPage });
@@ -8,16 +9,7 @@ export const Route = createFileRoute("/products")({ component: ProductsPage });
 function ProductsPage() {
   return (
     <main className="wc-page">
-      <header className="wc-topbar">
-        <Link to="/" className="wc-brand">
-          <span className="wc-mark" aria-hidden="true">W</span>
-          <span>WARLOCK</span>
-        </Link>
-        <nav aria-label="Products navigation">
-          <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
-          <Link to="/pricing">PRICING</Link>
-        </nav>
-      </header>
+      <SiteHeader active="/products" />
 
       <section className="wc-hero">
         <Link to="/" className="wc-back"><ArrowLeft size={15} /> COMPANY SITE</Link>

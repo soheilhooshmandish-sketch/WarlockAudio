@@ -9,6 +9,7 @@ import {
   SwatchBook,
 } from "lucide-react";
 import { skinUploadPolicy, skins } from "@/lib/assets/catalog";
+import { SiteHeader } from "@/components/warlock/site-header";
 import "../warlock-catalog.css";
 import "../warlock-assets.css";
 
@@ -35,17 +36,7 @@ const rules = [
 function SkinsPage() {
   return (
     <main className="wc-page wa-page">
-      <header className="wc-topbar">
-        <Link to="/" className="wc-brand">
-          <span className="wc-mark" aria-hidden="true">W</span>
-          <span>WARLOCK</span>
-        </Link>
-        <nav aria-label="Skin navigation">
-          <Link to="/products">PRODUCTS</Link>
-          <Link to="/presets">PRESETS</Link>
-          <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
-        </nav>
-      </header>
+      <SiteHeader active="/skins" />
 
       <section className="wc-hero wa-hero">
         <Link to="/" className="wc-back"><ArrowLeft size={15} /> HOME</Link>

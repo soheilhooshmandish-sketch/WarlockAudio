@@ -160,6 +160,12 @@ function authPopupPlugin(): Plugin {
 // The dev server starts once `src/router.tsx` and `src/routes/` exist — see
 // AGENTS.md § "First scaffold".
 export default defineConfig(({ command, isPreview }) => ({
+  // Visitors must receive only the optimized browser bundle. Source maps are
+  // intentionally kept out of production artifacts; server-only modules and
+  // secrets are never client imports.
+  build: {
+    sourcemap: false,
+  },
   server: {
     host: "0.0.0.0",
     port: 8080,

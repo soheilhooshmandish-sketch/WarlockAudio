@@ -1,0 +1,18 @@
+.warlock-site-header { position: sticky; top: 0; z-index: 40; display: grid; grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr); align-items: center; min-height: 68px; gap: 20px; padding: 0 32px; border-bottom: 1px solid #2d2d2d; background: rgb(7 7 7 / .96); backdrop-filter: blur(18px); }
+.warlock-site-brand { display: inline-flex; align-items: center; gap: 11px; color: #f5f5f5; text-decoration: none; letter-spacing: .14em; }
+.warlock-site-brand img { width: 31px; height: 31px; color: #fff; }
+.warlock-site-brand strong, .warlock-site-brand small { display: block; font: 700 13px/1.1 system-ui, sans-serif; }
+.warlock-site-brand small { margin-top: 4px; color: #9b9b9b; font-size: 8px; letter-spacing: .18em; }
+.warlock-site-desktop-nav { display: flex; align-items: center; gap: 20px; }
+.warlock-site-desktop-nav a { color: #a6a6a6; text-decoration: none; font: 700 9px/1 system-ui, sans-serif; letter-spacing: .12em; }
+.warlock-site-desktop-nav a:hover, .warlock-site-desktop-nav a.is-active { color: #fff; }
+.warlock-site-actions { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.warlock-site-create, .warlock-site-mobile-create { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 0 14px; border: 1px solid #fff; color: #090909; background: #fff; text-decoration: none; font: 800 9px/1 system-ui, sans-serif; letter-spacing: .12em; }
+.warlock-site-menu-trigger { display: none; place-items: center; width: 40px; height: 40px; border: 1px solid #444; color: #fff; background: #111; }
+.warlock-site-mobile-menu { position: absolute; top: calc(100% + 1px); right: 12px; left: 12px; overflow: hidden; border: 1px solid #3a3a3a; background: #0a0a0a; box-shadow: 0 24px 70px rgb(0 0 0 / .65); }
+.warlock-site-mobile-menu > a:not(.warlock-site-mobile-create) { display: grid; grid-template-columns: 38px 1fr; align-items: center; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #242424; color: #e8e8e8; text-decoration: none; }
+.warlock-site-mobile-menu > a span { color: #777; font: 700 9px/1 system-ui, sans-serif; letter-spacing: .12em; }
+.warlock-site-mobile-menu > a strong { font: 700 12px/1 system-ui, sans-serif; letter-spacing: .1em; }
+.warlock-site-mobile-create { margin: 12px; min-height: 44px; }
+@media (max-width: 1040px) { .warlock-site-header { grid-template-columns: minmax(170px, 1fr) auto; } .warlock-site-desktop-nav { display: none; } .warlock-site-menu-trigger { display: grid; } }
+@media (max-width: 560px) { .warlock-site-header { padding-inline: 14px; } .warlock-site-create { display: none; } }

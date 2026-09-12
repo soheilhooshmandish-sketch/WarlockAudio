@@ -9,6 +9,7 @@ import {
   Wrench,
 } from "lucide-react";
 import "../warlock-catalog.css";
+import { SiteHeader } from "@/components/warlock/site-header";
 
 export const Route = createFileRoute("/support")({ component: SupportPage });
 
@@ -42,18 +43,7 @@ const supportAreas = [
 function SupportPage() {
   return (
     <main className="wc-page">
-      <header className="wc-topbar">
-        <Link to="/" className="wc-brand">
-          <span className="wc-mark" aria-hidden="true">W</span>
-          <span>WARLOCK</span>
-        </Link>
-        <nav aria-label="Support navigation">
-          <Link to="/products">PRODUCTS</Link>
-          <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
-          <Link to="/status">STATUS</Link>
-          <Link to="/pricing">PRICING</Link>
-        </nav>
-      </header>
+      <SiteHeader active="/support" />
 
       <section className="wc-hero">
         <Link to="/" className="wc-back"><ArrowLeft size={15} /> COMPANY SITE</Link>
