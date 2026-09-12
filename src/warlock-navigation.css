@@ -1,6 +1,6 @@
 .warlock-site-header { position: sticky; top: 0; z-index: 40; display: grid; grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr); align-items: center; min-height: 68px; gap: 20px; padding: 0 32px; border-bottom: 1px solid #2d2d2d; background: rgb(7 7 7 / .96); backdrop-filter: blur(18px); }
 .warlock-site-brand { display: inline-flex; align-items: center; gap: 11px; color: #f5f5f5; text-decoration: none; letter-spacing: .14em; }
-.warlock-site-brand img { width: 31px; height: 31px; color: #fff; }
+.warlock-site-brand img { width: 31px; height: 31px; filter: invert(1); }
 .warlock-site-brand strong, .warlock-site-brand small { display: block; font: 700 13px/1.1 system-ui, sans-serif; }
 .warlock-site-brand small { margin-top: 4px; color: #9b9b9b; font-size: 8px; letter-spacing: .18em; }
 .warlock-site-desktop-nav { display: flex; align-items: center; gap: 20px; }

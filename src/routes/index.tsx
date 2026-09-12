@@ -130,6 +130,7 @@ function Home() {
 
       <section className="warlock-hero" id="top">
         <div className="warlock-hero-grid" aria-hidden="true" />
+        <img className="warlock-hero-emblem" src="/warlock-logo.png" alt="WARLOCK emblem" />
         <div className="warlock-hero-content">
           <p className="warlock-kicker">WARLOCK PLUGINS · PROFESSIONAL AUDIO SOFTWARE</p>
           <h1>

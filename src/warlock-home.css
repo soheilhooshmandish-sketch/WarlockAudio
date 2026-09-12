@@ -194,6 +194,17 @@
   mask-image: linear-gradient(to bottom, transparent 0, black 20%, black 72%, transparent 100%);
 }
 
+.warlock-hero-emblem {
+  position: absolute;
+  top: 50%;
+  right: clamp(1.5rem, 9vw, 11rem);
+  width: min(31vw, 25rem);
+  transform: translateY(-50%);
+  opacity: 0.72;
+  filter: grayscale(1) contrast(1.18);
+  pointer-events: none;
+}
+
 .warlock-hero-content {
   width: min(100%, 73rem);
   margin: 0 auto;
@@ -688,6 +699,13 @@
 }
 
 @media (max-width: 640px) {
+  .warlock-hero-emblem {
+    right: 50%;
+    width: min(64vw, 22rem);
+    transform: translate(50%, -50%);
+    opacity: 0.16;
+  }
+
   .warlock-nav {
     width: min(100% - 1.2rem, 92rem);
     min-height: 4.1rem;
