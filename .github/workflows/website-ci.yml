@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "src/**"
+      - "server/**"
       - "public/**"
       - "package.json"
       - "package-lock.json"
@@ -58,7 +59,7 @@ jobs:
             "$REPO/src/lib/commerce/sandbox.test.ts"
       - name: Build default website target
         run: npm run build:dev
-      - name: Build Cloudflare Pages preview target
+      - name: Build Cloudflare Pages regression target
         env:
           NITRO_PRESET: cloudflare_pages
           VITE_AUTH_ENABLED: "false"
@@ -110,8 +111,71 @@ jobs:
           for route in "${routes[@]}"; do
             code="$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' "http://127.0.0.1:8791${route}")"
             if (( code < 200 || code >= 400 )); then
-              echo "::error::Cloudflare runtime route ${route} returned HTTP ${code}."
+              echo "::error::Cloudflare Pages route ${route} returned HTTP ${code}."
               exit 1
             fi
-            echo "${route} -> ${code}"
+            echo "pages ${route} -> ${code}"
+          done
+
+      - name: Build Cloudflare Worker target
+        env:
+          NITRO_PRESET: cloudflare-module
+          VITE_AUTH_ENABLED: "false"
+          WARLOCK_FACTORY_PUBLIC_INTAKE_ENABLED: "false"
+        run: npm run build:dev
+
+      - name: Verify Cloudflare Worker output and generated deploy config
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .output/server/index.mjs
+          test -d .output/public
+          test -f .wrangler/deploy/config.json
+          echo "Cloudflare Worker Nitro output verified."
+
+      - name: Smoke Cloudflare Worker runtime
+        shell: bash
+        env:
+          CI: "1"
+        run: |
+          set -euo pipefail
+          LOG="$(mktemp)"
+          npx --yes wrangler@4 dev --local --ip 127.0.0.1 --port 8792 >"$LOG" 2>&1 &
+          WRANGLER_PID=$!
+          trap 'kill "$WRANGLER_PID" 2>/dev/null || true; cat "$LOG"' EXIT
+
+          ready=0
+          for _ in $(seq 1 60); do
+            if curl -fsS --max-time 2 http://127.0.0.1:8792/ >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 0.5
+          done
+          if [[ "$ready" != "1" ]]; then
+            echo "::error::Cloudflare Worker local runtime did not become ready."
+            exit 1
+          fi
+
+          routes=(
+            "/"
+            "/generate"
+            "/products"
+            "/products/void"
+            "/pricing"
+            "/presets"
+            "/skins"
+            "/technology"
+            "/support"
+            "/status"
+            "/login"
+            "/account"
+          )
+          for route in "${routes[@]}"; do
+            code="$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' "http://127.0.0.1:8792${route}")"
+            if (( code < 200 || code >= 400 )); then
+              echo "::error::Cloudflare Worker route ${route} returned HTTP ${code}."
+              exit 1
+            fi
+            echo "worker ${route} -> ${code}"
           done
