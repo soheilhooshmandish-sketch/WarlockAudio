@@ -1,0 +1,376 @@
+.wa-account-page,
+.wa-login-page {
+  min-height: 100dvh;
+  background: #07090c;
+  color: #e8eef4;
+  font-family: "Space Grotesk", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.wa-account-topbar {
+  min-height: 4.5rem;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #24303b;
+  background: rgba(7, 9, 12, 0.92);
+}
+
+.wa-account-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #e8eef4;
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.wa-account-brand > span {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid #24303b;
+}
+
+.wa-account-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #8b9aaa;
+  font-size: 0.76rem;
+}
+
+.wa-account-identity em {
+  padding: 0.25rem 0.45rem;
+  border: 1px solid #24303b;
+  border-radius: 999px;
+  color: #8ec8e8;
+  font-style: normal;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+
+.wa-account-layout {
+  width: min(100% - 2rem, 92rem);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 2rem;
+  padding: 3rem 0 5rem;
+}
+
+.wa-account-layout aside {
+  min-height: 34rem;
+  padding-right: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #24303b;
+}
+
+.wa-account-layout aside > p,
+.wa-account-heading > p,
+.wa-account-billing > p,
+.wa-account-overview-grid p {
+  margin: 0;
+  color: #667684;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+}
+
+.wa-account-layout nav {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.wa-account-layout nav a,
+.wa-account-support {
+  min-height: 2.6rem;
+  padding: 0 0.7rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.35rem;
+  color: #8b9aaa;
+  text-decoration: none;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.wa-account-layout nav a[data-active="true"] {
+  background: #10151c;
+  color: #e8eef4;
+  box-shadow: inset 2px 0 0 #8ec8e8;
+}
+
+.wa-account-layout nav a:hover,
+.wa-account-layout nav a:focus-visible,
+.wa-account-support:hover,
+.wa-account-support:focus-visible {
+  color: #e8eef4;
+  background: #10151c;
+}
+
+.wa-account-support {
+  margin-top: auto;
+}
+
+.wa-account-content {
+  min-width: 0;
+}
+
+.wa-account-heading {
+  max-width: 56rem;
+}
+
+.wa-account-heading h1 {
+  margin: 0.75rem 0 0;
+  font-size: clamp(2.6rem, 6vw, 5.3rem);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.wa-account-heading > span {
+  display: block;
+  max-width: 44rem;
+  margin-top: 1rem;
+  color: #8b9aaa;
+  line-height: 1.65;
+}
+
+.wa-account-overview-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.wa-account-overview-grid article,
+.wa-account-empty,
+.wa-account-billing {
+  border: 1px solid #24303b;
+  border-radius: 0.8rem;
+  background: #10151c;
+}
+
+.wa-account-overview-grid article {
+  min-height: 13rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-account-overview-grid svg,
+.wa-account-empty svg,
+.wa-account-billing svg {
+  color: #8ec8e8;
+}
+
+.wa-account-overview-grid article > p {
+  margin-top: auto;
+}
+
+.wa-account-overview-grid strong {
+  margin-top: 0.35rem;
+  font-size: 2rem;
+}
+
+.wa-account-overview-grid span,
+.wa-account-empty p,
+.wa-account-billing > span {
+  margin-top: 0.45rem;
+  color: #8b9aaa;
+  line-height: 1.55;
+}
+
+.wa-account-empty,
+.wa-account-billing {
+  margin-top: 2.5rem;
+  min-height: 22rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wa-account-empty h2,
+.wa-account-billing h2 {
+  margin: auto 0 0;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.wa-account-footer {
+  min-height: 4rem;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-top: 1px solid #24303b;
+  color: #667684;
+  font-size: 0.68rem;
+}
+
+.wa-account-loading {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  color: #8b9aaa;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+.wa-login-page {
+  padding: 2rem 1rem;
+  display: grid;
+  place-items: center;
+}
+
+.wa-login-card {
+  width: min(100%, 38rem);
+  padding: 2rem;
+  border: 1px solid #24303b;
+  border-radius: 1rem;
+  background: #10151c;
+}
+
+.wa-login-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #8b9aaa;
+  text-decoration: none;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+.wa-login-mark {
+  width: 3rem;
+  height: 3rem;
+  margin-top: 3rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid #24303b;
+  color: #8ec8e8;
+  font-weight: 700;
+}
+
+.wa-login-card > p {
+  margin: 1.25rem 0 0;
+  color: #667684;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+}
+
+.wa-login-card h1 {
+  margin: 0.7rem 0 0;
+  font-size: clamp(2.4rem, 7vw, 4.3rem);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.wa-login-card > span {
+  display: block;
+  margin-top: 1rem;
+  color: #8b9aaa;
+  line-height: 1.65;
+}
+
+.wa-login-providers {
+  margin-top: 2rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.wa-login-providers button {
+  min-height: 3rem;
+  border: 1px solid #24303b;
+  border-radius: 0.45rem;
+  background: #171e27;
+  color: #e8eef4;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.wa-login-providers button:hover:not(:disabled),
+.wa-login-providers button:focus-visible:not(:disabled) {
+  border-color: #8ec8e8;
+}
+
+.wa-login-providers button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.wa-login-error {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #6d3434;
+  border-radius: 0.4rem;
+  background: rgba(196, 92, 92, 0.08);
+  color: #d88a8a;
+  font-size: 0.75rem;
+}
+
+.wa-login-proof {
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: #8b9aaa;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.wa-login-proof svg {
+  flex: 0 0 auto;
+  color: #8ec8e8;
+}
+
+@media (max-width: 900px) {
+  .wa-account-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .wa-account-layout aside {
+    min-height: 0;
+    padding-right: 0;
+    padding-bottom: 1rem;
+    border-right: 0;
+    border-bottom: 1px solid #24303b;
+  }
+
+  .wa-account-layout nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .wa-account-support {
+    margin-top: 0.75rem;
+  }
+
+  .wa-account-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .wa-account-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: 0.8rem;
+  }
+
+  .wa-account-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wa-login-card {
+    padding: 1.4rem;
+  }
+}
