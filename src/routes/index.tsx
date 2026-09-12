@@ -90,7 +90,7 @@ function Home() {
           <nav className="warlock-nav-links" aria-label="Primary navigation">
             <Link to="/products">PRODUCTS</Link>
             <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
-            <a href="#factory">HOW IT WORKS</a>
+            <Link to="/technology">TECHNOLOGY</Link>
             <Link to="/pricing">PRICING</Link>
             <Link to="/support">SUPPORT</Link>
           </nav>
@@ -222,6 +222,10 @@ function Home() {
           <div><ShieldCheck size={18} aria-hidden="true" /><span>HOST / QC</span></div>
           <div><Package size={18} aria-hidden="true" /><span>INSTALLER</span></div>
           <div><LockKeyhole size={18} aria-hidden="true" /><span>RELEASE GUARD</span></div>
+        </div>
+
+        <div className="warlock-section-action">
+          <Link to="/technology">SEE THE PROOF SYSTEM <ArrowRight size={16} /></Link>
         </div>
       </section>
 
