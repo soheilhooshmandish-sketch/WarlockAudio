@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TechnologyRouteImport } from './routes/technology'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
@@ -20,6 +21,11 @@ import { Route as GenerateRouteImport } from './routes/generate'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologyRoute = TechnologyRouteImport.update({
+  id: '/technology',
+  path: '/technology',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SupportRoute = SupportRouteImport.update({
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/support': typeof SupportRoute
+  '/technology': typeof TechnologyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/support': typeof SupportRoute
+  '/technology': typeof TechnologyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,13 +88,14 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/products_/$slug': typeof ProductsSlugRoute
   '/support': typeof SupportRoute
+  '/technology': typeof TechnologyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products/$slug' | '/support'
+  fullPaths: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products/$slug' | '/support' | '/technology'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products/$slug' | '/support'
-  id: '__root__' | '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products_/$slug' | '/support'
+  to: '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products/$slug' | '/support' | '/technology'
+  id: '__root__' | '/' | '/generate' | '/howto' | '/pricing' | '/products' | '/products_/$slug' | '/support' | '/technology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -97,6 +106,7 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
   SupportRoute: typeof SupportRoute
+  TechnologyRoute: typeof TechnologyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -150,6 +160,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/technology': {
+      id: '/technology'
+      path: '/technology'
+      fullPath: '/technology'
+      preLoaderRoute: typeof TechnologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -161,6 +178,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRoute,
   ProductsSlugRoute: ProductsSlugRoute,
   SupportRoute: SupportRoute,
+  TechnologyRoute: TechnologyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
