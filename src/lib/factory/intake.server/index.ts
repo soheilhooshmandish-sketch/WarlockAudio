@@ -1,0 +1,1 @@
+export { submitFactoryIntake } from "../intake";
