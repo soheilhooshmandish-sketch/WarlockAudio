@@ -10,7 +10,6 @@ on:
       - "tsconfig.json"
       - "vite.config.ts"
       - ".github/workflows/website-ci.yml"
-      - ".github/workflows/cloudflare-preview.yml"
   workflow_dispatch:
 
 jobs:
