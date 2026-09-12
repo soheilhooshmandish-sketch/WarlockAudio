@@ -92,7 +92,7 @@ function Home() {
             <Link to="/generate" search={{ prompt: "" }}>GENERATE</Link>
             <a href="#factory">HOW IT WORKS</a>
             <Link to="/pricing">PRICING</Link>
-            <a href="#support">SUPPORT</a>
+            <Link to="/support">SUPPORT</Link>
           </nav>
 
           <button
@@ -310,7 +310,9 @@ function Home() {
             machine-readable evidence so FARNAZ can diagnose the exact failed layer first.
           </span>
         </div>
-        <button type="button" disabled>SUPPORT CENTER COMING WITH LAUNCH</button>
+        <Link className="warlock-support-link" to="/support">
+          OPEN SUPPORT CENTER <ArrowRight size={16} />
+        </Link>
       </section>
 
       <section className="warlock-lab-section" aria-labelledby="lab-title">
