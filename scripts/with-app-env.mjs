@@ -111,7 +111,19 @@ function main(argv) {
     process.exit(2);
   }
   const env = mergeAppEnv(readAppEnv(projectRoot()), process.env);
-  const child = spawn(command, args, { stdio: "inherit", env });
+  // npm exposes local CLIs as `.cmd` launchers on Windows. Resolve that
+  // launcher explicitly so invoking this wrapper through `node` works the
+  // same way as an npm script, while preserving the bare command on Unix.
+  const usesWindowsViteLauncher = process.platform === "win32" && command === "vite";
+  const executable = usesWindowsViteLauncher
+    ? join(projectRoot(), "node_modules", ".bin", "vite.cmd")
+    : command;
+  const child = spawn(executable, args, {
+    stdio: "inherit",
+    env,
+    // Windows cannot directly spawn a `.cmd` launcher.
+    shell: usesWindowsViteLauncher,
+  });
   // The dev server is long-running and is stopped by signalling this wrapper.
   for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
     process.on(signal, () => child.kill(signal));
